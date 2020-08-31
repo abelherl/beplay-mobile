@@ -41,6 +41,7 @@ dependencies:
   smooth_page_indicator: ^0.2.0
   carousel_slider: ^2.2.1
   flutter_svg: ^0.18.1
+  flutter_verification_code: ^0.2.1
 
 uses-material-design: true
 dev_dependencies:
