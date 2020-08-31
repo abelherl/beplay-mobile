@@ -1,10 +1,8 @@
-import 'package:division/division.dart';
+import 'package:beplay/pages/forgot_passwordScreen.dart';
+import 'package:beplay/pages/home_screen.dart';
+import 'package:beplay/pages/register.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_app/services/auth_cubit.dart';
-import 'package:test_app/services/counter_bloc.dart';
-import 'package:test_app/services/counter_event.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -15,205 +13,215 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(""),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Icon(Icons.arrow_back, color: Colors.black87,),
-      ),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _LoginHeader(),
-              SizedBox(height: 40),
-              LoginForm(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _LoginHeader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-          child: Image(
-            image: NetworkImage('https://s3.amazonaws.com/tasmeemme.project.mi.thumbnails/resize_805x9000/597/442597.png'),
-            height: 100,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(height: 25),
-        Center(
-          child: Text(
-            'Login to Al Shami',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[800],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class LoginForm extends StatefulWidget {
-  @override
-  _LoginFormState createState() => _LoginFormState();
-}
-
-class _LoginFormState extends State<LoginForm> {
-
-  TextEditingController _phone = TextEditingController();
-  TextEditingController _password = TextEditingController();
-  var isPhoneNumberFilled = false;
-  final _formKey = GlobalKey<FormState>();
-  final _bloc = CounterBloc();
-
-  void validate() {
-    if (isPhoneNumberFilled) {
-      final form = _formKey.currentState;
-      if (form.validate()) {
-        context.bloc<AuthCubit>().tryLogin(_phone.text, _password.text);
-      } else {
-        print('form invalid');
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Enter phone number",
-            style: TextStyle(
-              fontSize: 10,
-              color: isPhoneNumberFilled ? Colors.grey[800] : Colors.transparent,
-            ),
-          ),
-          Container(
-            transform: Matrix4.translationValues(0, -5, 0),
-            height: 70,
-            child: TextFormField(
-              controller: _phone,
-              validator: (text) => text.length < 10 ? "Minimum 10 digit number" : null,
-              style: TextStyle(color: Colors.black,),
-              inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly,],
-              keyboardType: TextInputType.number,
-              onChanged: (text) { setState(() => isPhoneNumberFilled = text.isNotEmpty ? true : false); },
-              textAlignVertical: TextAlignVertical.center,
-              decoration: InputDecoration(
-                hintText: "Enter phone number",
-                prefixIcon: Container(
-                  width: 75,
-                  child: Row(
-                    children: [
-                      Icon(Icons.phone_android, color: Colors.grey[400]),
-                      SizedBox(width: 5),
-                      Text("+966", style: TextStyle(fontWeight: FontWeight.bold),),
-                    ],
+        child: Container(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Container(
+                  height: MediaQuery.of(context).size.height / 5,
+                  child: Image.asset('images/logo2.png'),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 32,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.0),
+                  child: TextFormField(
+                    validator: (value) =>
+                    value.isEmpty ? 'Email cant be Empty' : null,
+                    onChanged: (value) {
+                      //Do something with the user input.
+                    },
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      hintText: 'Enter your email',
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 20.0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Colors.deepOrange, width: 2.0),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      ),
+                    ),
                   ),
                 ),
-                border: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 0.5,
-                    )
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 32,
                 ),
-              ),
-            ),
-          ),
-          Container(
-            transform: Matrix4.translationValues(0, -5, 0),
-            height: 70,
-            child: TextFormField(
-              controller: _password,
-              obscureText: true,
-              style: TextStyle(color: Colors.black,),
-              textAlignVertical: TextAlignVertical.center,
-              decoration: InputDecoration(
-                hintText: "Enter password",
-                prefixIcon: Icon(Icons.lock, color: Colors.grey[400]),
-                border: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 0.5,
-                    )
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.0),
+                  child: TextFormField(
+                    validator: (value) =>
+                    value.isEmpty ? 'Password cant be Empty' : null,
+                    onChanged: (value) {
+                      //Do something with the user input.
+                    },
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: 'Enter your password.',
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 20.0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 1.0),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Colors.deepOrange, width: 2.0),
+                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-          SizedBox(height: 20),
-          BlocListener<AuthCubit, AuthState>(
-            listener: (context, state) {
-              if (state is FailedState) {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text(state.errorMessage),
-                    );
-                  },
-                );
-              }
-            },
-            child: BlocBuilder<AuthCubit, AuthState>(
-              builder: (context, state) {
-                if (state is SuccessState) {
-                  return Parent(
-                    style: ParentStyle()
-                      ..height(40)
-                      ..width(MediaQuery.of(context).size.width)
-                      ..background.color(Colors.grey[400])
-                      ..borderRadius(all: 5),
-                    child: FlatButton(
-                      child: Text(
-                        "LOGGED IN WITH USER NAMED ${state.user.name}",
-                        style: TextStyle(
-                          color: isPhoneNumberFilled ? Colors.white : Colors.black87,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 32,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                  child: FlatButton(
+                      onPressed: () {
+                        setState(() {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                                return forgot_PasswordScreen();
+                              }));
+                        });
+                      },
+                      child: Center(
+                        child: Text(
+                          'Forgot Password ?',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey),
+                        ),
+                      )),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Center(
+                    child: Text(
+                      'or Sign in with',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontFamily: 'Montserrat'),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 32,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FlatButton(
+                            onPressed: null,
+                            child: Image.asset(
+                              'images/fb_icon_325x325.png',
+                              cacheWidth: 30,
+                              cacheHeight: 30,
+                            ),
+                          ),
+                          FlatButton(
+                              onPressed: null,
+                              child: Image.asset(
+                                'images/67060-play-photos-search-google-account-png-file-hd.png',
+                                cacheWidth: 30,
+                                cacheHeight: 30,
+                              ))
+                        ],
+                      )),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 32,
+                ),
+//                Padding(
+//                  padding: const EdgeInsets.all(8.0),
+//                  child: Material(
+//                    color: Colors.white,
+//                    borderRadius: BorderRadius.all(
+//                      Radius.circular(16.0),
+//                    ),
+//                    elevation: 5.0,
+//                    child: MaterialButton(
+//                      onPressed: () {
+//                        Navigator.push(
+//                            context,
+//                            MaterialPageRoute(
+//                                builder: (context) => Register()));
+//                      },
+//                      height: MediaQuery.of(context).size.height / 40,
+//                      minWidth: MediaQuery.of(context).size.width / 2,
+//                      child: Center(
+//                        child: Text(
+//                          'Register',
+//                          style: TextStyle(
+//                              fontFamily: 'Montserrat',
+//                              fontWeight: FontWeight.w600,
+//                              color: Colors.black,
+//                              fontSize: 16),
+//                        ),
+//                      ),
+//                    ),
+//                  ),
+//                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Material(
+                    color: Colors.deepOrange,
+                    borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                    elevation: 5.0,
+                    child: MaterialButton(
+                      height: MediaQuery.of(context).size.height / 40,
+                      minWidth: MediaQuery.of(context).size.width / 2,
+                      child: Center(
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
-                    ),
-                  );
-                }
-                return Parent(
-                  gesture: Gestures(),
-                  style: ParentStyle()
-                    ..height(40)
-                    ..width(MediaQuery.of(context).size.width)
-                    ..background.color(isPhoneNumberFilled ? Colors.lightGreen[800] : Colors.grey[400])
-                    ..borderRadius(all: 5)
-                    ..ripple(isPhoneNumberFilled ? true : false),
-                  child: FlatButton(
-                    onPressed: () {
-                      validate();
-                    },
-                    child: Text(
-                      "NEXT",
-                      style: TextStyle(
-                        color: isPhoneNumberFilled ? Colors.white : Colors.black87,
-                      ),
+                      onPressed: () {
+                        setState(() {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                                return HomeScreen();
+                              }));
+                        });
+                      },
                     ),
                   ),
-                );
-              },
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
 }
-
-
