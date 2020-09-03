@@ -34,7 +34,8 @@ class _Page_Home extends State<pageHome_Screen> {
 
   var row2 = [
     HomeIcons(title: "Strength", icon: "icons/map_gym.svg"),
-    HomeIcons(title: "Boxing", icon: "icons/emojione-monotone_boxing-glove.svg"),
+    HomeIcons(
+        title: "Boxing", icon: "icons/emojione-monotone_boxing-glove.svg"),
     HomeIcons(title: "Meditation", icon: "icons/mdi_meditation.svg"),
     HomeIcons(title: "Others", icon: "icons/ant-design_plus-outlined.svg"),
   ];
@@ -47,10 +48,7 @@ class _Page_Home extends State<pageHome_Screen> {
         title: Text(
           " Hi, smkcoding!",
           style: TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-              fontWeight: FontWeight.bold
-          ),
+              fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: bPrimaryColor,
         actions: [
@@ -88,31 +86,32 @@ class _Page_Home extends State<pageHome_Screen> {
                 height: 40,
                 child: TextFormField(
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(8),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                        width: 0,
-                        style: BorderStyle.none,
+                      contentPadding: EdgeInsets.all(8),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
                       ),
-                    ),
-                    prefixIcon: Icon(Icons.search, color: bLightTextColor),
-                    filled: true,
-                    hintText: "Search",
-                    fillColor: Colors.white
-                  ),
+                      prefixIcon: Icon(Icons.search, color: bLightTextColor),
+                      filled: true,
+                      hintText: "Search",
+                      fillColor: Colors.white),
                 ),
               ),
             ),
             Parent(
               style: ParentStyle()
                 ..width(size.width)
-                ..height(size.height/3.5)
+                ..height(size.height / 3.5)
                 ..minHeight(200),
               child: PageView.builder(
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, position) {
-                  return BannerClass(position: position,);
+                  return BannerClass(
+                    position: position,
+                  );
                 },
                 controller: pageController,
                 itemCount: 3,
@@ -120,7 +119,9 @@ class _Page_Home extends State<pageHome_Screen> {
             ),
             Container(
               height: 40,
-              padding: EdgeInsets.symmetric(horizontal: 20, ),
+              padding: EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -140,28 +141,30 @@ class _Page_Home extends State<pageHome_Screen> {
                     ),
                   ),
                   Positioned(
-                    right: -20,
-                    child: FlatButton(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Text("See all", style: TextStyle(color: bPrimaryColor, fontWeight: FontWeight.bold),),
-                          Icon(Icons.chevron_right, color: bPrimaryColor)
-                        ],
-                      ),
-                    )
-                  )
+                      right: -20,
+                      child: FlatButton(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              "See all",
+                              style: TextStyle(
+                                  color: bPrimaryColor,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Icon(Icons.chevron_right, color: bPrimaryColor)
+                          ],
+                        ),
+                      ))
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
               child: Text(
                 "Classes",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
               ),
             ),
             Padding(
@@ -169,9 +172,12 @@ class _Page_Home extends State<pageHome_Screen> {
               child: Flex(
                 direction: Axis.horizontal,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: row1.map((item) {
-                  return HomeIconsClass(item: item, size: size);
-                }).toList().cast<Widget>(),
+                children: row1
+                    .map((item) {
+                      return HomeIconsClass(item: item, size: size);
+                    })
+                    .toList()
+                    .cast<Widget>(),
               ),
             ),
             Padding(
@@ -179,12 +185,17 @@ class _Page_Home extends State<pageHome_Screen> {
               child: Flex(
                 direction: Axis.horizontal,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: row2.map((item) {
-                  return HomeIconsClass(item: item, size: size);
-                }).toList().cast<Widget>(),
+                children: row2
+                    .map((item) {
+                      return HomeIconsClass(item: item, size: size);
+                    })
+                    .toList()
+                    .cast<Widget>(),
               ),
             ),
-            SizedBox(height: 30,)
+            SizedBox(
+              height: 30,
+            )
           ],
         ),
       ),

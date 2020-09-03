@@ -1,6 +1,8 @@
+import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../const.dart';
+import 'verification_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   @override
@@ -103,25 +105,27 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   offset: Offset(0, 5),
                                 )
                               ]),
-                          child: Center(
-                              child: Align(
-                            child: SizedBox(
-                              height: 56.0,
-                              width: MediaQuery.of(context).size.width,
-                              child: FlatButton(
-                                onPressed: () {},
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0)),
-                                child: Text(
-                                  'SEND',
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .button
-                                      .copyWith(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          )),
+                          child: Txt(
+                            "SEND",
+                            gesture: Gestures()
+                              ..onTap(() {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            VerificationScreen()));
+                              }),
+                            style: TxtStyle()
+                              ..textColor(Colors.white)
+                              ..fontSize(16.0)
+                              ..alignmentContent.center()
+                              ..background.color(bPrimaryColor)
+                              ..width(MediaQuery.of(context).size.width)
+                              ..padding(vertical: 15)
+                              ..height(56)
+                              ..borderRadius(all: 36)
+                              ..ripple(true, splashColor: bPrimaryLightColor),
+                          ),
                         ),
                       ],
                     ),

@@ -11,15 +11,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _isHidden = true;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController _txtEmail = TextEditingController();
-  TextEditingController _txtPassword = TextEditingController();
-  final FocusNode _txtPasswordNode = FocusNode();
+  bool isHidden = true;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtPassword = TextEditingController();
+  final FocusNode txtPasswordNode = FocusNode();
 
-  void _toggleVisibility() {
+  void toggleVisibility() {
     setState(() {
-      _isHidden = !_isHidden;
+      isHidden = !isHidden;
     });
   }
 
@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
-        key: _formKey,
+        key: formKey,
         child: Stack(
           alignment: Alignment.topCenter,
           fit: StackFit.expand,
@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Card(
                                     shape: CircleBorder(),
                                     child: FlatButton(
-                                        onPressed: null,
+                                        onPressed: () {},
                                         child: Container(
                                             width: 30.0,
                                             height: 30.0,
@@ -206,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget buildTextFieldUsername(String hintText) {
     return TextFormField(
-      controller: _txtEmail,
+      controller: txtEmail,
       validator: (emailInput) {
         if (emailInput.isEmpty) {
           return 'Please enter an email';
@@ -214,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
         return null;
       },
       onEditingComplete: () {
-        FocusScope.of(context).requestFocus(_txtPasswordNode);
+        FocusScope.of(context).requestFocus(txtPasswordNode);
       },
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
@@ -230,8 +230,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget buildTextFieldPassword(String hintText) {
     return TextFormField(
-      controller: _txtPassword,
-      focusNode: _txtPasswordNode,
+      controller: txtPassword,
+      focusNode: txtPasswordNode,
       validator: (text) {
         if (text.isEmpty) {
           return 'Please enter a Password';
@@ -249,11 +249,11 @@ class _LoginScreenState extends State<LoginScreen> {
           color: Colors.orange,
         ),
         suffixIcon: IconButton(
-          onPressed: _toggleVisibility,
-          icon: _isHidden ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
+          onPressed: toggleVisibility,
+          icon: isHidden ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
         ),
       ),
-      obscureText: _isHidden,
+      obscureText: isHidden,
     );
   }
 
@@ -272,25 +272,6 @@ class _LoginScreenState extends State<LoginScreen> {
               offset: Offset(0, 5),
             )
           ]),
-      //   child: Center(
-      //   child: Align(
-      // child: SizedBox(
-      //   height: 56.0,
-      //   width: MediaQuery.of(context).size.width,
-      //   child: FlatButton(
-      //     onPressed: () {
-      //       print("Email : ${_txtEmail.text}");
-      //       print("pw : ${_txtPassword.text}");
-      //     },
-      //     shape: RoundedRectangleBorder(
-      //         borderRadius: BorderRadius.circular(30.0)),
-      // child: Text(
-      //   'LOGIN',
-      //   style: Theme.of(context)
-      //       .primaryTextTheme
-      //       .button
-      //       .copyWith(color: Colors.white),
-      // ),
       child: Txt(
         "LOGIN",
         gesture: Gestures()

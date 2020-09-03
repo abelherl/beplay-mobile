@@ -84,281 +84,346 @@ class _DetailDanceState extends State<DetailDance> {
                     ),
                   ),
                   Positioned(
-                    top: 0,
-                    child: Parent(
+                      top: 0,
+                      child: Parent(
                         style: ParentStyle()
-                            ..height(kToolbarHeight + 45)
-                            ..width(MediaQuery.of(context).size.width)
-                            ..linearGradient(colors: [Colors.black54, Colors.transparent], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                          ..height(kToolbarHeight + 45)
+                          ..width(MediaQuery.of(context).size.width)
+                          ..linearGradient(
+                              colors: [Colors.black54, Colors.transparent],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter),
                         child: Container(
-                            width: MediaQuery.of(context).size.width,
+                          width: MediaQuery.of(context).size.width,
                           child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                  Parent(
-                                      gesture: Gestures()
-                                          ..onTap(() => Navigator.pop(context)),
-                                      style: ParentStyle()..padding(left: 15),
-                                      child: Icon(
-                                          Icons.arrow_back_ios,
-                                          color: Colors.white,
-                                          size: 25,
-                                      ),
-                                  ),
-                                  Parent(
-                                      gesture: Gestures()
-                                          ..onTap(() {
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                                  return DetailDance(danceModel: danceData[1]);
-                                              }));
-                                          }),
-                                      style: ParentStyle()..padding(right: 15),
-                                      child: Icon(
-                                          Icons.shopping_cart,
-                                          color: Colors.white,
-                                          size: 25,
-                                      ),
-                                  ),
-                              ],
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Parent(
+                                gesture: Gestures()
+                                  ..onTap(() => Navigator.pop(context)),
+                                style: ParentStyle()..padding(left: 15),
+                                child: Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
+                              ),
+                              Parent(
+                                gesture: Gestures()
+                                  ..onTap(() {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return DetailDance(
+                                          danceModel: danceData[1]);
+                                    }));
+                                  }),
+                                style: ParentStyle()..padding(right: 15),
+                                child: Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                    )
-                  ),
+                      )),
                 ],
               ),
             ),
-              Container(
-                  transform: Matrix4.translationValues(0, -40, 0),
-                child: Parent(
-                    style: ParentStyle()
-                      ..height(1000)
-                      ..padding(horizontal: 20)
-                      ..borderRadius(topRight: 40, topLeft: 40)
-                      ..background.color(Colors.white),
-                    child: Container(
-                        transform: Matrix4.translationValues(0, -25, 0),
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
+            Container(
+              transform: Matrix4.translationValues(0, -40, 0),
+              child: Parent(
+                style: ParentStyle()
+                  ..height(1000)
+                  ..padding(horizontal: 20)
+                  ..borderRadius(topRight: 40, topLeft: 40)
+                  ..background.color(Colors.white),
+                child: Container(
+                  transform: Matrix4.translationValues(0, -25, 0),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Parent(
+                        style: ParentStyle()
+                          ..alignment.centerRight()
+                          ..margin(right: 20)
+                          ..padding(vertical: 15, horizontal: 25)
+                          ..elevation(5, opacity: .6)
+                          ..background.color(bPrimaryColor)
+                          ..borderRadius(all: 25),
+                        child: Text(
+                          'JOIN',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Flex(
+                        direction: Axis.horizontal,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              danceModel.title,
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w800,
+                              ),
+                              overflow: TextOverflow.fade,
+                              maxLines: 1,
+                            ),
+                          ),
+                          Flexible(
+                            child: Text(
+                              "25 Slots",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.grey),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "Digital Class",
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            "icons/entypo_price-tag.svg",
+                            height: 23,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            "Price",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        "Rp. 200.000",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          color: bPrimaryColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            "icons/ant-design_fire-filled.svg",
+                            height: 23,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            "Difficulty",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        danceModel.skill,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            "icons/clarity_date-solid.svg",
+                            height: 23,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            "Schedule",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        "Session 1 13 September 2020\nSession 2 20 September 2020",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Divider(
+                        color: bInactiveColor,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            "icons/bi_person-fill.svg",
+                            height: 23,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            "Trainer",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 25,
+                            backgroundImage: NetworkImage(
+                                'https://pickaface.net/gallery/avatar/unr_random_160817_0304_2mvqp69.png'),
+                          ),
+                          SizedBox(width: 15),
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                                Parent(
-                                    style: ParentStyle()
-                                        ..alignment.centerRight()
-                                        ..margin(right: 20)
-                                        ..padding(vertical: 15, horizontal: 25)
-                                        ..elevation(5, opacity: .6)
-                                        ..background.color(bPrimaryColor)
-                                        ..borderRadius(all: 25),
-                                    child: Text(
-                                        'JOIN',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                        ),
-                                    ),
-                                ),
-                                SizedBox(height: 30,),
-                                Flex(
-                                    direction: Axis.horizontal,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                          danceModel.title,
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w800,
-                                          ),
-                                          overflow: TextOverflow.fade,
-                                          maxLines: 1,
-                                      ),
-                                    ),
-                                      Flexible(
-                                        child: Text(
-                                            "25 Slots",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
-                                                color: Colors.grey
-                                            ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                                Text(
-                                    "Digital Class",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey
-                                    ),
-                                ),
-                                SizedBox(height: 25,),
-                                Row(
-                                    children: [
-                                        SvgPicture.asset("icons/entypo_price-tag.svg", height: 23, color: Colors.grey,),
-                                        SizedBox(width: 12,),
-                                        Text(
-                                            "Price",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w800,
-                                            ),
-                                        ),
-                                    ],
-                                ),
-                                SizedBox(height: 8,),
-                                Text(
-                                    "Rp. 200.000",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w800,
-                                        color: bPrimaryColor,
-                                    ),
-                                ),
-                                SizedBox(height: 25,),
-                                Row(
-                                    children: [
-                                        SvgPicture.asset("icons/ant-design_fire-filled.svg", height: 23, color: Colors.grey,),
-                                        SizedBox(width: 12,),
-                                        Text(
-                                            "Difficulty",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w800,
-                                            ),
-                                        ),
-                                    ],
-                                ),
-                                SizedBox(height: 8,),
-                                Text(
-                                    danceModel.skill,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.grey,
-                                    ),
-                                ),
-                                SizedBox(height: 25,),
-                                Row(
-                                    children: [
-                                        SvgPicture.asset("icons/clarity_date-solid.svg", height: 23, color: Colors.grey,),
-                                        SizedBox(width: 12,),
-                                        Text(
-                                            "Schedule",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w800,
-                                            ),
-                                        ),
-                                    ],
-                                ),
-                                SizedBox(height: 8,),
-                                Text(
-                                    "Session 1 13 September 2020\nSession 2 20 September 2020",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey,
-                                    ),
-                                ),
-                                SizedBox(height: 20,),
-                                Divider(
-                                    color: bInactiveColor,
-                                ),
-                                SizedBox(height: 20,),
-                                Row(
-                                    children: [
-                                        SvgPicture.asset("icons/bi_person-fill.svg", height: 23, color: Colors.grey,),
-                                        SizedBox(width: 12,),
-                                        Text(
-                                            "Trainer",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w800,
-                                            ),
-                                        ),
-                                    ],
-                                ),
-                                SizedBox(height: 15,),
-                                Row(
-                                    children: [
-                                        CircleAvatar(
-                                            radius: 25,
-                                            backgroundImage: NetworkImage('https://pickaface.net/gallery/avatar/unr_random_160817_0304_2mvqp69.png'),
-                                        ),
-                                        SizedBox(width: 15),
-                                        Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                              Text(
-                                                  danceModel.author,
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 16,
-                                                      color: bPrimaryColor
-                                                  ),
-                                              ),
-                                              Text(
-                                                  "Professional Zumba Trainer",
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 13,
-                                                      color: Colors.grey
-                                                  ),
-                                              ),
-                                          ],
-                                        ),
-                                    ],
-                                ),
-                                SizedBox(height: 20,),
-                                Divider(
-                                    color: bInactiveColor,
-                                ),
-                                SizedBox(height: 20,),
-                                Row(
-                                    children: [
-                                        SvgPicture.asset("icons/ic_baseline-place.svg", height: 23, color: Colors.grey,),
-                                        SizedBox(width: 12,),
-                                        Text(
-                                            "Place",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w800,
-                                            ),
-                                        ),
-                                    ],
-                                ),
-                                SizedBox(height: 8,),
-                                Text(
-                                    danceModel.place,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey,
-                                    ),
-                                ),
-                                SizedBox(height: 20,),
-                                Divider(
-                                    color: bInactiveColor,
-                                ),
-                                SizedBox(height: 20,),
-                                Row(
-                                    children: [
-                                        SvgPicture.asset("icons/ic_baseline-rate-review.svg", height: 23, color: Colors.grey,),
-                                        SizedBox(width: 12,),
-                                        Text(
-                                            "Reviews",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w800,
-                                            ),
-                                        ),
-                                    ],
-                                ),
+                              Text(
+                                danceModel.author,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: bPrimaryColor),
+                              ),
+                              Text(
+                                "Professional Zumba Trainer",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                    color: Colors.grey),
+                              ),
                             ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Divider(
+                        color: bInactiveColor,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            "icons/ic_baseline-place.svg",
+                            height: 23,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            "Place",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        danceModel.place,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
                         ),
-                    ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Divider(
+                        color: bInactiveColor,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            "icons/ic_baseline-rate-review.svg",
+                            height: 23,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Text(
+                            "Reviews",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              )
+              ),
+            )
           ],
         ),
       ),

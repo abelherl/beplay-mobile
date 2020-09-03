@@ -1,3 +1,4 @@
+import 'package:beplay/model/orders_model.dart';
 import 'package:beplay/model/schendule.dart';
 
 import 'model/dancemodel.dart';
@@ -37,7 +38,8 @@ List<DanceModel> danceData = [
       description: '',
       place: 'Via JITSI',
       skill: 'Advanced',
-      images: 'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+      images:
+          'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
       reviewDances: [reviewsDance])
 ];
 List<ReviewsDance> reviewsDance = [
@@ -60,6 +62,57 @@ List<ReviewsDance> reviewsDance = [
       name: 'Bariies Mulyani',
       imageProfile:
           'https://upload.wikimedia.org/wikipedia/commons/8/8f/Barbaros_%C5%9Eansal.png')
+];
+
+List<OrderModel> orders = [
+  OrderModel(
+      rating: 3.0,
+      title: 'Meditation',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+      reviewDances: [reviewsDance]),
+  OrderModel(
+      rating: 3.0,
+      title: 'Meditation',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+      reviewDances: [reviewsDance]),
+  OrderModel(
+      rating: 3.0,
+      title: 'Meditation',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+      reviewDances: [reviewsDance]),
+  OrderModel(
+      rating: 3.0,
+      title: 'Meditation',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+      reviewDances: [reviewsDance]),
 ];
 List<Schedule> schedule = [];
 List<DanceModel> myvideos = [];

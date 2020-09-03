@@ -1,5 +1,6 @@
 import 'package:beplay/const.dart';
 import 'package:beplay/pages/verification_screen.dart';
+import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -234,28 +235,27 @@ class _SignupScreenState extends State<SignupScreen> {
                     offset: Offset(0, 5),
                   )
                 ]),
-            child: Center(
-                child: Align(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => VerificationScreen()));
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  child: Text('SIGN UP',
-                      style: Theme.of(context)
-                          .primaryTextTheme
-                          .button
-                          .copyWith(color: Colors.white)),
-                ),
-              ),
-            )),
-          )
+            child: Txt(
+              "SIGN UP",
+              gesture: Gestures()
+                ..onTap(() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VerificationScreen()));
+                }),
+              style: TxtStyle()
+                ..textColor(Colors.white)
+                ..fontSize(16.0)
+                ..alignmentContent.center()
+                ..background.color(bPrimaryColor)
+                ..width(MediaQuery.of(context).size.width)
+                ..padding(vertical: 15)
+                ..height(56)
+                ..borderRadius(all: 36)
+                ..ripple(true, splashColor: bPrimaryLightColor),
+            ),
+          ),
         ],
       ),
     );
