@@ -1,6 +1,9 @@
 import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
+import 'package:beplay/pages/cart_screen.dart';
 import 'package:beplay/pages/detail_dance.dart';
+import 'package:beplay/pages/filter_screen.dart';
+import 'package:beplay/pages/sort_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +19,11 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
     final filterIconEnabled;
     final cartIconEnabled;
 
+    static const choices = [
+        "Filter",
+        "Sort"
+    ];
+
     @override
     Widget build(BuildContext context) {
         return AppBar(
@@ -28,28 +36,31 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
                 child: Icon(Icons.arrow_back_ios, color: Colors.white,)
             ),
             actions: [
-                Parent(
-                    gesture: Gestures()
-                        ..onTap(() {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                return DetailDance(danceModel: danceData[1]);
-                            }));
-                        }),
-                    style: ParentStyle()..padding(all: 15),
-                    child: Icon(
+                PopupMenuButton(
+                    enabled: filterIconEnabled,
+                    icon: Icon(
                         Icons.filter_list,
-                        color: Colors.white,
+                        color: filterIconEnabled ? Colors.white : Colors.transparent,
                         size: filterIconEnabled ? 25 : 0,
                     ),
+                    onSelected: (selected) => onSelected(context, selected),
+                    itemBuilder: (context) {
+                        return choices.map((item) {
+                            return PopupMenuItem(
+                                value: item,
+                                child: Text(item),
+                            );
+                        }).toList();
+                    },
                 ),
                 Parent(
                     gesture: Gestures()
                         ..onTap(() {
                             Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return DetailDance(danceModel: danceData[1]);
+                                return CartScreen();
                             }));
                         }),
-                    style: ParentStyle()..padding(right: 15),
+                    style: ParentStyle()..padding(left: 8, right: 15),
                     child: Icon(
                         Icons.shopping_cart,
                         color: Colors.white,
@@ -62,4 +73,16 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
 
     @override
     Size get preferredSize => Size.fromHeight(kToolbarHeight);
+
+    void onSelected(BuildContext context, String selected) {
+        StatefulWidget nextPage = FilterScreen();
+
+        if (selected == "Sort") {
+            nextPage = SortScreen();
+        }
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return nextPage;
+        }));
+    }
 }

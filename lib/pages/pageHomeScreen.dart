@@ -2,6 +2,7 @@ import 'package:beplay/components/banner_class.dart';
 import 'package:beplay/components/home_icons_class.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/model/home_icons.dart';
+import 'package:beplay/pages/cart_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
@@ -57,6 +58,12 @@ class _Page_Home extends State<pageHome_Screen> {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
             child: Parent(
+              gesture: Gestures()
+                ..onTap(() {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return CartScreen();
+                  }));
+                }),
               style: ParentStyle()
                 ..ripple(true, splashColor: bPrimaryLightColor)
                 ..height(60)

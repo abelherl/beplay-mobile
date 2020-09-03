@@ -24,7 +24,7 @@ List<DanceModel> danceData = [
       date: '10/10/2020',
       description: '',
       place: 'Via JITSI',
-      skill: 'Intermediete',
+      skill: 'Intermediate',
       images:
           'http://aerobicdancevitalcampus.weebly.com/uploads/1/9/7/6/19762999/3260219_orig.jpg',
       reviewDances: [reviewsDance]),
@@ -50,14 +50,14 @@ List<ReviewsDance> reviewsDance = [
   ReviewsDance(
       rating: 4.5,
       description: 'Streching awal sangat bagus',
-      name: 'Karin mommi',
+      name: 'Karin Mommi',
       imageProfile:
           'https://cdn0-production-images-kly.akamaized.net/96I0QlCXv0U_XkUly3zLqGepN9E=/640x640/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1598027/original/045809800_1495097716-DIN-2.JPG'),
   ReviewsDance(
       rating: 4.0,
       description:
           'Sebenarnya menyenangkan namun banyak yang kurang enak dalam penyampaian',
-      name: 'Bariies Mulyani',
+      name: 'Baries Mulyani',
       imageProfile:
           'https://upload.wikimedia.org/wikipedia/commons/8/8f/Barbaros_%C5%9Eansal.png')
 ];

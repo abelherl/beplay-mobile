@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'cart_screen.dart';
 
 class DetailDance extends StatefulWidget {
   DetailDance({Key key, @required this.danceModel}) : super(key: key);
@@ -28,6 +30,7 @@ class _DetailDanceState extends State<DetailDance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -106,12 +109,12 @@ class _DetailDanceState extends State<DetailDance> {
                                       ),
                                   ),
                                   Parent(
-                                      gesture: Gestures()
-                                          ..onTap(() {
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                                  return DetailDance(danceModel: danceData[1]);
-                                              }));
-                                          }),
+                                    gesture: Gestures()
+                                      ..onTap(() {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                          return CartScreen();
+                                        }));
+                                      }),
                                       style: ParentStyle()..padding(right: 15),
                                       child: Icon(
                                           Icons.shopping_cart,
@@ -131,7 +134,6 @@ class _DetailDanceState extends State<DetailDance> {
                   transform: Matrix4.translationValues(0, -40, 0),
                 child: Parent(
                     style: ParentStyle()
-                      ..height(1000)
                       ..padding(horizontal: 20)
                       ..borderRadius(topRight: 40, topLeft: 40)
                       ..background.color(Colors.white),
@@ -142,6 +144,8 @@ class _DetailDanceState extends State<DetailDance> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                                 Parent(
+                                  gesture: Gestures()
+                                    ..onTap(() {}),
                                     style: ParentStyle()
                                         ..alignment.centerRight()
                                         ..margin(right: 20)
@@ -353,6 +357,120 @@ class _DetailDanceState extends State<DetailDance> {
                                             ),
                                         ),
                                     ],
+                                ),
+                                SizedBox(height: 20,),
+                                FlatButton(
+                                  onPressed: () {},
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Give a feedback",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: bPrimaryColor,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                      SizedBox(width: 12,),
+                                      Icon(Icons.arrow_forward_ios, size: 16, color: bPrimaryColor,),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 20,),
+                                Row(
+                                  children: [
+                                    SmoothStarRating(
+                                      rating: danceModel.rating,
+                                      isReadOnly: true,
+                                      color: bPrimaryColor,
+                                      borderColor: bPrimaryColor,
+                                      size: 35,
+                                    ),
+                                    SizedBox(width: 12,),
+                                    RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: "${danceModel.rating}",
+                                            style: TextStyle(
+                                                fontSize: 25,
+                                                color: bDarkTextColor,
+                                                fontWeight: FontWeight.w800,
+                                              ),
+                                          ),
+                                          TextSpan(
+                                            text: " /5",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: bLightTextColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                ListView(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  children: reviewsDance.map((item) {
+                                    return Parent(
+                                      style: ParentStyle()
+                                        ..padding(top: 10, bottom: 20),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 25,
+                                                backgroundImage: NetworkImage(item.imageProfile),
+                                              ),
+                                              SizedBox(width: 15),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    item.name,
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 16,
+                                                        color: bDarkTextColor,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 3,),
+                                                  Text(
+                                                    "10/10/2020",
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 13,
+                                                        color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 18,),
+                                          SmoothStarRating(
+                                            rating: item.rating,
+                                            isReadOnly: true,
+                                            color: bPrimaryColor,
+                                            borderColor: bPrimaryColor,
+                                            size: 20,
+                                          ),
+                                          SizedBox(height: 5,),
+                                          Text(
+                                            item.description,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }).toList(),
                                 ),
                             ],
                         ),

@@ -12,3 +12,7 @@ const Color bLightTextColor = const Color(0xFF999999);
 const Color bShadowColor = const Color(0xFF777777);
 
 const Color bBackgroundColor = const Color(0xFFF5F6F7);
+
+var classTypes = ['Digital', 'Studio', 'Private'];
+var locations = ['Malang', 'Surabaya', 'Bali', 'Bandung', 'Jakarta', 'Banjarmasin'];
+var levels = ['Beginner', 'Intermediate', 'Advanced'];
