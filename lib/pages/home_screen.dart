@@ -1,5 +1,6 @@
 import 'package:beplay/const.dart';
 import 'package:beplay/pages/Profile_Screen.dart';
+import 'package:beplay/pages/orders_screen.dart';
 import 'package:beplay/pages/pageHomeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _HomeScreen extends State<HomeScreen> {
       case 0:
         return pageHome_Screen();
       case 1:
-        return pageHome_Screen();
+        return OrdersScreen();
       case 2:
         return pageHome_Screen();
       case 3:
@@ -40,32 +41,37 @@ class _HomeScreen extends State<HomeScreen> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: SvgPicture.asset("icons/ant-design_home-outlined.svg"),
-                activeIcon: SvgPicture.asset("icons/ant-design_home-filled.svg"),
-                title: Text('Home',
+                activeIcon:
+                    SvgPicture.asset("icons/ant-design_home-filled.svg"),
+                title: Text(
+                  'Home',
                   style: textStyle,
-                )
-            ),
+                )),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset("icons/clarity_list-line.svg"),
                 activeIcon: SvgPicture.asset("icons/clarity_list-solid.svg"),
-                title: Text('Orders',
+                title: Text(
+                  'Orders',
                   style: textStyle,
-                )
-            ),
+                )),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset("icons/carbon_calendar.svg"),
-                activeIcon: SvgPicture.asset("icons/ant-design_calendar-filled.svg"),
-                title: Text('Agenda',
+                activeIcon:
+                    SvgPicture.asset("icons/ant-design_calendar-filled.svg"),
+                title: Text(
+                  'Agenda',
                   style: textStyle,
-                )
-            ),
+                )),
             BottomNavigationBarItem(
                 icon: SvgPicture.asset("icons/bi_person.svg"),
-                activeIcon: SvgPicture.asset("icons/bi_person-fill.svg", color: bPrimaryColor,),
-                title: Text('Profile',
+                activeIcon: SvgPicture.asset(
+                  "icons/bi_person-fill.svg",
+                  color: bPrimaryColor,
+                ),
+                title: Text(
+                  'Profile',
                   style: textStyle,
-                )
-            ),
+                )),
           ],
           onTap: (int tapindex) {
             setState(() {

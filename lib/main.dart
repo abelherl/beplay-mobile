@@ -1,11 +1,9 @@
 import 'package:beplay/const.dart';
 import 'package:beplay/pages/classes.dart';
 import 'package:beplay/pages/home_screen.dart';
-import 'package:beplay/pages/image_slider.dart';
-import 'package:beplay/pages/login.dart';
+import 'package:beplay/pages/login_screen.dart';
 import 'package:beplay/pages/pageHomeScreen.dart';
-import 'package:beplay/pages/register.dart';
-import 'package:beplay/pages/splash_screen.dart';
+import 'package:beplay/pages/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/splash_screen.dart';
@@ -19,19 +17,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Be Play",
-      initialRoute: '/home',
+      initialRoute: '/splash_screen',
       theme: ThemeData(
-        primaryColor: bPrimaryColor,
-        accentColor: bPrimaryLightColor,
-        backgroundColor: Colors.white
-      ),
+          primaryColor: bPrimaryColor,
+          accentColor: bPrimaryLightColor,
+          backgroundColor: Colors.white),
       routes: {
         '/': (context) => HomeScreen(),
-        '/login_Screen': (context) => Login(),
-        '/register_Screen': (context) => Register(),
+        '/splash_screen': (context) => SplashScreen(),
+        '/login_Screen': (context) => LoginScreen(),
+        '/signup_Screen': (context) => SignupScreen(),
         '/home': (context) => HomeScreen(),
         '/page_HomeScreen': (context) => pageHome_Screen(),
-        '/classes': (context) => Classes()
+        '/classes': (context) => Classes(),
       },
     );
   }
