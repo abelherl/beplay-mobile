@@ -40,7 +40,115 @@ List<DanceModel> danceData = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-      reviewDances: [reviewsDance])
+      reviewDances: [reviewsDance]),
+  DanceModel(
+      rating: 3.2,
+      title: 'Meditation',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/3094215/pexels-photo-3094215.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      reviewDances: [reviewsDance]),
+  DanceModel(
+      rating: 3.7,
+      title: 'Yoga',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/2035066/pexels-photo-2035066.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+      reviewDances: [reviewsDance]),
+  DanceModel(
+      rating: 3.8,
+      title: 'Yoga',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/3735472/pexels-photo-3735472.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      reviewDances: [reviewsDance]),
+  DanceModel(
+      rating: 3.3,
+      title: 'Dance',
+      author: 'Trainer Billy',
+      time: '11.00',
+      date: '01/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/1638051/pexels-photo-1638051.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      reviewDances: [reviewsDance]),
+  DanceModel(
+      rating: 2.5,
+      title: 'Outdoors',
+      author: 'Trainer Steven',
+      time: '07.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Resort Dieng',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/532803/pexels-photo-532803.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      reviewDances: [reviewsDance]),
+  DanceModel(
+      rating: 3.5,
+      title: 'Cardio',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      reviewDances: [reviewsDance]),
+  DanceModel(
+      rating: 4.0,
+      title: 'Cardio',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/3771809/pexels-photo-3771809.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      reviewDances: [reviewsDance]),
+  DanceModel(
+      rating: 4.0,
+      title: 'Boxing',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/1608099/pexels-photo-1608099.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      reviewDances: [reviewsDance]),
+  DanceModel(
+      rating: 4.1,
+      title: 'Strength',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/38630/bodybuilder-weight-training-stress-38630.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      reviewDances: [reviewsDance]),
 ];
 List<ReviewsDance> reviewsDance = [
   ReviewsDance(
@@ -64,10 +172,10 @@ List<ReviewsDance> reviewsDance = [
           'https://upload.wikimedia.org/wikipedia/commons/8/8f/Barbaros_%C5%9Eansal.png')
 ];
 
-List<OrderModel> orders = [
-  OrderModel(
-      rating: 3.0,
-      title: 'Meditation',
+List<DanceModel> orders = [
+  DanceModel(
+      rating: 4.0,
+      title: 'Boxing',
       author: 'Trainer Steven',
       time: '15.00',
       date: '10/10/2020',
@@ -75,11 +183,11 @@ List<OrderModel> orders = [
       place: 'Via Zoom',
       skill: 'Advanced',
       images:
-          'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+          'https://images.pexels.com/photos/1608099/pexels-photo-1608099.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
       reviewDances: [reviewsDance]),
-  OrderModel(
-      rating: 3.0,
-      title: 'Meditation',
+  DanceModel(
+      rating: 4.1,
+      title: 'Strength',
       author: 'Trainer Steven',
       time: '15.00',
       date: '10/10/2020',
@@ -87,32 +195,39 @@ List<OrderModel> orders = [
       place: 'Via Zoom',
       skill: 'Advanced',
       images:
-          'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-      reviewDances: [reviewsDance]),
-  OrderModel(
-      rating: 3.0,
-      title: 'Meditation',
-      author: 'Trainer Steven',
-      time: '15.00',
-      date: '10/10/2020',
-      description: '',
-      place: 'Via Zoom',
-      skill: 'Advanced',
-      images:
-          'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-      reviewDances: [reviewsDance]),
-  OrderModel(
-      rating: 3.0,
-      title: 'Meditation',
-      author: 'Trainer Steven',
-      time: '15.00',
-      date: '10/10/2020',
-      description: '',
-      place: 'Via Zoom',
-      skill: 'Advanced',
-      images:
-          'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+          'https://images.pexels.com/photos/38630/bodybuilder-weight-training-stress-38630.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
       reviewDances: [reviewsDance]),
 ];
+
+List<DanceModel> historyOrders = [
+  DanceModel(
+      rating: 3.5,
+      title: 'Cardio',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      reviewDances: [reviewsDance]),
+];
+
+List<DanceModel> agenda = [
+  DanceModel(
+      rating: 3.5,
+      title: 'Cardio',
+      author: 'Trainer Steven',
+      time: '15.00',
+      date: '10/10/2020',
+      description: '',
+      place: 'Via Zoom',
+      skill: 'Advanced',
+      images:
+          'https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+      reviewDances: [reviewsDance]),
+];
+
 List<Schedule> schedule = [];
 List<DanceModel> myvideos = [];

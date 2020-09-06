@@ -61,138 +61,141 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            SingleChildScrollView(
-              primary: true,
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height / 3.5),
-              child: Card(
-                elevation: 0.0,
-                child: Container(
-                  height: MediaQuery.of(context).size.height -
-                      (MediaQuery.of(context).size.height / 2.7),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 64.0,
-                      left: 20,
-                      right: 20,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "Login",
-                          // ignore: deprecated_member_use
-                          style: Theme.of(context).textTheme.headline.copyWith(
-                                color: Colors.blueGrey.shade700,
-                                fontWeight: FontWeight.w700,
+            Container(
+              child: SingleChildScrollView(
+                primary: true,
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height / 3.5),
+                child: Card(
+                  elevation: 0.0,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height -
+                        (MediaQuery.of(context).size.height / 2.7),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: 64.0,
+                        left: 20,
+                        right: 20,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Login",
+                            // ignore: deprecated_member_use
+                            style:
+                                Theme.of(context).textTheme.headline.copyWith(
+                                      color: Colors.blueGrey.shade700,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                          ),
+                          SizedBox(
+                            height: 16.0,
+                          ),
+                          buildTextFieldUsername("Email"),
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                          buildTextFieldPassword("Password"),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                InkWell(
+                                  child: Text(
+                                    "Forgot Password?",
+                                    style: TextStyle(
+                                        fontSize: 12.0,
+                                        fontStyle: FontStyle.normal,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ForgotPasswordScreen()),
+                                    );
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 20.0),
+                          buildButtonContainer(),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          Container(
+                            child: Center(
+                              child: Text(
+                                "Or Sign up With",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontStyle: FontStyle.normal,
+                                    fontWeight: FontWeight.normal),
                               ),
-                        ),
-                        SizedBox(
-                          height: 16.0,
-                        ),
-                        buildTextFieldUsername("Email"),
-                        SizedBox(
-                          height: 8.0,
-                        ),
-                        buildTextFieldPassword("Password"),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              InkWell(
-                                child: Text(
-                                  "Forgot Password?",
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      fontStyle: FontStyle.normal,
-                                      fontWeight: FontWeight.normal),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: Center(
+                              child: Container(
+                                child: ButtonBar(
+                                  alignment: MainAxisAlignment.center,
+                                  children: [
+                                    Card(
+                                      shape: CircleBorder(),
+                                      child: FlatButton(
+                                          onPressed: () {},
+                                          child: Container(
+                                              width: 30.0,
+                                              height: 30.0,
+                                              child: Image.asset(
+                                                  'icons/icon_google.png'))),
+                                    ),
+                                    Card(
+                                      shape: CircleBorder(),
+                                      child: FlatButton(
+                                          onPressed: null,
+                                          child: Container(
+                                              width: 30.0,
+                                              height: 30.0,
+                                              child: Image.asset(
+                                                  'icons/icon_facebook.png'))),
+                                    ),
+                                    Card(
+                                      shape: CircleBorder(),
+                                      child: FlatButton(
+                                          shape: CircleBorder(),
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SignupScreen()));
+                                          },
+                                          child: Container(
+                                              width: 30.0,
+                                              height: 30.0,
+                                              child: Image.asset(
+                                                  'icons/icon_mail.png'))),
+                                    ),
+                                  ],
                                 ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ForgotPasswordScreen()),
-                                  );
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 20.0),
-                        buildButtonContainer(),
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                        Container(
-                          child: Center(
-                            child: Text(
-                              "Or Sign up With",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontStyle: FontStyle.normal,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          child: Center(
-                            child: Container(
-                              child: ButtonBar(
-                                alignment: MainAxisAlignment.center,
-                                children: [
-                                  Card(
-                                    shape: CircleBorder(),
-                                    child: FlatButton(
-                                        onPressed: () {},
-                                        child: Container(
-                                            width: 30.0,
-                                            height: 30.0,
-                                            child: Image.asset(
-                                                'icons/icon_google.png'))),
-                                  ),
-                                  Card(
-                                    shape: CircleBorder(),
-                                    child: FlatButton(
-                                        onPressed: null,
-                                        child: Container(
-                                            width: 30.0,
-                                            height: 30.0,
-                                            child: Image.asset(
-                                                'icons/icon_facebook.png'))),
-                                  ),
-                                  Card(
-                                    shape: CircleBorder(),
-                                    child: FlatButton(
-                                        shape: CircleBorder(),
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      SignupScreen()));
-                                        },
-                                        child: Container(
-                                            width: 30.0,
-                                            height: 30.0,
-                                            child: Image.asset(
-                                                'icons/icon_mail.png'))),
-                                  ),
-                                ],
                               ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

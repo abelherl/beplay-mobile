@@ -1,3 +1,5 @@
+import 'package:beplay/components/main_app_bar.dart';
+import 'package:beplay/model/dancemodel.dart';
 import 'package:beplay/model/orders_model.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
@@ -6,6 +8,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import '../const.dart';
 import '../data_dummy.dart';
+import 'detail_dance.dart';
 
 class OrdersHistoryScreen extends StatefulWidget {
   @override
@@ -16,21 +19,24 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 65,
-        backgroundColor: bPrimaryColor,
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            ),
-            onPressed: () => Navigator.pop(context)),
-        title: Txt("History Orders",
-            style: TxtStyle()
-              ..fontSize(20)
-              ..fontWeight(FontWeight.bold)
-              ..fontFamily('Montserrat')
-              ..textColor(Colors.white)),
+      // appBar: AppBar(
+      //   toolbarHeight: 65,
+      //   backgroundColor: bPrimaryColor,
+      //   leading: IconButton(
+      //       icon: Icon(
+      //         Icons.arrow_back_ios,
+      //         color: Colors.white,
+      //       ),
+      //       onPressed: () => Navigator.pop(context)),
+      //   title: Txt("History Orders",
+      //       style: TxtStyle()
+      //         ..fontSize(20)
+      //         ..fontWeight(FontWeight.bold)
+      //         ..fontFamily('Montserrat')
+      //         ..textColor(Colors.white)),
+      // ),
+      appBar: MainAppBar(
+        title: 'History Orders',
       ),
       body: SingleChildScrollView(
         child: Parent(
@@ -38,7 +44,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
             shrinkWrap: true,
             padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
             physics: NeverScrollableScrollPhysics(),
-            children: orders.map((item) {
+            children: historyOrders.map((item) {
               return CardHistoryOrders(
                 item: item,
               );
@@ -53,7 +59,7 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
 class CardHistoryOrders extends StatefulWidget {
   const CardHistoryOrders({Key key, @required this.item}) : super(key: key);
 
-  final OrderModel item;
+  final DanceModel item;
   @override
   _CardHistoryOrdersState createState() => _CardHistoryOrdersState();
 }
@@ -68,9 +74,9 @@ class _CardHistoryOrdersState extends State<CardHistoryOrders> {
                 tap = isTapped;
               }))
           ..onTap(() {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //     return DetailDance(danceModel: widget.item);
-            // }));
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return DetailDance(danceModel: widget.item);
+            }));
           }),
         style: ParentStyle()
           ..margin(top: 20)
@@ -111,9 +117,10 @@ class _CardHistoryOrdersState extends State<CardHistoryOrders> {
               child: Parent(
                 gesture: Gestures()
                   ..onTap(() {
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    //     return De(danceModel: widget.item);
-                    // }));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return DetailDance(danceModel: widget.item);
+                    }));
                   }),
                 style: ParentStyle()
                   ..background.color(bBackgroundColor)

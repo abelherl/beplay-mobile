@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Be Play",
       initialRoute: '/splash_screen',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primaryColor: bPrimaryColor,
           accentColor: bPrimaryLightColor,

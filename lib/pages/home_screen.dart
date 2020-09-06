@@ -1,11 +1,11 @@
 import 'package:beplay/const.dart';
-import 'package:beplay/pages/Profile_Screen.dart';
+import 'package:beplay/pages/agenda_screen.dart';
 import 'package:beplay/pages/orders_screen.dart';
 import 'package:beplay/pages/pageHomeScreen.dart';
+import 'package:beplay/pages/profile_screen_new.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   _HomeScreen createState() => _HomeScreen();
@@ -15,16 +15,17 @@ class _HomeScreen extends State<HomeScreen> {
   int _page = 0;
   Widget _showPage = pageHome_Screen();
 
-  Widget _ChoosePage(int page) {
+  // ignore: missing_return
+  Widget _choosePage(int page) {
     switch (page) {
       case 0:
         return pageHome_Screen();
       case 1:
         return OrdersScreen();
       case 2:
-        return pageHome_Screen();
+        return AgendaScreen();
       case 3:
-        return Profile_Screen();
+        return ProfileScreen();
     }
   }
 
@@ -76,7 +77,7 @@ class _HomeScreen extends State<HomeScreen> {
           onTap: (int tapindex) {
             setState(() {
               _page = tapindex;
-              _showPage = _ChoosePage(tapindex);
+              _showPage = _choosePage(tapindex);
             });
           },
           currentIndex: _page,

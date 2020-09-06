@@ -1,53 +1,43 @@
-import 'package:beplay/const.dart';
 import 'package:beplay/model/dancemodel.dart';
-import 'package:beplay/model/orders_model.dart';
-import 'package:beplay/pages/orders_history_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
+import '../const.dart';
 import '../data_dummy.dart';
 import 'detail_dance.dart';
 
-class OrdersScreen extends StatefulWidget {
+class AgendaScreen extends StatefulWidget {
   @override
-  _OrdersScreenState createState() => _OrdersScreenState();
+  _AgendaScreenState createState() => _AgendaScreenState();
 }
 
-class _OrdersScreenState extends State<OrdersScreen> {
+class _AgendaScreenState extends State<AgendaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: bPrimaryColor,
         automaticallyImplyLeading: false,
-        title: Txt(
-          "Your Orders",
-          style: TxtStyle()
-            ..fontSize(20)
-            ..fontWeight(FontWeight.bold)
-            ..fontFamily('Montserrat')
-            ..textColor(Colors.white)
-            ..padding(left: 10),
-        ),
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
+            onPressed: null),
         actions: [
           IconButton(
-              alignment: Alignment.center,
-              padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
-              splashRadius: 15,
               icon: Icon(
-                Icons.access_time,
-                size: 30,
+                Icons.arrow_forward_ios,
                 color: Colors.white,
               ),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => OrdersHistoryScreen()));
-              }),
+              onPressed: null)
         ],
+        centerTitle: true,
+        title: Txt(
+          "September - 2020",
+          style: TxtStyle()..textColor(Colors.white),
+        ),
       ),
       body: SingleChildScrollView(
         child: Parent(
@@ -55,8 +45,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
             shrinkWrap: true,
             padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
             physics: NeverScrollableScrollPhysics(),
-            children: orders.map((item) {
-              return CardOrders(
+            children: agenda.map((item) {
+              return CardAgenda(
                 item: item,
               );
             }).toList(),
@@ -67,15 +57,15 @@ class _OrdersScreenState extends State<OrdersScreen> {
   }
 }
 
-class CardOrders extends StatefulWidget {
-  const CardOrders({Key key, @required this.item}) : super(key: key);
+class CardAgenda extends StatefulWidget {
+  const CardAgenda({Key key, @required this.item}) : super(key: key);
 
   final DanceModel item;
   @override
-  _CardOrdersState createState() => _CardOrdersState();
+  _CardAgendaState createState() => _CardAgendaState();
 }
 
-class _CardOrdersState extends State<CardOrders> {
+class _CardAgendaState extends State<CardAgenda> {
   @override
   Widget build(BuildContext context) {
     var tap = false;
@@ -196,7 +186,7 @@ class _CardOrdersState extends State<CardOrders> {
                           width: 5,
                         ),
                         Text(
-                          widget.item.date + " " + widget.item.time,
+                          widget.item.date + widget.item.time,
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ],
@@ -225,14 +215,7 @@ class _CardOrdersState extends State<CardOrders> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Txt(
-                                'On Process',
-                                style: TxtStyle()
-                                  ..fontWeight(FontWeight.bold)
-                                  ..fontSize(14)
-                                  ..textColor(bPrimaryColor),
-                              ),
-                              SizedBox(height: 5),
+                              SizedBox(height: 20),
                               Txt(
                                 widget.item.skill,
                                 style: TxtStyle()
