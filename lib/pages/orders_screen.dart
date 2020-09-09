@@ -1,6 +1,5 @@
 import 'package:beplay/const.dart';
 import 'package:beplay/model/dancemodel.dart';
-import 'package:beplay/model/orders_model.dart';
 import 'package:beplay/pages/orders_history_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +15,7 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
+  bool tap = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,21 +32,29 @@ class _OrdersScreenState extends State<OrdersScreen> {
             ..padding(left: 10),
         ),
         actions: [
-          IconButton(
-              alignment: Alignment.center,
-              padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
-              splashRadius: 15,
-              icon: Icon(
-                Icons.access_time,
-                size: 30,
+          Parent(
+              gesture: Gestures()
+                ..isTap((isTapped) => setState(() {
+                      tap = isTapped;
+                    }))
+                ..onTap(() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OrdersHistoryScreen()));
+                }),
+              style: ParentStyle()
+                ..padding(right: 15)
+                ..ripple(true)
+                ..animate(150, Curves.easeOut)
+                ..borderRadius(all: 32)
+                ..alignment.center(),
+              child: SvgPicture.asset(
+                'icons/ic_baseline-history.svg',
                 color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => OrdersHistoryScreen()));
-              }),
+                height: 32,
+                width: 32,
+              )),
         ],
       ),
       body: SingleChildScrollView(

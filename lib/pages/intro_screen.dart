@@ -1,5 +1,5 @@
 import 'package:beplay/const.dart';
-import 'package:beplay/pages/login_screen.dart';
+import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
@@ -34,7 +34,8 @@ class _IntroScreenState extends State<IntroScreen> {
                     color: Colors.black87,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal),
+                    fontStyle: FontStyle.normal,
+                    fontFamily: 'ProximaNova'),
               ),
             ),
             Padding(
@@ -134,10 +135,7 @@ class _IntroScreenState extends State<IntroScreen> {
   }
 
   void onDonePress() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
+    Navigator.of(context).pushReplacementNamed('/login_screen');
   }
 
   @override
@@ -145,11 +143,33 @@ class _IntroScreenState extends State<IntroScreen> {
     return IntroSlider(
       slides: this.slides,
       onDonePress: this.onDonePress,
-      nameNextBtn: "Next",
-      nameDoneBtn: "Get Started",
-      widthDoneBtn: 110.0,
-      widthSkipBtn: 100.0,
       nameSkipBtn: "Skip",
+      widthDoneBtn: 130,
+      widthSkipBtn: 130,
+      renderDoneBtn: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Txt(
+            'Get Started',
+            style: TxtStyle()
+              ..textColor(bPrimaryColor)
+              ..bold(),
+          ),
+          Icon(Icons.chevron_right, color: bPrimaryColor)
+        ],
+      ),
+      renderNextBtn: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Txt(
+            'Next',
+            style: TxtStyle()
+              ..textColor(bPrimaryColor)
+              ..bold(),
+          ),
+          Icon(Icons.chevron_right, color: bPrimaryColor)
+        ],
+      ),
       colorActiveDot: bPrimaryColor,
       colorDot: Color(0xc4c4c4c4),
       styleNameSkipBtn: TextStyle(color: Colors.black),

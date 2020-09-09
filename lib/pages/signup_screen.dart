@@ -103,7 +103,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                   controller: _txtFirstName,
                   decoration: InputDecoration(
-                      labelText: "First Name", prefixText: "\t"),
+                      labelText: "FIRST NAME", prefixText: "\t"),
                   onEditingComplete: () {
                     FocusScope.of(context).requestFocus(_txtLastNameNode);
                   },
@@ -129,7 +129,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   controller: _txtLastName,
                   focusNode: _txtLastNameNode,
                   decoration:
-                      InputDecoration(labelText: "Last Name", prefixText: "\t"),
+                      InputDecoration(labelText: "LAST NAME", prefixText: "\t"),
                   onEditingComplete: () {
                     FocusScope.of(context).requestFocus(_txtEmailNode);
                   },
@@ -156,7 +156,7 @@ class _SignupScreenState extends State<SignupScreen> {
             controller: _txtEmail,
             focusNode: _txtEmailNode,
             keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(labelText: "Email", prefixText: "\t"),
+            decoration: InputDecoration(labelText: "EMAIL", prefixText: "\t"),
             onEditingComplete: () {
               FocusScope.of(context).requestFocus(_txtPasswordNode);
             },
@@ -177,7 +177,7 @@ class _SignupScreenState extends State<SignupScreen> {
             controller: _txtPassword,
             focusNode: _txtPasswordNode,
             decoration: InputDecoration(
-              labelText: "Password",
+              labelText: "PASSWORD",
               contentPadding: const EdgeInsets.all(10.0),
               suffixIcon: IconButton(
                 onPressed: _toggleVisibility,
@@ -207,7 +207,7 @@ class _SignupScreenState extends State<SignupScreen> {
             focusNode: _txtConfirmNode,
             controller: _txtConfirmPassword,
             decoration: InputDecoration(
-              labelText: "Confrim Password",
+              labelText: "CONFIRM PASSWORD",
               contentPadding: const EdgeInsets.all(10.0),
               suffixIcon: IconButton(
                 onPressed: _toggleVisibility,

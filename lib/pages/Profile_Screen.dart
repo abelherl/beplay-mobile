@@ -1,191 +1,111 @@
+import 'package:beplay/const.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-class UserPage extends StatelessWidget {
-  final contentStyle = (BuildContext context) => ParentStyle()
-    ..overflow.scrollable()
-    ..padding(vertical: 30, horizontal: 20)
-    ..minHeight(MediaQuery.of(context).size.height - (2 * 30));
-
-  final titleStyle = TxtStyle()
-    ..bold()
-    ..fontSize(32)
-    ..margin(bottom: 20)
-    ..alignmentContent.centerLeft();
-
+class ProfileScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Parent(
-      style: contentStyle(context),
-      child: Column(
-        children: <Widget>[
-          Txt('User settings', style: titleStyle),
-          UserCard(),
-          ActionsRow(),
-          Settings(),
-        ],
-      ),
-    );
-  }
+  _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class UserCard extends StatelessWidget {
-  Widget _buildUserRow() {
-    return Row(
-      children: <Widget>[
-        Parent(style: userImageStyle, child: Icon(Icons.account_circle)),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Txt('Rein Gundersen Bentdal', style: nameTextStyle),
-            SizedBox(height: 5),
-            Txt('Creative builder', style: nameDescriptionTextStyle)
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget _buildUserStats() {
-    return Parent(
-      style: userStatsStyle,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          _buildUserStatsItem('846', 'Collect'),
-          _buildUserStatsItem('51', 'Attention'),
-          _buildUserStatsItem('267', 'Track'),
-          _buildUserStatsItem('39', 'Coupons'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildUserStatsItem(String value, String text) {
-    final TxtStyle textStyle = TxtStyle()
-      ..fontSize(20)
-      ..textColor(Colors.white);
-    return Column(
-      children: <Widget>[
-        Txt(value, style: textStyle),
-        SizedBox(height: 5),
-        Txt(text, style: nameDescriptionTextStyle),
-      ],
-    );
-  }
-
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return Parent(
-      style: userCardStyle,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[_buildUserRow(), _buildUserStats()],
+    return Scaffold(
+      backgroundColor: bWhite,
+      appBar: AppBar(
+        backgroundColor: bPrimaryColor,
+        automaticallyImplyLeading: false,
+        elevation: 0.0,
       ),
-    );
-  }
-
-  //Styling
-
-  final ParentStyle userCardStyle = ParentStyle()
-    ..height(175)
-    ..padding(horizontal: 20.0, vertical: 10)
-    ..alignment.center()
-    ..background.hex('#3977FF')
-    ..borderRadius(all: 20.0)
-    ..elevation(10, color: hex('#3977FF'));
-
-  final ParentStyle userImageStyle = ParentStyle()
-    ..height(50)
-    ..width(50)
-    ..margin(right: 10.0)
-    ..borderRadius(all: 30)
-    ..background.hex('ffffff');
-
-  final ParentStyle userStatsStyle = ParentStyle()..margin(vertical: 10.0);
-
-  final TxtStyle nameTextStyle = TxtStyle()
-    ..textColor(Colors.white)
-    ..fontSize(18)
-    ..fontWeight(FontWeight.w600);
-
-  final TxtStyle nameDescriptionTextStyle = TxtStyle()
-    ..textColor(Colors.white.withOpacity(0.6))
-    ..fontSize(12);
-}
-
-class ActionsRow extends StatelessWidget {
-  Widget _buildActionsItem(String title, IconData icon) {
-    return Parent(
-      style: actionsItemStyle,
-      child: Column(
-        children: <Widget>[
-          Parent(
-            style: actionsItemIconStyle,
-            child: Icon(icon, size: 20, color: Color(0xFF42526F)),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    color: bPrimaryColor,
+                    height: MediaQuery.of(context).size.height / 8,
+                  ),
+                  Transform.translate(
+                    offset: Offset(125, 30),
+                    child: Parent(
+                      child: CircleAvatar(
+                        radius: 50.0,
+                        backgroundImage: AssetImage('images/aaa.jpeg'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              Txt(
+                'SMK CODING',
+                style: TxtStyle()
+                  ..alignment.center()
+                  ..textColor(Colors.black)
+                  ..fontWeight(FontWeight.w600)
+                  ..fontSize(25.0),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                color: bWhite,
+                child: Column(
+                  children: [
+                    SettingsItem('icons/bi_person-fill.svg', Colors.white,
+                        'Account', 'Change your Account Detail', '/account'),
+                    SettingsItem(
+                        'icons/ic_baseline-g-translate.svg',
+                        Colors.grey[400],
+                        'Language',
+                        'Change App Language',
+                        '/language'),
+                    SettingsItem(
+                        'icons/clarity_settings-solid.svg',
+                        Colors.grey[400],
+                        'Settings',
+                        'Notifications Settings',
+                        '/notification'),
+                    SettingsItem(
+                        'icons/dashicons_privacy.svg',
+                        Colors.grey[400],
+                        'Privacy',
+                        'Privacy and Policy',
+                        '/privacy'),
+                    SettingsItem('icons/wpf_faq.svg', Colors.grey[400], 'FAQ',
+                        'Frequently Asked Questions', '/faq'),
+                    SettingsItem('icons/ion_log-out.svg', Colors.grey[400],
+                        'Log Out', 'Sign Out', null),
+                    Container(
+                      height: 20.0,
+                      color: bWhite,
+                    )
+                  ],
+                ),
+              ),
+            ],
           ),
-          Txt(title, style: actionsItemTextStyle)
-        ],
+        ),
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        _buildActionsItem('Wallet', Icons.attach_money),
-        _buildActionsItem('Delivery', Icons.card_giftcard),
-        _buildActionsItem('Message', Icons.message),
-        _buildActionsItem('Service', Icons.room_service),
-      ],
-    );
-  }
-
-  final ParentStyle actionsItemIconStyle = ParentStyle()
-    ..alignmentContent.center()
-    ..width(50)
-    ..height(50)
-    ..margin(bottom: 5)
-    ..borderRadius(all: 30)
-    ..background.hex('#F6F5F8')
-    ..ripple(true);
-
-  final ParentStyle actionsItemStyle = ParentStyle()..margin(vertical: 20.0);
-
-  final TxtStyle actionsItemTextStyle = TxtStyle()
-    ..textColor(Colors.black.withOpacity(0.8))
-    ..fontSize(12);
-}
-
-class Settings extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SettingsItem(Icons.location_on, hex('#8D7AEE'), 'Address',
-            'Ensure your harvesting address'),
-        SettingsItem(
-            Icons.lock, hex('#F468B7'), 'Privacy', 'System permission change'),
-        SettingsItem(
-            Icons.menu, hex('#FEC85C'), 'General', 'Basic functional settings'),
-        SettingsItem(Icons.notifications, hex('#5FD0D3'), 'Notifications',
-            'Take over the news in time'),
-        SettingsItem(Icons.question_answer, hex('#BFACAA'), 'Support',
-            'We are here to help'),
-      ],
     );
   }
 }
 
 class SettingsItem extends StatefulWidget {
-  SettingsItem(this.icon, this.iconBgColor, this.title, this.description);
+  SettingsItem(
+      this.icon, this.iconBgColor, this.title, this.description, this.tap);
 
-  final IconData icon;
+  final String icon;
   final Color iconBgColor;
   final String title;
   final String description;
+  final String tap;
 
   @override
   _SettingsItemState createState() => _SettingsItemState();
@@ -197,14 +117,24 @@ class _SettingsItemState extends State<SettingsItem> {
   @override
   Widget build(BuildContext context) {
     return Parent(
-      style: settingsItemStyle(pressed),
+      style: settingsItemStyle(pressed)
+        ..elevation(0.0)
+        ..background.color(bWhite),
       gesture: Gestures()
-        ..isTap((isTapped) => setState(() => pressed = isTapped)),
+        ..isTap((isTapped) => setState(() => pressed = isTapped))
+        ..onTap(() {
+          Navigator.of(context).pushNamed(widget.tap);
+        }),
       child: Row(
         children: <Widget>[
           Parent(
-            style: settingsItemIconStyle(widget.iconBgColor),
-            child: Icon(widget.icon, color: Colors.white, size: 20),
+            style: settingsItemIconStyle(bWhite)..elevation(0.0),
+            child: SvgPicture.asset(
+              widget.icon,
+              color: Colors.grey[400],
+              height: 25,
+              width: 25,
+            ),
           ),
           SizedBox(width: 10),
           Column(
@@ -212,7 +142,6 @@ class _SettingsItemState extends State<SettingsItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Txt(widget.title, style: itemTitleTextStyle),
-              SizedBox(height: 5),
               Txt(widget.description, style: itemDescriptionTextStyle),
             ],
           )
@@ -225,10 +154,10 @@ class _SettingsItemState extends State<SettingsItem> {
     ..elevation(pressed ? 0 : 50, color: Colors.grey)
     ..scale(pressed ? 0.95 : 1.0)
     ..alignmentContent.center()
-    ..height(70)
-    ..margin(vertical: 10)
-    ..borderRadius(all: 15)
-    ..background.hex('#ffffff')
+    ..height(60)
+    // ..margin(vertical: 10)
+    // ..borderRadius(all: 15)
+    ..background.color(bWhite)
     ..ripple(true)
     ..animate(150, Curves.easeOut);
 

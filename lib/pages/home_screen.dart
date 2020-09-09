@@ -2,7 +2,7 @@ import 'package:beplay/const.dart';
 import 'package:beplay/pages/agenda_screen.dart';
 import 'package:beplay/pages/orders_screen.dart';
 import 'package:beplay/pages/pageHomeScreen.dart';
-import 'package:beplay/pages/profile_screen_new.dart';
+import 'package:beplay/pages/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

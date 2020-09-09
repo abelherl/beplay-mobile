@@ -44,7 +44,7 @@ dependencies:
   flutter_verification_code: ^0.2.1
   google_sign_in: ^4.5.3
   flutter_bloc: ^6.0.5
-  equatable: ^1.2.4
+  shared_preferences: ^0.5.10
 
 uses-material-design: true
 dev_dependencies:
@@ -84,7 +84,11 @@ fonts:
       fonts:
           - asset: fonts/Montserrat-SemiBold.ttf
           - asset: fonts/Montserrat-Regular.ttf
-
+    - family: ProximaNova
+      fonts:
+          - asset: fonts/ProximaNova-Bold.otf
+          - asset: fonts/ProximaNova-Regular.otf
+          - asset: fonts/ProximaNova-Thin.otf
 google_fonts:
     fonts:
         - Montserrat
