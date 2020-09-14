@@ -1,7 +1,7 @@
 import 'package:beplay/const.dart';
-import 'package:beplay/pages/verification_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -15,6 +15,7 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController _txtEmail = TextEditingController();
   TextEditingController _txtPassword = TextEditingController();
   TextEditingController _txtConfirmPassword = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   final FocusNode _txtLastNameNode = FocusNode();
   final FocusNode _txtEmailNode = FocusNode();
   final FocusNode _txtPasswordNode = FocusNode();
@@ -81,6 +82,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   _buildInput() {
     return Form(
+      key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -197,7 +199,7 @@ class _SignupScreenState extends State<SignupScreen> {
           TextFormField(
             validator: (text) {
               if (text.isEmpty) {
-                return 'Please enter a Password';
+                return 'Please enter a Confirm Password';
               }
               if (text.length < 6) {
                 return 'Please enter a Password more 6 characters';
@@ -239,10 +241,8 @@ class _SignupScreenState extends State<SignupScreen> {
               "SIGN UP",
               gesture: Gestures()
                 ..onTap(() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => VerificationScreen()));
+                  _loading();
+                  _toSendRegistration();
                 }),
               style: TxtStyle()
                 ..textColor(Colors.white)
@@ -259,5 +259,62 @@ class _SignupScreenState extends State<SignupScreen> {
         ],
       ),
     );
+  }
+
+  _loading() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  }
+
+  _toSendRegistration() async {
+    if (_formKey.currentState.validate()) {
+      var client = http.Client();
+      try {
+        var uriResponse = await client.post(
+            'https://damp-basin-32676.herokuapp.com/api/auth/register',
+            body: {
+              'nama': _txtFirstName.text + " " + _txtLastName.text,
+              'email': _txtEmail.text,
+              'password': _txtPassword.text,
+              'password_confirmation': _txtConfirmPassword.text
+            });
+        print("nama: " + _txtFirstName.text + _txtLastName.text);
+        if (uriResponse.body != null) {
+          _autoLogin();
+        }
+      } finally {
+        client.close();
+      }
+    }
+  }
+
+  _autoLogin() async {
+    var client = http.Client();
+    try {
+      var uriResponse = await client.post(
+          'https://damp-basin-32676.herokuapp.com/api/auth/login',
+          body: {'email': _txtEmail.text, 'password': _txtPassword.text});
+      if (uriResponse.body != null) {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+      print(uriResponse.statusCode);
+      _txtFirstName.dispose();
+      _txtLastName.dispose();
+      _txtEmail.dispose();
+      _txtPassword.dispose();
+    } finally {
+      client.close();
+    }
   }
 }

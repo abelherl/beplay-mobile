@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
 import 'package:beplay/const.dart';
-
 import 'forgot_screen.dart';
-import 'home_screen.dart';
 import 'signup_screen.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -17,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
   final FocusNode txtPasswordNode = FocusNode();
-
+  final _formKey = GlobalKey<FormState>();
   void toggleVisibility() {
     setState(() {
       isHidden = !isHidden;
@@ -46,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Parent(
                     style: ParentStyle()..margin(all: 20),
                     child: Form(
+                      key: _formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -141,41 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(height: 20.0),
-                          Container(
-                            height: 48.0,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(24.0),
-                                color: bPrimaryColor,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.2),
-                                    spreadRadius: 2,
-                                    blurRadius: 2,
-                                    offset: Offset(0, 5),
-                                  )
-                                ]),
-                            child: Txt(
-                              "LOGIN",
-                              gesture: Gestures()
-                                ..onTap(() {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => HomeScreen()));
-                                }),
-                              style: TxtStyle()
-                                ..textColor(Colors.white)
-                                ..fontSize(16.0)
-                                ..alignmentContent.center()
-                                ..background.color(bPrimaryColor)
-                                ..width(MediaQuery.of(context).size.width)
-                                ..padding(vertical: 15)
-                                ..height(56)
-                                ..borderRadius(all: 36)
-                                ..ripple(true, splashColor: bPrimaryLightColor),
-                            ),
-                          ),
+                          _loginButton(),
                           SizedBox(
                             height: 15.0,
                           ),
@@ -254,5 +220,71 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  _loginButton() {
+    return Container(
+      height: 48.0,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24.0),
+          color: bPrimaryColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 2,
+              offset: Offset(0, 5),
+            )
+          ]),
+      child: Txt(
+        "LOGIN",
+        gesture: Gestures()
+          ..onTap(() {
+            _loading();
+            _loginRequest();
+          }),
+        style: TxtStyle()
+          ..textColor(Colors.white)
+          ..fontSize(16.0)
+          ..alignmentContent.center()
+          ..background.color(bPrimaryColor)
+          ..width(MediaQuery.of(context).size.width)
+          ..padding(vertical: 15)
+          ..height(56)
+          ..borderRadius(all: 36)
+          ..ripple(true, splashColor: bPrimaryLightColor),
+      ),
+    );
+  }
+
+  _loading() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  }
+
+  _loginRequest() async {
+    var client = http.Client();
+    try {
+      var uriResponse = await client.post(
+          'https://damp-basin-32676.herokuapp.com/api/auth/login',
+          body: {'email': txtEmail.text, 'password': txtPassword.text});
+      if (uriResponse.body != null) {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    } finally {
+      client.close();
+    }
   }
 }

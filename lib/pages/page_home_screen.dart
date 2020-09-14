@@ -3,12 +3,9 @@ import 'package:beplay/components/home_icons_class.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/model/home_icons.dart';
 import 'package:beplay/pages/cart_screen.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 final List<String> images = [
@@ -17,12 +14,12 @@ final List<String> images = [
 ];
 final List<String> title = [''];
 
-class pageHome_Screen extends StatefulWidget {
+class PageHomeSceen extends StatefulWidget {
   @override
-  _Page_Home createState() => _Page_Home();
+  _PageHomeSceen createState() => _PageHomeSceen();
 }
 
-class _Page_Home extends State<pageHome_Screen> {
+class _PageHomeSceen extends State<PageHomeSceen> {
   PageController pageController = PageController();
   bool pressed = false;
 
@@ -118,6 +115,8 @@ class _Page_Home extends State<pageHome_Screen> {
                 itemBuilder: (context, position) {
                   return BannerClass(
                     position: position,
+                    route: null,
+                    image: null,
                   );
                 },
                 controller: pageController,
@@ -150,6 +149,7 @@ class _Page_Home extends State<pageHome_Screen> {
                   Positioned(
                       right: -20,
                       child: FlatButton(
+                        onPressed: () {},
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[

@@ -1,7 +1,6 @@
 import 'package:beplay/const.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class FilterScreen extends StatefulWidget {
   @override
@@ -57,8 +56,7 @@ class _FilterScreenState extends State<FilterScreen> {
               ..onTap(() {
                 Navigator.pop(context);
               }),
-            style: ParentStyle()
-              ..padding(all: 20),
+            style: ParentStyle()..padding(all: 20),
             child: Text(
               "DONE",
               style: TextStyle(
@@ -104,7 +102,10 @@ class _FilterScreenState extends State<FilterScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(selectedClassType, style: TextStyle(fontSize: 16),),
+                  Text(
+                    selectedClassType,
+                    style: TextStyle(fontSize: 16),
+                  ),
                   PopupMenuButton(
                     itemBuilder: (context) {
                       return classTypes.map((item) {
@@ -115,7 +116,10 @@ class _FilterScreenState extends State<FilterScreen> {
                       }).toList();
                     },
                     onSelected: (selected) => onSelectedDropdown(selected),
-                    icon: Icon(Icons.keyboard_arrow_down, color: bDarkTextColor,),
+                    icon: Icon(
+                      Icons.keyboard_arrow_down,
+                      color: bDarkTextColor,
+                    ),
                   ),
                 ],
               ),
@@ -140,9 +144,8 @@ class _FilterScreenState extends State<FilterScreen> {
                   primaryColor: bPrimaryColor,
                   accentColor: bPrimaryColor,
                   colorScheme: ColorScheme.light(primary: bPrimaryColor),
-                  buttonTheme: ButtonThemeData(
-                      textTheme: ButtonTextTheme.primary
-                  ),
+                  buttonTheme:
+                      ButtonThemeData(textTheme: ButtonTextTheme.primary),
                 ),
                 child: CalendarDatePicker(
                   firstDate: DateTime.now(),
@@ -178,7 +181,9 @@ class _FilterScreenState extends State<FilterScreen> {
                     ..width(width)
                     ..height(!isClassDigital ? 40 : 0)
                     ..textColor(Colors.white)
-                    ..background.color(isLocationSelected(location) ? bPrimaryColor : bInactiveColor)
+                    ..background.color(isLocationSelected(location)
+                        ? bPrimaryColor
+                        : bInactiveColor)
                     ..borderRadius(all: width)
                     ..alignmentContent.center()
                     ..bold()
@@ -204,13 +209,13 @@ class _FilterScreenState extends State<FilterScreen> {
               children: levels.map((level) {
                 return Txt(
                   level,
-                  gesture: Gestures()
-                    ..onTap(() => onSelectedLevel(level)),
+                  gesture: Gestures()..onTap(() => onSelectedLevel(level)),
                   style: TxtStyle()
                     ..width(width)
                     ..height(40)
                     ..textColor(Colors.white)
-                    ..background.color(isLevelSelected(level) ? bPrimaryColor : bInactiveColor)
+                    ..background.color(
+                        isLevelSelected(level) ? bPrimaryColor : bInactiveColor)
                     ..borderRadius(all: width)
                     ..alignmentContent.center()
                     ..bold()

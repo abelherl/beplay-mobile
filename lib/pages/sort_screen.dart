@@ -1,6 +1,5 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:beplay/const.dart';
 
 class SortScreen extends StatefulWidget {
@@ -13,8 +12,6 @@ class _SortScreenState extends State<SortScreen> {
   bool _popularityAscending = false;
   bool _priceAscending = false;
 
-  final _list = ["Ascending", "Descending"];
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width / 2 - 30;
@@ -26,7 +23,9 @@ class _SortScreenState extends State<SortScreen> {
         backgroundColor: Colors.transparent,
         leading: Parent(
           gesture: Gestures()
-            ..onTap(() { Navigator.pop(context); }),
+            ..onTap(() {
+              Navigator.pop(context);
+            }),
           child: Icon(Icons.clear),
         ),
         actions: [
@@ -35,8 +34,7 @@ class _SortScreenState extends State<SortScreen> {
               ..onTap(() {
                 Navigator.pop(context);
               }),
-            style: ParentStyle()
-              ..padding(all: 20),
+            style: ParentStyle()..padding(all: 20),
             child: Text(
               "DONE",
               style: TextStyle(
@@ -79,12 +77,14 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Ascending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _dateAscending = !_dateAscending)),
+                    ..onTap(
+                        () => setState(() => _dateAscending = !_dateAscending)),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(_dateAscending ? bPrimaryColor : bInactiveColor)
+                    ..background
+                        .color(_dateAscending ? bPrimaryColor : bInactiveColor)
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()
@@ -93,12 +93,14 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Descending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _dateAscending = !_dateAscending)),
+                    ..onTap(
+                        () => setState(() => _dateAscending = !_dateAscending)),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(!_dateAscending ? bPrimaryColor : bInactiveColor)
+                    ..background
+                        .color(!_dateAscending ? bPrimaryColor : bInactiveColor)
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()
@@ -123,12 +125,14 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Ascending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _popularityAscending = !_popularityAscending)),
+                    ..onTap(() => setState(
+                        () => _popularityAscending = !_popularityAscending)),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(_popularityAscending ? bPrimaryColor : bInactiveColor)
+                    ..background.color(
+                        _popularityAscending ? bPrimaryColor : bInactiveColor)
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()
@@ -137,12 +141,14 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Descending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _popularityAscending = !_popularityAscending)),
+                    ..onTap(() => setState(
+                        () => _popularityAscending = !_popularityAscending)),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(!_popularityAscending ? bPrimaryColor : bInactiveColor)
+                    ..background.color(
+                        !_popularityAscending ? bPrimaryColor : bInactiveColor)
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()
@@ -167,12 +173,14 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Ascending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _priceAscending = !_priceAscending)),
+                    ..onTap(() =>
+                        setState(() => _priceAscending = !_priceAscending)),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(_priceAscending ? bPrimaryColor : bInactiveColor)
+                    ..background
+                        .color(_priceAscending ? bPrimaryColor : bInactiveColor)
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()
@@ -181,12 +189,14 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Descending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _priceAscending = !_priceAscending)),
+                    ..onTap(() =>
+                        setState(() => _priceAscending = !_priceAscending)),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(!_priceAscending ? bPrimaryColor : bInactiveColor)
+                    ..background.color(
+                        !_priceAscending ? bPrimaryColor : bInactiveColor)
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()

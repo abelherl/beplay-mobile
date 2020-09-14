@@ -1,5 +1,7 @@
 import 'package:beplay/components/main_app_bar.dart';
 import 'package:beplay/const.dart';
+import 'package:beplay/data_const.dart';
+import 'package:beplay/model/faq_model.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -12,21 +14,19 @@ class _FAQScreenState extends State<FAQScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: bWhite,
       appBar: MainAppBar(title: 'FAQ'),
       body: SingleChildScrollView(
         child: Parent(
-          style: ParentStyle()
-            ..background.color(bBackgroundColor)
-            ..padding(all: 15.0),
-          child: Column(
-            children: [
-              ItemFAQ(),
-              ItemFAQ(),
-              ItemFAQ(),
-              ItemFAQ(),
-              ItemFAQ(),
-              ItemFAQ(),
-            ],
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+            physics: NeverScrollableScrollPhysics(),
+            children: faqIndonesian.map((item) {
+              return ItemFAQ(
+                item: item,
+              );
+            }).toList(),
           ),
         ),
       ),
@@ -35,14 +35,17 @@ class _FAQScreenState extends State<FAQScreen> {
 }
 
 class ItemFAQ extends StatelessWidget {
+  const ItemFAQ({Key key, @required this.item}) : super(key: key);
+
+  final FAQModel item;
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: bBackgroundColor,
+      color: bWhite,
       child: Column(
         children: [
           Txt(
-            "What is Be - Play ? ",
+            item.question,
             style: TxtStyle()
               ..padding(top: 10.0)
               ..alignment.centerLeft()
@@ -54,7 +57,7 @@ class ItemFAQ extends StatelessWidget {
             height: 10.0,
           ),
           Txt(
-            "Lorem Ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta nunc eu velit posuere.",
+            item.answer,
             style: TxtStyle()
               ..fontSize(14.0)
               ..textColor(bLightTextColor)

@@ -1,4 +1,3 @@
-import 'package:beplay/model/orders_model.dart';
 import 'package:beplay/model/schendule.dart';
 
 import 'model/dancemodel.dart';
@@ -16,7 +15,8 @@ List<DanceModel> danceData = [
       skill: 'Beginner',
       images:
           'https://www.verywellfit.com/thmb/WtaRzGOCbJdVYFlWr_7VOfwn_Ow=/3000x2002/filters:no_upscale():max_bytes(150000):strip_icc()/zumba-fatcamera-c9d4ee824a0f4fda883484f878abc8ae.jpg',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 4.5,
       title: 'Aerobic Dance',
@@ -28,7 +28,8 @@ List<DanceModel> danceData = [
       skill: 'Intermediate',
       images:
           'http://aerobicdancevitalcampus.weebly.com/uploads/1/9/7/6/19762999/3260219_orig.jpg',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 4.0,
       title: 'Malang Ballet Course',
@@ -40,7 +41,8 @@ List<DanceModel> danceData = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 3.2,
       title: 'Meditation',
@@ -52,7 +54,8 @@ List<DanceModel> danceData = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/3094215/pexels-photo-3094215.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 3.7,
       title: 'Yoga',
@@ -64,7 +67,8 @@ List<DanceModel> danceData = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/2035066/pexels-photo-2035066.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 3.8,
       title: 'Yoga',
@@ -76,7 +80,8 @@ List<DanceModel> danceData = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/3735472/pexels-photo-3735472.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 3.3,
       title: 'Dance',
@@ -88,7 +93,8 @@ List<DanceModel> danceData = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/1638051/pexels-photo-1638051.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 2.5,
       title: 'Outdoors',
@@ -100,7 +106,8 @@ List<DanceModel> danceData = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/532803/pexels-photo-532803.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 3.5,
       title: 'Cardio',
@@ -112,7 +119,8 @@ List<DanceModel> danceData = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 4.0,
       title: 'Cardio',
@@ -124,7 +132,8 @@ List<DanceModel> danceData = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/3771809/pexels-photo-3771809.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 4.0,
       title: 'Boxing',
@@ -136,7 +145,8 @@ List<DanceModel> danceData = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/1608099/pexels-photo-1608099.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 4.1,
       title: 'Strength',
@@ -148,7 +158,8 @@ List<DanceModel> danceData = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/38630/bodybuilder-weight-training-stress-38630.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
 ];
 List<ReviewsDance> reviewsDance = [
   ReviewsDance(
@@ -184,7 +195,8 @@ List<DanceModel> orders = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/1608099/pexels-photo-1608099.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
   DanceModel(
       rating: 4.1,
       title: 'Strength',
@@ -196,7 +208,8 @@ List<DanceModel> orders = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/38630/bodybuilder-weight-training-stress-38630.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
 ];
 
 List<DanceModel> historyOrders = [
@@ -211,7 +224,8 @@ List<DanceModel> historyOrders = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
 ];
 
 List<DanceModel> agenda = [
@@ -226,7 +240,8 @@ List<DanceModel> agenda = [
       skill: 'Advanced',
       images:
           'https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      reviewDances: [reviewsDance]),
+      reviewDances: [reviewsDance],
+      onPressed: null),
 ];
 
 List<Schedule> schedule = [];

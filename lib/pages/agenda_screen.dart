@@ -14,6 +14,8 @@ class AgendaScreen extends StatefulWidget {
 }
 
 class _AgendaScreenState extends State<AgendaScreen> {
+  PageController pageController = PageController();
+  String title = 'September - 2020';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,18 +26,26 @@ class _AgendaScreenState extends State<AgendaScreen> {
               Icons.arrow_back_ios,
               color: Colors.white,
             ),
-            onPressed: null),
+            onPressed: () {
+              setState(() {
+                title = "September - 2020";
+              });
+            }),
         actions: [
           IconButton(
               icon: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
               ),
-              onPressed: null)
+              onPressed: () {
+                setState(() {
+                  title = "Oktober - 2020";
+                });
+              })
         ],
         centerTitle: true,
         title: Txt(
-          "September - 2020",
+          title,
           style: TxtStyle()..textColor(Colors.white),
         ),
       ),

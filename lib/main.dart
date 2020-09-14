@@ -2,14 +2,15 @@ import 'package:beplay/const.dart';
 import 'package:beplay/pages/classes.dart';
 import 'package:beplay/pages/home_screen.dart';
 import 'package:beplay/pages/login_screen.dart';
-import 'package:beplay/pages/pageHomeScreen.dart';
-import 'package:beplay/pages/settings/account_screen.dart';
-import 'package:beplay/pages/settings/change_password_screen.dart';
-import 'package:beplay/pages/settings/faq_screen.dart';
-import 'package:beplay/pages/settings/language_screen.dart';
-import 'package:beplay/pages/settings/notification_screen.dart';
-import 'package:beplay/pages/settings/privacy_screen.dart';
+import 'package:beplay/pages/page_home_screen.dart';
+import 'package:beplay/pages/profile/account_screen.dart';
+import 'package:beplay/pages/profile/change_password_screen.dart';
+import 'package:beplay/pages/profile/faq_screen.dart';
+import 'package:beplay/pages/profile/language_screen.dart';
+import 'package:beplay/pages/profile/notification_screen.dart';
+import 'package:beplay/pages/profile/privacy_screen.dart';
 import 'package:beplay/pages/signup_screen.dart';
+import 'package:beplay/pages/verification_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/splash_screen.dart';
@@ -34,8 +35,9 @@ class MyApp extends StatelessWidget {
         '/splash_screen': (context) => SplashScreen(),
         '/login_screen': (context) => LoginScreen(),
         '/signup_Screen': (context) => SignupScreen(),
+        '/verification_screen': (context) => VerificationScreen(),
         '/home': (context) => HomeScreen(),
-        '/page_HomeScreen': (context) => pageHome_Screen(),
+        '/page_HomeScreen': (context) => PageHomeSceen(),
         '/classes': (context) => Classes(),
 
         //Settings Page

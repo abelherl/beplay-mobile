@@ -1,19 +1,31 @@
+import 'dart:async';
+
+import 'package:beplay/model/user_model.dart';
+import 'package:beplay/repositories/user_repository.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
-enum LoginEvent { response }
+part 'login_event.dart';
+part 'login_state.dart';
 
-class LoginBloc extends Bloc<LoginEvent, String> {
-  String _email, _password, _response;
-  LoginBloc(String initialState) : super(initialState);
+UserRepository repo = new UserRepository();
+
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  LoginBloc() : super(LoginInitial());
 
   @override
-  Stream<String> mapEventToState(LoginEvent event) async* {
-    if (_email != null && _password != null) {
-      _response = '123';
-      yield _response;
-    } else {
-      _response = null;
-    }
+  Stream<LoginState> mapEventToState(
+    LoginEvent event,
+  ) async* {
+    if (event is Login) {
+      yield LoginWaiting();
+      try {
+        UserModel models = await repo.login(event.model);
+        yield LoginSuccess(model: models);
+      } catch (e) {
+        yield LoginFailed(message: e.toString());
+      }
+    } else {}
   }
 }

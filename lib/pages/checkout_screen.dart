@@ -1,7 +1,6 @@
 import 'package:beplay/components/main_app_bar.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
-import 'package:beplay/pages/payment_screen.dart';
 import 'package:beplay/pages/promo_screen.dart';
 import 'package:beplay/pages/proof_screen.dart';
 import 'package:division/division.dart';

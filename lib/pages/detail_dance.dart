@@ -1,5 +1,3 @@
-import 'package:beplay/components/main_app_bar.dart';
-import 'package:beplay/components/reviews_item.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
 import 'package:beplay/model/dancemodel.dart';

@@ -2,7 +2,6 @@ import 'package:beplay/components/main_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
 import 'package:beplay/const.dart';
-import 'package:flutter/services.dart';
 
 class PromoScreen extends StatefulWidget {
   @override
@@ -14,7 +13,9 @@ class _PromoScreenState extends State<PromoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: MainAppBar(title: 'Promo Code',),
+      appBar: MainAppBar(
+        title: 'Promo Code',
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -43,7 +44,9 @@ class _PromoScreenState extends State<PromoScreen> {
                 ..padding(all: 20)
                 ..borderRadius(all: 100),
             ),
-            SizedBox(height: 25,),
+            SizedBox(
+              height: 25,
+            ),
             Text(
               "Available Codes",
               style: TextStyle(
@@ -51,7 +54,9 @@ class _PromoScreenState extends State<PromoScreen> {
                 fontWeight: FontWeight.w800,
               ),
             ),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Parent(
               child: Text(
                 "NEWUSER131",
@@ -69,7 +74,9 @@ class _PromoScreenState extends State<PromoScreen> {
                 ..ripple(true, splashColor: bPrimaryLightColor)
                 ..linearGradient(colors: [bPrimaryColor, bPrimaryLightColor]),
             ),
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Parent(
               child: Text(
                 "SEPTEMBERPROMO",

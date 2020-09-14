@@ -1,7 +1,7 @@
 import 'package:beplay/const.dart';
 import 'package:beplay/pages/agenda_screen.dart';
 import 'package:beplay/pages/orders_screen.dart';
-import 'package:beplay/pages/pageHomeScreen.dart';
+import 'package:beplay/pages/page_home_screen.dart';
 import 'package:beplay/pages/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +13,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State<HomeScreen> {
   int _page = 0;
-  Widget _showPage = pageHome_Screen();
+  Widget _showPage = PageHomeSceen();
 
   // ignore: missing_return
   Widget _choosePage(int page) {
     switch (page) {
       case 0:
-        return pageHome_Screen();
+        return PageHomeSceen();
       case 1:
         return OrdersScreen();
       case 2:
