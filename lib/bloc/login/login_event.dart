@@ -8,6 +8,6 @@ abstract class LoginEvent extends Equatable {
 }
 
 class Login extends LoginEvent {
-  final UserModel model;
+  final UserLogin model;
   Login({@required this.model});
 }
