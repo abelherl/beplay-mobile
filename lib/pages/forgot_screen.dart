@@ -42,7 +42,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.width / 8,
+                height: MediaQuery.of(context).size.width / 9,
               ),
               Padding(
                 padding: const EdgeInsets.only(

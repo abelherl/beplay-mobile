@@ -1,7 +1,6 @@
-import 'package:beplay/components/main_app_bar.dart';
 import 'package:beplay/model/dancemodel.dart';
-import 'package:flutter/material.dart';
 import 'package:division/division.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -9,33 +8,46 @@ import '../const.dart';
 import '../data_dummy.dart';
 import 'detail_dance.dart';
 
-class OrdersHistoryScreen extends StatefulWidget {
+class AgendaScreen extends StatefulWidget {
   @override
-  _OrdersHistoryScreenState createState() => _OrdersHistoryScreenState();
+  _AgendaScreenState createState() => _AgendaScreenState();
 }
 
-class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
+class _AgendaScreenState extends State<AgendaScreen> {
+  PageController pageController = PageController();
+  String title = 'September - 2020';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   toolbarHeight: 65,
-      //   backgroundColor: bPrimaryColor,
-      //   leading: IconButton(
-      //       icon: Icon(
-      //         Icons.arrow_back_ios,
-      //         color: Colors.white,
-      //       ),
-      //       onPressed: () => Navigator.pop(context)),
-      //   title: Txt("History Orders",
-      //       style: TxtStyle()
-      //         ..fontSize(20)
-      //         ..fontWeight(FontWeight.bold)
-      //         ..fontFamily('Montserrat')
-      //         ..textColor(Colors.white)),
-      // ),
-      appBar: MainAppBar(
-        title: 'History Orders',
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              setState(() {
+                title = "September - 2020";
+              });
+            }),
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                setState(() {
+                  title = "Oktober - 2020";
+                });
+              })
+        ],
+        centerTitle: true,
+        title: Txt(
+          title,
+          style: TxtStyle()..textColor(Colors.white),
+        ),
       ),
       body: SingleChildScrollView(
         child: Parent(
@@ -43,8 +55,8 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
             shrinkWrap: true,
             padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
             physics: NeverScrollableScrollPhysics(),
-            children: historyOrders.map((item) {
-              return CardHistoryOrders(
+            children: agenda.map((item) {
+              return CardAgenda(
                 item: item,
               );
             }).toList(),
@@ -55,15 +67,15 @@ class _OrdersHistoryScreenState extends State<OrdersHistoryScreen> {
   }
 }
 
-class CardHistoryOrders extends StatefulWidget {
-  const CardHistoryOrders({Key key, @required this.item}) : super(key: key);
+class CardAgenda extends StatefulWidget {
+  const CardAgenda({Key key, @required this.item}) : super(key: key);
 
   final DanceModel item;
   @override
-  _CardHistoryOrdersState createState() => _CardHistoryOrdersState();
+  _CardAgendaState createState() => _CardAgendaState();
 }
 
-class _CardHistoryOrdersState extends State<CardHistoryOrders> {
+class _CardAgendaState extends State<CardAgenda> {
   @override
   Widget build(BuildContext context) {
     var tap = false;

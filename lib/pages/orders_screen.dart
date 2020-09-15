@@ -1,5 +1,5 @@
 import 'package:beplay/const.dart';
-import 'package:beplay/model/orders_model.dart';
+import 'package:beplay/model/dancemodel.dart';
 import 'package:beplay/pages/orders_history_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import '../data_dummy.dart';
-import 'classes.dart';
+import 'detail_dance.dart';
 
 class OrdersScreen extends StatefulWidget {
   @override
@@ -15,6 +15,7 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
+  bool tap = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,21 +32,29 @@ class _OrdersScreenState extends State<OrdersScreen> {
             ..padding(left: 10),
         ),
         actions: [
-          IconButton(
-              alignment: Alignment.center,
-              padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
-              splashRadius: 15,
-              icon: Icon(
-                Icons.access_time,
-                size: 30,
+          Parent(
+              gesture: Gestures()
+                ..isTap((isTapped) => setState(() {
+                      tap = isTapped;
+                    }))
+                ..onTap(() {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OrdersHistoryScreen()));
+                }),
+              style: ParentStyle()
+                ..padding(right: 15)
+                ..ripple(true)
+                ..animate(150, Curves.easeOut)
+                ..borderRadius(all: 32)
+                ..alignment.center(),
+              child: SvgPicture.asset(
+                'icons/ic_baseline-history.svg',
                 color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => OrdersHistoryScreen()));
-              }),
+                height: 32,
+                width: 32,
+              )),
         ],
       ),
       body: SingleChildScrollView(
@@ -69,7 +78,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 class CardOrders extends StatefulWidget {
   const CardOrders({Key key, @required this.item}) : super(key: key);
 
-  final OrderModel item;
+  final DanceModel item;
   @override
   _CardOrdersState createState() => _CardOrdersState();
 }
@@ -84,9 +93,9 @@ class _CardOrdersState extends State<CardOrders> {
                 tap = isTapped;
               }))
           ..onTap(() {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //     return DetailDance(danceModel: widget.item);
-            // }));
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return DetailDance(danceModel: widget.item);
+            }));
           }),
         style: ParentStyle()
           ..margin(top: 20)
@@ -127,9 +136,10 @@ class _CardOrdersState extends State<CardOrders> {
               child: Parent(
                 gesture: Gestures()
                   ..onTap(() {
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    //     return De(danceModel: widget.item);
-                    // }));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return DetailDance(danceModel: widget.item);
+                    }));
                   }),
                 style: ParentStyle()
                   ..background.color(bBackgroundColor)

@@ -1,8 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:beplay/components/banner_class.dart';
-import 'package:beplay/components/banner_scroll_physics.dart';
 import 'package:beplay/components/class_class.dart';
-import 'package:beplay/components/dance_item.dart';
 import 'package:beplay/components/main_app_bar.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
@@ -11,7 +7,6 @@ import 'package:beplay/pages/detail_dance.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/parser.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class Classes extends StatefulWidget {
@@ -25,7 +20,6 @@ class _ClassesState extends State<Classes> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    bool press = false;
 //    data = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: MainAppBar(

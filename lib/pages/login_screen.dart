@@ -1,9 +1,11 @@
-import 'package:beplay/const.dart';
-import 'package:beplay/pages/forgot_screen.dart';
-import 'package:beplay/pages/home_screen.dart';
-import 'package:beplay/pages/signup_screen.dart';
-import 'package:division/division.dart';
+import 'package:beplay/bloc/login/login_bloc.dart';
+import 'package:beplay/model/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:division/division.dart';
+import 'package:beplay/const.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'forgot_screen.dart';
+import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
   final FocusNode txtPasswordNode = FocusNode();
-
+  final _formKey = GlobalKey<FormState>();
   void toggleVisibility() {
     setState(() {
       isHidden = !isHidden;
@@ -26,49 +28,113 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: bWhite,
       body: SafeArea(
-        child: Form(
-          key: formKey,
+        child: BlocListener<LoginBloc, LoginState>(
+          listener: (context, state) {
+            if (state is LoginWaiting) {
+              _loading();
+            }
+            if (state is LoginSuccess) {
+              Navigator.pushNamed(context, '/home');
+            }
+            if (state is LoginFailed) {
+              Navigator.pop(context);
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Login Failed'),
+                      content: Text(state.message),
+                    );
+                  });
+            }
+          },
           child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    width: 150,
-                    child: Image.asset(
-                      'images/logo1.png',
+            child: Container(
+              color: bWhite,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Parent(
+                      style: ParentStyle()
+                        ..width(200)
+                        ..height(200)
+                        ..background.color(bWhite),
+                      child: Image.asset('images/logo1.png'),
                     ),
-                  ),
-                  Card(
-                    elevation: 0.0,
-                    child: Container(
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: 50.0,
-                          left: 20,
-                          right: 20,
-                        ),
+                    Parent(
+                      style: ParentStyle()..margin(all: 20),
+                      child: Form(
+                        key: _formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            Txt(
                               "Login",
-                              // ignore: deprecated_member_use
-                              style: Theme.of(context).textTheme.headline.copyWith(
-                                    color: Colors.blueGrey.shade700,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                              style: TxtStyle()
+                                ..fontSize(25)
+                                ..textColor(Colors.blueGrey.shade700)
+                                ..fontWeight(FontWeight.w700),
                             ),
                             SizedBox(
                               height: 16.0,
                             ),
-                            buildTextFieldUsername("Email"),
+                            TextFormField(
+                              controller: txtEmail,
+                              validator: (emailInput) {
+                                if (emailInput.isEmpty) {
+                                  return 'Please enter an email';
+                                }
+                                return null;
+                              },
+                              onEditingComplete: () {
+                                FocusScope.of(context)
+                                    .requestFocus(txtPasswordNode);
+                              },
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                labelText: 'EMAIL',
+                                contentPadding: const EdgeInsets.all(10.0),
+                                prefixIcon: Icon(
+                                  Icons.alternate_email,
+                                  color: Colors.orange,
+                                ),
+                              ),
+                            ),
                             SizedBox(
                               height: 8.0,
                             ),
-                            buildTextFieldPassword("Password"),
+                            TextFormField(
+                              controller: txtPassword,
+                              focusNode: txtPasswordNode,
+                              validator: (text) {
+                                if (text.isEmpty) {
+                                  return 'Please enter a Password';
+                                }
+                                if (text.length < 6) {
+                                  return 'Please enter a Password more 6 characters';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'PASSWORD',
+                                contentPadding: const EdgeInsets.all(10.0),
+                                prefixIcon: Icon(
+                                  Icons.lock,
+                                  color: Colors.orange,
+                                ),
+                                suffixIcon: IconButton(
+                                  onPressed: toggleVisibility,
+                                  icon: isHidden
+                                      ? Icon(Icons.visibility_off)
+                                      : Icon(Icons.visibility),
+                                ),
+                              ),
+                              obscureText: isHidden,
+                            ),
                             SizedBox(
                               height: 20.0,
                             ),
@@ -97,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             SizedBox(height: 20.0),
-                            buildButtonContainer(),
+                            _loginButton(),
                             SizedBox(
                               height: 15.0,
                             ),
@@ -168,9 +234,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                       ),
-                    ),
-                  ),
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -179,60 +245,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget buildTextFieldUsername(String hintText) {
-    return TextFormField(
-      controller: txtEmail,
-      validator: (emailInput) {
-        if (emailInput.isEmpty) {
-          return 'Please enter an email';
-        }
-        return null;
-      },
-      onEditingComplete: () {
-        FocusScope.of(context).requestFocus(txtPasswordNode);
-      },
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        labelText: hintText,
-        contentPadding: const EdgeInsets.all(10.0),
-        prefixIcon: Icon(
-          Icons.alternate_email,
-          color: Colors.orange,
-        ),
-      ),
-    );
-  }
-
-  Widget buildTextFieldPassword(String hintText) {
-    return TextFormField(
-      controller: txtPassword,
-      focusNode: txtPasswordNode,
-      validator: (text) {
-        if (text.isEmpty) {
-          return 'Please enter a Password';
-        }
-        if (text.length < 6) {
-          return 'Please enter a Password more 6 characters';
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        labelText: hintText,
-        contentPadding: const EdgeInsets.all(10.0),
-        prefixIcon: Icon(
-          Icons.lock,
-          color: Colors.orange,
-        ),
-        suffixIcon: IconButton(
-          onPressed: toggleVisibility,
-          icon: isHidden ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
-        ),
-      ),
-      obscureText: isHidden,
-    );
-  }
-
-  Widget buildButtonContainer() {
+  _loginButton() {
     return Container(
       height: 48.0,
       width: MediaQuery.of(context).size.width,
@@ -251,8 +264,7 @@ class _LoginScreenState extends State<LoginScreen> {
         "LOGIN",
         gesture: Gestures()
           ..onTap(() {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            _loginRequest();
           }),
         style: TxtStyle()
           ..textColor(Colors.white)
@@ -265,10 +277,38 @@ class _LoginScreenState extends State<LoginScreen> {
           ..borderRadius(all: 36)
           ..ripple(true, splashColor: bPrimaryLightColor),
       ),
-      //   ),
-      //     ),
-      //   )
-      //   ),
     );
+  }
+
+  _loading() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  }
+
+  _loginRequest() async {
+//    var client = http.Client();
+//    try {
+//      var uriResponse = await client.post(
+//          'https://damp-basin-32676.herokuapp.com/api/auth/login',
+//          body: {'email': txtEmail.text, 'password': txtPassword.text});
+//      if (uriResponse.body != null) {
+//        Navigator.pushReplacementNamed(context, '/home');
+//      }
+//    } finally {
+//      client.close();
+//    }
+    context.bloc<LoginBloc>().add(Login(
+        model: UserLogin(email: txtEmail.text, password: txtPassword.text)));
   }
 }

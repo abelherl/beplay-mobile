@@ -1,7 +1,9 @@
+import 'package:beplay/bloc/register/register_bloc.dart';
 import 'package:beplay/const.dart';
-import 'package:beplay/pages/verification_screen.dart';
+import 'package:beplay/model/user_model.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController _txtEmail = TextEditingController();
   TextEditingController _txtPassword = TextEditingController();
   TextEditingController _txtConfirmPassword = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   final FocusNode _txtLastNameNode = FocusNode();
   final FocusNode _txtEmailNode = FocusNode();
   final FocusNode _txtPasswordNode = FocusNode();
@@ -40,39 +43,65 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
             onPressed: () => Navigator.pop(context)),
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          // primary: true,
-          padding: EdgeInsets.only(top: MediaQuery.of(context).size.width / 7),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 25,
-                  right: 25,
-                ),
-                child: Text(
-                  "Let's get started\nCreate an account",
-                  // ignore: deprecated_member_use
-                  style: Theme.of(context).textTheme.headline.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
+      body: SafeArea(
+        child: BlocListener<RegisterBloc, RegisterState>(
+          listener: (context, state) {
+            if (state is RegisterWaiting) {
+              _loading();
+            }
+            if (state is RegisterSuccess) {
+              print(state.model);
+              _autoLogin();
+            }
+            if (state is RegisterFailed) {
+              Navigator.pop(context);
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Register Failed'),
+                      content: Text(state.message),
+                    );
+                  });
+            }
+          },
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              // primary: true,
+              padding:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.width / 7),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: 25,
+                      right: 25,
+                    ),
+                    child: Text(
+                      "Let's get started\nCreate an account",
+                      // ignore: deprecated_member_use
+                      style: Theme.of(context).textTheme.headline.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 8.5,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.1,
+                      right: MediaQuery.of(context).size.width * 0.1,
+                    ),
+                    child: _buildInput(),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width / 8.5,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.1,
-                  right: MediaQuery.of(context).size.width * 0.1,
-                ),
-                child: _buildInput(),
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -81,6 +110,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   _buildInput() {
     return Form(
+      key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -103,7 +133,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                   controller: _txtFirstName,
                   decoration: InputDecoration(
-                      labelText: "First Name", prefixText: "\t"),
+                      labelText: "FIRST NAME", prefixText: "\t"),
                   onEditingComplete: () {
                     FocusScope.of(context).requestFocus(_txtLastNameNode);
                   },
@@ -129,7 +159,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   controller: _txtLastName,
                   focusNode: _txtLastNameNode,
                   decoration:
-                      InputDecoration(labelText: "Last Name", prefixText: "\t"),
+                      InputDecoration(labelText: "LAST NAME", prefixText: "\t"),
                   onEditingComplete: () {
                     FocusScope.of(context).requestFocus(_txtEmailNode);
                   },
@@ -146,17 +176,17 @@ class _SignupScreenState extends State<SignupScreen> {
                 return "cannot be empty";
               }
 
-              RegExp exp = RegExp(r"^[a-zA-Z0-9_\-@]+$");
-              if (!exp.hasMatch(text)) {
-                return "some characters are not accepted";
-              }
+              // RegExp exp = RegExp(r"^[a-zA-Z0-9_\-@]+$");
+              // if (!exp.hasMatch(text)) {
+              //   return "some characters are not accepted";
+              // }
 
               return null;
             },
             controller: _txtEmail,
             focusNode: _txtEmailNode,
             keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(labelText: "Email", prefixText: "\t"),
+            decoration: InputDecoration(labelText: "EMAIL", prefixText: "\t"),
             onEditingComplete: () {
               FocusScope.of(context).requestFocus(_txtPasswordNode);
             },
@@ -177,7 +207,7 @@ class _SignupScreenState extends State<SignupScreen> {
             controller: _txtPassword,
             focusNode: _txtPasswordNode,
             decoration: InputDecoration(
-              labelText: "Password",
+              labelText: "PASSWORD",
               contentPadding: const EdgeInsets.all(10.0),
               suffixIcon: IconButton(
                 onPressed: _toggleVisibility,
@@ -197,7 +227,7 @@ class _SignupScreenState extends State<SignupScreen> {
           TextFormField(
             validator: (text) {
               if (text.isEmpty) {
-                return 'Please enter a Password';
+                return 'Please enter a Confirm Password';
               }
               if (text.length < 6) {
                 return 'Please enter a Password more 6 characters';
@@ -207,7 +237,7 @@ class _SignupScreenState extends State<SignupScreen> {
             focusNode: _txtConfirmNode,
             controller: _txtConfirmPassword,
             decoration: InputDecoration(
-              labelText: "Confrim Password",
+              labelText: "CONFIRM PASSWORD",
               contentPadding: const EdgeInsets.all(10.0),
               suffixIcon: IconButton(
                 onPressed: _toggleVisibility,
@@ -239,10 +269,9 @@ class _SignupScreenState extends State<SignupScreen> {
               "SIGN UP",
               gesture: Gestures()
                 ..onTap(() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => VerificationScreen()));
+                  _formKey.currentState.validate();
+                  _formKey.currentState.save();
+                  _requestRegister();
                 }),
               style: TxtStyle()
                 ..textColor(Colors.white)
@@ -255,9 +284,45 @@ class _SignupScreenState extends State<SignupScreen> {
                 ..borderRadius(all: 36)
                 ..ripple(true, splashColor: bPrimaryLightColor),
             ),
-          ),
+          )
         ],
       ),
     );
+  }
+
+  _loading() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  }
+
+  _requestRegister() {
+    UserModel models = UserModel(
+        nama: _txtFirstName.text + _txtLastName.text,
+        email: _txtEmail.text,
+        password: _txtPassword.text,
+        passwordConfirmation: _txtConfirmPassword.text);
+    if (models != null) {
+      context.bloc<RegisterBloc>().add(Register(model: models));
+    }
+  }
+
+  _autoLogin() {
+    print("BiSA");
+    Navigator.pushReplacementNamed(context, '/home');
+    _txtFirstName.dispose();
+    _txtLastName.dispose();
+    _txtEmail.dispose();
+    _txtPassword.dispose();
   }
 }

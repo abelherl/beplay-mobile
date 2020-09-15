@@ -2,7 +2,6 @@ import 'package:beplay/components/main_app_bar.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
 import 'package:beplay/pages/checkout_screen.dart';
-import 'package:beplay/pages/payment_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,7 +15,9 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar(title: "Cart",),
+      appBar: MainAppBar(
+        title: "Cart",
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -41,9 +42,11 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                           ),
                           Parent(
-                            gesture: Gestures()
-                              ..onTap(() {}),
-                            child: Icon(Icons.delete, color: bShadowColor,),
+                            gesture: Gestures()..onTap(() {}),
+                            child: Icon(
+                              Icons.delete,
+                              color: bShadowColor,
+                            ),
                           )
                         ],
                       ),

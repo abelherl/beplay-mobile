@@ -1,132 +1,178 @@
+import 'package:beplay/const.dart';
+import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_svg/svg.dart';
 
-class Profile_Screen extends StatefulWidget {
+class ProfileScreen extends StatefulWidget {
   @override
-  _Profile_Screen createState() => _Profile_Screen();
+  _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _Profile_Screen extends State<Profile_Screen> {
-  List<String> Title = <String>[
-    'Account',
-    'Language',
-    'Settings',
-    'Privacy',
-    'FAQ',
-    'Logout'
-  ];
-  List<String> about = <String>[
-    'Change Password About',
-    'EN-US',
-    'Interface',
-    'Last seen,Public',
-    'EN-US',
-    ''
-  ];
-
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: bWhite,
       appBar: AppBar(
-        backgroundColor: Colors.orangeAccent,
-        elevation: 0,
-        leading: ClipRRect(
-          borderRadius: BorderRadius.only(bottomRight: Radius.circular(64.0)),
-          child: Container(
-            width: MediaQuery.of(context).size.width / 4,
-            color: Colors.deepOrange,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: FlatButton(
-                  onPressed: () {},
-                  child: Icon(
-                    FontAwesomeIcons.arrowLeft,
-                    color: Colors.white,
-                  )),
-            ),
-          ),
-        ),
+        backgroundColor: bPrimaryColor,
+        automaticallyImplyLeading: false,
+        elevation: 0.0,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                color: Colors.orangeAccent,
-                height: MediaQuery.of(context).size.height / 6,
-              ),
-              Transform.translate(
-                offset: Offset(125, 75),
-                child: CircleAvatar(
-                  radius: 50.0,
-                  backgroundImage: AssetImage('images/aaa.jpeg'),
-                ),
-              ),
-              Transform.translate(
-                offset: Offset(0, -175),
-                child: Center(
-                  child: Text(
-                    'Omaewa Mou',
-                    style: TextStyle(
-                        color: Color(0xff404080),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 30.0),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    color: bPrimaryColor,
+                    height: MediaQuery.of(context).size.height / 8,
                   ),
+                  Transform.translate(
+                    offset: Offset(125, 30),
+                    child: Parent(
+                      child: CircleAvatar(
+                        radius: 50.0,
+                        backgroundImage: AssetImage('images/aaa.jpeg'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              Txt(
+                'SMK CODING',
+                style: TxtStyle()
+                  ..alignment.center()
+                  ..textColor(Colors.black)
+                  ..fontWeight(FontWeight.w600)
+                  ..fontSize(25.0),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                color: bWhite,
+                child: Column(
+                  children: [
+                    SettingsItem('icons/bi_person-fill.svg', Colors.white,
+                        'Account', 'Change your Account Detail', '/account'),
+                    SettingsItem(
+                        'icons/ic_baseline-g-translate.svg',
+                        Colors.grey[400],
+                        'Language',
+                        'Change App Language',
+                        '/language'),
+                    SettingsItem(
+                        'icons/clarity_settings-solid.svg',
+                        Colors.grey[400],
+                        'Settings',
+                        'Notifications Settings',
+                        '/notification'),
+                    SettingsItem(
+                        'icons/dashicons_privacy.svg',
+                        Colors.grey[400],
+                        'Privacy',
+                        'Privacy and Policy',
+                        '/privacy'),
+                    SettingsItem('icons/wpf_faq.svg', Colors.grey[400], 'FAQ',
+                        'Frequently Asked Questions', '/faq'),
+                    SettingsItem('icons/ion_log-out.svg', Colors.grey[400],
+                        'Log Out', 'Sign Out', null),
+                    Container(
+                      height: 20.0,
+                      color: bWhite,
+                    )
+                  ],
                 ),
               ),
-              Transform.translate(
-                offset: Offset(0, 250),
-                child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: Title.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                      color: Colors.orange, width: 2.0))),
-                          height: MediaQuery.of(context).size.height / 10,
-                          width: MediaQuery.of(context).size.width / 2,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    Title[index],
-                                    style: TextStyle(
-                                        color: Colors.deepPurple[500],
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 20),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  about[index],
-                                  style: TextStyle(
-                                      color: Colors.deepPurpleAccent,
-                                      fontSize: 16.0),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-              )
             ],
           ),
         ),
       ),
     );
   }
+}
+
+class SettingsItem extends StatefulWidget {
+  SettingsItem(
+      this.icon, this.iconBgColor, this.title, this.description, this.tap);
+
+  final String icon;
+  final Color iconBgColor;
+  final String title;
+  final String description;
+  final String tap;
+
+  @override
+  _SettingsItemState createState() => _SettingsItemState();
+}
+
+class _SettingsItemState extends State<SettingsItem> {
+  bool pressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Parent(
+      style: settingsItemStyle(pressed)
+        ..elevation(0.0)
+        ..background.color(bWhite),
+      gesture: Gestures()
+        ..isTap((isTapped) => setState(() => pressed = isTapped))
+        ..onTap(() {
+          Navigator.of(context).pushNamed(widget.tap);
+        }),
+      child: Row(
+        children: <Widget>[
+          Parent(
+            style: settingsItemIconStyle(bWhite)..elevation(0.0),
+            child: SvgPicture.asset(
+              widget.icon,
+              color: Colors.grey[400],
+              height: 25,
+              width: 25,
+            ),
+          ),
+          SizedBox(width: 10),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Txt(widget.title, style: itemTitleTextStyle),
+              Txt(widget.description, style: itemDescriptionTextStyle),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  final settingsItemStyle = (pressed) => ParentStyle()
+    ..elevation(pressed ? 0 : 50, color: Colors.grey)
+    ..scale(pressed ? 0.95 : 1.0)
+    ..alignmentContent.center()
+    ..height(60)
+    // ..margin(vertical: 10)
+    // ..borderRadius(all: 15)
+    ..background.color(bWhite)
+    ..ripple(true)
+    ..animate(150, Curves.easeOut);
+
+  final settingsItemIconStyle = (Color color) => ParentStyle()
+    ..background.color(color)
+    ..margin(left: 15)
+    ..padding(all: 12)
+    ..borderRadius(all: 30);
+
+  final TxtStyle itemTitleTextStyle = TxtStyle()
+    ..bold()
+    ..fontSize(16);
+
+  final TxtStyle itemDescriptionTextStyle = TxtStyle()
+    ..textColor(Colors.black26)
+    ..bold()
+    ..fontSize(12);
 }

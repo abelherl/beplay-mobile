@@ -1,7 +1,6 @@
 import 'package:beplay/components/main_app_bar.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
-import 'package:beplay/pages/payment_screen.dart';
 import 'package:beplay/pages/promo_screen.dart';
 import 'package:beplay/pages/proof_screen.dart';
 import 'package:division/division.dart';
@@ -23,7 +22,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: MainAppBar(title: "Checkout",),
+      appBar: MainAppBar(
+        title: "Checkout",
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -49,9 +50,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             ),
                           ),
                           Parent(
-                            gesture: Gestures()
-                              ..onTap(() {}),
-                            child: Icon(Icons.delete, color: bShadowColor,),
+                            gesture: Gestures()..onTap(() {}),
+                            child: Icon(
+                              Icons.delete,
+                              color: bShadowColor,
+                            ),
                           )
                         ],
                       ),
@@ -122,34 +125,38 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   toggleable: true,
                   autofocus: true,
                   activeColor: bPrimaryColor,
-                  onChanged: (newValue) => setState(() => _paymentWith = newValue),
+                  onChanged: (newValue) =>
+                      setState(() => _paymentWith = newValue),
                 ),
                 Image(
                   image: NetworkImage(
                     'https://www.infokoding.com/wp-content/uploads/2017/12/LOGO-BCA-TRANSPARAN.png',
                   ),
-                  width: 120,
+                  width: 100,
                   fit: BoxFit.cover,
                 ),
                 Radio(
-                    groupValue: _paymentWith,
-                    value: 1,
-                    toggleable: true,
-                    activeColor: bPrimaryColor,
-                    onChanged: (newValue) => setState(() => _paymentWith = newValue),
+                  groupValue: _paymentWith,
+                  value: 1,
+                  toggleable: true,
+                  activeColor: bPrimaryColor,
+                  onChanged: (newValue) =>
+                      setState(() => _paymentWith = newValue),
                 ),
                 Image(
                   image: NetworkImage(
                     'https://livewatchstore.com/wp-content/uploads/2019/11/ovo-logo-png-6.png',
                   ),
-                  width: 120,
+                  width: 100,
                   fit: BoxFit.cover,
                 ),
               ],
             ),
             SizedBox(height: 15),
             Text(
-              (_paymentWith == 0) ? "Bank BCA: " + bcaInfo + "\n" + trainerInfo : "Nomor OVO: " + ovoInfo + "\n" + trainerInfo,
+              (_paymentWith == 0)
+                  ? "Bank BCA: " + bcaInfo + "\n" + trainerInfo
+                  : "Nomor OVO: " + ovoInfo + "\n" + trainerInfo,
               style: TextStyle(
                 fontSize: 16,
                 color: bLightTextColor,
@@ -177,7 +184,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   "+ Insert promo code",
                   gesture: Gestures()
                     ..onTap(() {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
                         return PromoScreen();
                       }));
                     }),
