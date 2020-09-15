@@ -9,7 +9,8 @@ class UserRepository {
   String urlSignUp = "https://damp-basin-32676.herokuapp.com/api/auth/login";
 
   Future<UserLogin> login(UserLogin model) async {
-    var response = await http.post(urlLogin, body: model.toJson());
+    var response = await http.post(urlLogin,
+        body: {'email': model.email, 'password': model.password});
     if (response.statusCode == 200) {
       jsonResponse = jsonDecode(response.body);
       print("json Response : $jsonResponse");

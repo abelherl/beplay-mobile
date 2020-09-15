@@ -22,7 +22,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield LoginWaiting();
       try {
         var response = await repo.login(event.model);
-        print(response);
+        print("INI RESPONSE $response");
         yield LoginSuccess(model: response);
       } catch (e) {
         yield LoginFailed(message: e.toString());
