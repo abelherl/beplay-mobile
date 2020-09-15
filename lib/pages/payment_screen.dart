@@ -33,7 +33,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           ),
           SizedBox(height: 25,),
           Text(
-            success ? "Order Successful" : "Order Failed",
+            success ? "Successful" : "Failed",
             style: TextStyle(
               fontSize: 25,
               color: bDarkTextColor,

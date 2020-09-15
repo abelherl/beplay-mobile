@@ -4,6 +4,7 @@ import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
 import 'package:beplay/model/dancemodel.dart';
 import 'package:beplay/model/reviews.dart';
+import 'package:beplay/pages/feedback_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ import 'cart_screen.dart';
 
 class DetailDance extends StatefulWidget {
   DetailDance({Key key, @required this.danceModel}) : super(key: key);
-  final DanceModel danceModel;
+  final dynamic danceModel;
 
   @override
   _DetailDanceState createState() => _DetailDanceState(danceModel);
@@ -22,7 +23,7 @@ class DetailDance extends StatefulWidget {
 
 class _DetailDanceState extends State<DetailDance> {
   _DetailDanceState(this.danceModel);
-  DanceModel danceModel;
+  dynamic danceModel;
   List<ReviewsDance> danceReviews = reviewsDance;
 
   PageController pageController = PageController();
@@ -360,7 +361,11 @@ class _DetailDanceState extends State<DetailDance> {
                                 ),
                                 SizedBox(height: 20,),
                                 FlatButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                      return FeedbackScreen(danceModel: danceModel,);
+                                    }));
+                                  },
                                   child: Row(
                                     children: [
                                       Text(

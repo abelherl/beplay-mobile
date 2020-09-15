@@ -1,4 +1,5 @@
 import 'package:beplay/model/orders_model.dart';
+import 'package:beplay/model/quick_feedback_item.dart';
 import 'package:beplay/model/schendule.dart';
 
 import 'model/dancemodel.dart';
@@ -114,5 +115,15 @@ List<OrderModel> orders = [
           'https://images.pexels.com/photos/209948/pexels-photo-209948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
       reviewDances: [reviewsDance]),
 ];
+
+var quickFeedback = [
+  QuickFeedbackItem(title: 'Friendly', status: false),
+  QuickFeedbackItem(title: 'Easy', status: false),
+  QuickFeedbackItem(title: 'Fun', status: false),
+  QuickFeedbackItem(title: 'Unforgettable', status: false),
+  QuickFeedbackItem(title: 'Effective', status: false),
+  QuickFeedbackItem(title: 'Comfortable', status: false),
+];
+
 List<Schedule> schedule = [];
 List<DanceModel> myvideos = [];

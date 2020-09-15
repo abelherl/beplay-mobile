@@ -12,6 +12,57 @@ class _SortScreenState extends State<SortScreen> {
   bool _dateAscending = false;
   bool _popularityAscending = false;
   bool _priceAscending = false;
+  var _sortThis = '';
+
+  void _onChanged(String type) {
+    setState(() {
+      _sortThis = type;
+    });
+  }
+
+  void _onTap(String type) {
+    if (type == _sortThis) {
+      if (type == 'date') {
+        setState(() => _dateAscending = !_dateAscending);
+      }
+      if (type == 'popularity') {
+        setState(() => _popularityAscending = !_popularityAscending);
+      }
+      if (type == 'price') {
+        setState(() => _priceAscending = !_priceAscending);
+      }
+    }
+  }
+
+  Color _isSortThis(String type, bool asc) {
+    Color color = bInactiveColor;
+    if (type == _sortThis) {
+      if (type == 'date') {
+        if (_dateAscending == asc) {
+          color = bPrimaryColor;
+        }
+      }
+      if (type == 'popularity') {
+        if (_popularityAscending == asc) {
+          color = bPrimaryColor;
+        }
+      }
+      if (type == 'price') {
+        if (_priceAscending == asc) {
+          color = bPrimaryColor;
+        }
+      }
+    }
+    return color;
+  }
+
+  bool _isActive(String type) {
+    bool active = false;
+    if (type == _sortThis) {
+      active = true;
+    }
+    return active;
+  }
 
   final _list = ["Ascending", "Descending"];
 
@@ -64,13 +115,22 @@ class _SortScreenState extends State<SortScreen> {
               ),
             ),
             SizedBox(height: 35),
-            Text(
-              "Date",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-                color: bPrimaryColor,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Date",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: bPrimaryColor,
+                  ),
+                ),
+                Switch(
+                  value: _isActive('date'),
+                  onChanged: (newValue) => _onChanged('date'),
+                ),
+              ],
             ),
             SizedBox(height: 25),
             Row(
@@ -79,12 +139,12 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Ascending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _dateAscending = !_dateAscending)),
+                    ..onTap(() => _onTap('date')),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(_dateAscending ? bPrimaryColor : bInactiveColor)
+                    ..background.color(_isSortThis('date', true))
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()
@@ -93,12 +153,12 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Descending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _dateAscending = !_dateAscending)),
+                    ..onTap(() => _onTap('date')),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(!_dateAscending ? bPrimaryColor : bInactiveColor)
+                    ..background.color(_isSortThis('date', false))
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()
@@ -108,13 +168,22 @@ class _SortScreenState extends State<SortScreen> {
               ],
             ),
             SizedBox(height: 25),
-            Text(
-              "Popularity",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-                color: bPrimaryColor,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Popularity",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: bPrimaryColor,
+                  ),
+                ),
+                Switch(
+                  value: _isActive('popularity'),
+                  onChanged: (newValue) => _onChanged('popularity'),
+                ),
+              ],
             ),
             SizedBox(height: 25),
             Row(
@@ -123,12 +192,12 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Ascending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _popularityAscending = !_popularityAscending)),
+                    ..onTap(() => _onTap('popularity')),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(_popularityAscending ? bPrimaryColor : bInactiveColor)
+                    ..background.color(_isSortThis('popularity', true))
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()
@@ -137,12 +206,12 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Descending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _popularityAscending = !_popularityAscending)),
+                    ..onTap(() => _onTap('popularity')),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(!_popularityAscending ? bPrimaryColor : bInactiveColor)
+                    ..background.color(_isSortThis('popularity', false))
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()
@@ -152,13 +221,22 @@ class _SortScreenState extends State<SortScreen> {
               ],
             ),
             SizedBox(height: 25),
-            Text(
-              "Price",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-                color: bPrimaryColor,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Price",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: bPrimaryColor,
+                  ),
+                ),
+                Switch(
+                  value: _isActive('price'),
+                  onChanged: (newValue) => _onChanged('price'),
+                ),
+              ],
             ),
             SizedBox(height: 25),
             Row(
@@ -167,12 +245,12 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Ascending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _priceAscending = !_priceAscending)),
+                    ..onTap(() => _onTap('price')),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(_priceAscending ? bPrimaryColor : bInactiveColor)
+                    ..background.color(_isSortThis('price', true))
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()
@@ -181,12 +259,12 @@ class _SortScreenState extends State<SortScreen> {
                 Txt(
                   "Descending",
                   gesture: Gestures()
-                    ..onTap(() => setState(() => _priceAscending = !_priceAscending)),
+                    ..onTap(() => _onTap('price')),
                   style: TxtStyle()
                     ..width(width)
                     ..padding(all: 15)
                     ..textColor(Colors.white)
-                    ..background.color(!_priceAscending ? bPrimaryColor : bInactiveColor)
+                    ..background.color(_isSortThis('price', false))
                     ..borderRadius(all: width)
                     ..textAlign.center()
                     ..bold()

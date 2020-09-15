@@ -1,4 +1,5 @@
 import 'package:beplay/model/orders_model.dart';
+import 'package:beplay/pages/detail_dance.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
 import 'package:flutter_svg/svg.dart';
@@ -68,9 +69,9 @@ class _CardHistoryOrdersState extends State<CardHistoryOrders> {
                 tap = isTapped;
               }))
           ..onTap(() {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //     return DetailDance(danceModel: widget.item);
-            // }));
+             Navigator.push(context, MaterialPageRoute(builder: (context) {
+                 return DetailDance(danceModel: widget.item);
+             }));
           }),
         style: ParentStyle()
           ..margin(top: 20)
@@ -111,9 +112,9 @@ class _CardHistoryOrdersState extends State<CardHistoryOrders> {
               child: Parent(
                 gesture: Gestures()
                   ..onTap(() {
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    //     return De(danceModel: widget.item);
-                    // }));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return DetailDance(danceModel: widget.item);
+                    }));
                   }),
                 style: ParentStyle()
                   ..background.color(bBackgroundColor)
