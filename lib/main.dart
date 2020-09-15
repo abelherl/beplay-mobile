@@ -1,4 +1,4 @@
-import 'package:beplay/bloc/login_bloc.dart';
+import 'package:beplay/bloc/login/login_bloc.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/pages/classes.dart';
 import 'package:beplay/pages/home_screen.dart';

@@ -1,4 +1,4 @@
-import 'package:beplay/bloc/login_bloc.dart';
+import 'package:beplay/bloc/login/login_bloc.dart';
 import 'package:beplay/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
@@ -310,6 +310,6 @@ class _LoginScreenState extends State<LoginScreen> {
 //      client.close();
 //    }
     context.bloc<LoginBloc>().add(Login(
-        model: UserModel(email: txtEmail.text, password: txtPassword.text)));
+        model: UserLogin(email: txtEmail.text, password: txtPassword.text)));
   }
 }
