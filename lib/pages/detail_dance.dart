@@ -2,6 +2,7 @@ import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
 import 'package:beplay/model/dancemodel.dart';
 import 'package:beplay/model/reviews.dart';
+import 'package:beplay/pages/feedback_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -423,7 +424,13 @@ class _DetailDanceState extends State<DetailDance> {
                         height: 20,
                       ),
                       FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return FeedbackScreen(danceModel: danceModel);
+                            }
+                          ));
+                        },
                         child: Row(
                           children: [
                             Text(

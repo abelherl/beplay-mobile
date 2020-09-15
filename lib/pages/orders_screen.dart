@@ -78,7 +78,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 class CardOrders extends StatefulWidget {
   const CardOrders({Key key, @required this.item}) : super(key: key);
 
-  final DanceModel item;
+  final item;
   @override
   _CardOrdersState createState() => _CardOrdersState();
 }
