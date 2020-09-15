@@ -23,7 +23,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       print(event.model.email);
       yield LoginWaiting();
       try {
-        UserModel models = await repo.login(event.model);
+        UserLogin models = await repo.login(event.model);
         yield LoginSuccess(model: models);
       } catch (e) {
         yield LoginFailed(message: e.toString());
