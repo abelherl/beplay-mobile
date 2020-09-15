@@ -9,5 +9,6 @@ abstract class LoginEvent extends Equatable {
 
 class Login extends LoginEvent {
   final UserModel model;
+
   Login({@required this.model});
 }

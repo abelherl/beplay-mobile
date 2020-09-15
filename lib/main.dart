@@ -1,3 +1,4 @@
+import 'package:beplay/bloc/login_bloc.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/pages/classes.dart';
 import 'package:beplay/pages/home_screen.dart';
@@ -12,6 +13,7 @@ import 'package:beplay/pages/profile/privacy_screen.dart';
 import 'package:beplay/pages/signup_screen.dart';
 import 'package:beplay/pages/verification_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'pages/splash_screen.dart';
 
@@ -33,7 +35,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomeScreen(),
         '/splash_screen': (context) => SplashScreen(),
-        '/login_screen': (context) => LoginScreen(),
+        '/login_screen': (context) => BlocProvider(
+          create: (_) => LoginBloc(),
+          child: LoginScreen(),
+        ),
         '/signup_Screen': (context) => SignupScreen(),
         '/verification_screen': (context) => VerificationScreen(),
         '/home': (context) => HomeScreen(),
