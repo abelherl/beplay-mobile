@@ -18,13 +18,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(
     LoginEvent event,
   ) async* {
-    print(event);
     if (event is Login) {
-      print(event.model.email);
       yield LoginWaiting();
       try {
-        UserLogin models = await repo.login(event.model);
-        yield LoginSuccess(model: models);
+        var response = await repo.login(event.model);
+        print(response);
+        yield LoginSuccess(model: response);
       } catch (e) {
         yield LoginFailed(message: e.toString());
       }

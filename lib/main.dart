@@ -1,4 +1,5 @@
 import 'package:beplay/bloc/login/login_bloc.dart';
+import 'package:beplay/bloc/register/register_bloc.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/pages/classes.dart';
 import 'package:beplay/pages/home_screen.dart';
@@ -24,35 +25,44 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Be Play",
-      initialRoute: '/splash_screen',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          primaryColor: bPrimaryColor,
-          accentColor: bPrimaryLightColor,
-          backgroundColor: Colors.white),
-      routes: {
-        '/': (context) => HomeScreen(),
-        '/splash_screen': (context) => SplashScreen(),
-        '/login_screen': (context) => BlocProvider(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginBloc>(
           create: (_) => LoginBloc(),
           child: LoginScreen(),
         ),
-        '/signup_Screen': (context) => SignupScreen(),
-        '/verification_screen': (context) => VerificationScreen(),
-        '/home': (context) => HomeScreen(),
-        '/page_HomeScreen': (context) => PageHomeSceen(),
-        '/classes': (context) => Classes(),
+        BlocProvider<RegisterBloc>(
+          create: (_) => RegisterBloc(),
+          child: SignupScreen(),
+        ),
+      ],
+      child: MaterialApp(
+        title: "Be Play",
+        initialRoute: '/splash_screen',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            primaryColor: bPrimaryColor,
+            accentColor: bPrimaryLightColor,
+            backgroundColor: Colors.white),
+        routes: {
+          '/': (context) => HomeScreen(),
+          '/splash_screen': (context) => SplashScreen(),
+          '/login_screen': (context) => LoginScreen(),
+          '/signup_Screen': (context) => SignupScreen(),
+          '/verification_screen': (context) => VerificationScreen(),
+          '/home': (context) => HomeScreen(),
+          '/page_HomeScreen': (context) => PageHomeSceen(),
+          '/classes': (context) => Classes(),
 
-        //Settings Page
-        '/account': (context) => AccountSettingScreen(),
-        '/change_password': (context) => ChangePasswordScreen(),
-        '/language': (context) => ChangeLanguageScreen(),
-        '/notification': (context) => NotificationSettingScreen(),
-        '/privacy': (context) => PrivacyScreen(),
-        '/faq': (context) => FAQScreen(),
-      },
+          //Settings Page
+          '/account': (context) => AccountSettingScreen(),
+          '/change_password': (context) => ChangePasswordScreen(),
+          '/language': (context) => ChangeLanguageScreen(),
+          '/notification': (context) => NotificationSettingScreen(),
+          '/privacy': (context) => PrivacyScreen(),
+          '/faq': (context) => FAQScreen(),
+        },
+      ),
     );
   }
 }

@@ -1,12 +1,9 @@
 import 'package:beplay/bloc/register/register_bloc.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/model/user_model.dart';
-import 'package:beplay/pages/home_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
-import 'package:toast/toast.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -25,7 +22,6 @@ class _SignupScreenState extends State<SignupScreen> {
   final FocusNode _txtEmailNode = FocusNode();
   final FocusNode _txtPasswordNode = FocusNode();
   final FocusNode _txtConfirmNode = FocusNode();
-  RegisterBloc _bloc;
 
   void _toggleVisibility() {
     setState(() {
@@ -34,62 +30,77 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   @override
-  void initState() {
-    _bloc = BlocProvider.of<RegisterBloc>(context);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterBloc(),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black87,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black87,
+            ),
+            onPressed: () => Navigator.pop(context)),
+      ),
+      body: SafeArea(
+        child: BlocListener<RegisterBloc, RegisterState>(
+          listener: (context, state) {
+            if (state is RegisterWaiting) {
+              _loading();
+            }
+            if (state is RegisterSuccess) {
+              print(state.model);
+              _autoLogin();
+            }
+            if (state is RegisterFailed) {
+              Navigator.pop(context);
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Register Failed'),
+                      content: Text(state.message),
+                    );
+                  });
+            }
+          },
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              // primary: true,
+              padding:
+                  EdgeInsets.only(top: MediaQuery.of(context).size.width / 7),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: 25,
+                      right: 25,
+                    ),
+                    child: Text(
+                      "Let's get started\nCreate an account",
+                      // ignore: deprecated_member_use
+                      style: Theme.of(context).textTheme.headline.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width / 8.5,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.1,
+                      right: MediaQuery.of(context).size.width * 0.1,
+                    ),
+                    child: _buildInput(),
+                  ),
+                ],
               ),
-              onPressed: () => Navigator.pop(context)),
-        ),
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          child: SingleChildScrollView(
-            // primary: true,
-            padding:
-                EdgeInsets.only(top: MediaQuery.of(context).size.width / 7),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 25,
-                    right: 25,
-                  ),
-                  child: Text(
-                    "Let's get started\nCreate an account",
-                    // ignore: deprecated_member_use
-                    style: Theme.of(context).textTheme.headline.copyWith(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width / 8.5,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.1,
-                    right: MediaQuery.of(context).size.width * 0.1,
-                  ),
-                  child: _buildInput(),
-                ),
-              ],
             ),
           ),
         ),
@@ -240,75 +251,41 @@ class _SignupScreenState extends State<SignupScreen> {
           SizedBox(
             height: 40.0,
           ),
-          BlocConsumer<RegisterBloc, RegisterState>(builder: (context, state) {
-            if (state is RegisterWaiting) {
-              return _loading();
-            }
-            if (state is RegisterSuccess) {
-              return _autoLogin();
-            }
-            if (state is RegisterFailed) {
-              showToast("GAGAL",
-                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-              return Column(
-                children: [
-                  _buildButton(),
-                ],
-              );
-            }
-            return _buildButton();
-          }, listener: (context, state) {
-            if (state is RegisterFailed) {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => HomeScreen()));
-            }
-          }),
+          Container(
+            height: 48.0,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24.0),
+                color: bPrimaryColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 2,
+                    blurRadius: 2,
+                    offset: Offset(0, 5),
+                  )
+                ]),
+            child: Txt(
+              "SIGN UP",
+              gesture: Gestures()
+                ..onTap(() {
+                  _formKey.currentState.validate();
+                  _formKey.currentState.save();
+                  _requestRegister();
+                }),
+              style: TxtStyle()
+                ..textColor(Colors.white)
+                ..fontSize(16.0)
+                ..alignmentContent.center()
+                ..background.color(bPrimaryColor)
+                ..width(MediaQuery.of(context).size.width)
+                ..padding(vertical: 15)
+                ..height(56)
+                ..borderRadius(all: 36)
+                ..ripple(true, splashColor: bPrimaryLightColor),
+            ),
+          )
         ],
-      ),
-    );
-  }
-
-  _buildButton() {
-    return Container(
-      height: 48.0,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24.0),
-          color: bPrimaryColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 2,
-              blurRadius: 2,
-              offset: Offset(0, 5),
-            )
-          ]),
-      child: Txt(
-        "SIGN UP",
-        gesture: Gestures()
-          ..onTap(() {
-            _formKey.currentState.validate();
-            _formKey.currentState.save();
-            UserModel models = UserModel(
-                nama: _txtFirstName.text + _txtLastName.text,
-                email: _txtEmail.text,
-                password: _txtPassword.text,
-                passwordConfirmation: _txtConfirmPassword.text);
-            if (models != null) {
-              _bloc.add(Register(model: models));
-            }
-            print(models.toJson());
-          }),
-        style: TxtStyle()
-          ..textColor(Colors.white)
-          ..fontSize(16.0)
-          ..alignmentContent.center()
-          ..background.color(bPrimaryColor)
-          ..width(MediaQuery.of(context).size.width)
-          ..padding(vertical: 15)
-          ..height(56)
-          ..borderRadius(all: 36)
-          ..ripple(true, splashColor: bPrimaryLightColor),
       ),
     );
   }
@@ -329,27 +306,23 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  void showToast(String msg, {int duration, int gravity}) {
-    Toast.show(msg, context, duration: duration, gravity: gravity);
+  _requestRegister() {
+    UserModel models = UserModel(
+        nama: _txtFirstName.text + _txtLastName.text,
+        email: _txtEmail.text,
+        password: _txtPassword.text,
+        passwordConfirmation: _txtConfirmPassword.text);
+    if (models != null) {
+      context.bloc<RegisterBloc>().add(Register(model: models));
+    }
   }
 
-  _autoLogin() async {
-    var client = http.Client();
-    try {
-      // var uriResponse = await client.post(
-      //     'https://damp-basin-32676.herokuapp.com/api/auth/login',
-      //     body: {'email': _txtEmail.text, 'password': _txtPassword.text});
-      // if (uriResponse.body != null) {
-      //   Navigator.pushReplacementNamed(context, '/home');
-      // }
-      // print(uriResponse.statusCode);
-      Navigator.pushReplacementNamed(context, '/home');
-      _txtFirstName.dispose();
-      _txtLastName.dispose();
-      _txtEmail.dispose();
-      _txtPassword.dispose();
-    } finally {
-      client.close();
-    }
+  _autoLogin() {
+    print("BiSA");
+    Navigator.pushReplacementNamed(context, '/home');
+    _txtFirstName.dispose();
+    _txtLastName.dispose();
+    _txtEmail.dispose();
+    _txtPassword.dispose();
   }
 }
