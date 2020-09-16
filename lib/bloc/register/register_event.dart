@@ -8,6 +8,6 @@ abstract class RegisterEvent extends Equatable {
 }
 
 class Register extends RegisterEvent {
-  final UserModel model;
+  final UserRegister model;
   Register({@required this.model});
 }

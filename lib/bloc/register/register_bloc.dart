@@ -20,13 +20,17 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     if (event is Register) {
       yield RegisterWaiting();
       try {
-        UserModel models = await repo.signUp(event.model);
-        yield RegisterSuccess(model: models);
+        var models = await repo.register(event.model);
+        if (models != null) {
+          yield RegisterSuccess(model: models);
+        } else {
+          yield RegisterFailed(message: "Register Failed");
+        }
       } catch (e) {
         yield RegisterFailed(message: e.toString());
       }
     } else {
-      print("GAGAL");
+      print("FAILED");
     }
   }
 }

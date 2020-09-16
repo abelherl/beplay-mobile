@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:division/division.dart';
 import 'package:beplay/const.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'forgot_screen.dart';
 import 'signup_screen.dart';
 
@@ -36,18 +38,11 @@ class _LoginScreenState extends State<LoginScreen> {
               _loading();
             }
             if (state is LoginSuccess) {
-              Navigator.pushNamed(context, '/home');
+              Navigator.pushReplacementNamed(context, '/home');
             }
             if (state is LoginFailed) {
               Navigator.pop(context);
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text('Login Failed'),
-                      content: Text(state.message),
-                    );
-                  });
+              _showAlertDialog(state.message);
             }
           },
           child: Center(
@@ -264,7 +259,10 @@ class _LoginScreenState extends State<LoginScreen> {
         "LOGIN",
         gesture: Gestures()
           ..onTap(() {
-            _loginRequest();
+            if (_formKey.currentState.validate()) {
+              _formKey.currentState.save();
+              _loginRequest();
+            }
           }),
         style: TxtStyle()
           ..textColor(Colors.white)
@@ -289,25 +287,35 @@ class _LoginScreenState extends State<LoginScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           content: Center(
-            child: CircularProgressIndicator(),
+            child: SpinKitDualRing(
+              color: bPrimaryColor,
+            ),
           ),
         );
       },
     );
   }
 
+  _showAlertDialog(String message) {
+    Alert(
+      context: context,
+      type: AlertType.error,
+      title: "Login",
+      desc: message,
+      buttons: [
+        DialogButton(
+          child: Text(
+            "CLOSE",
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 100,
+        )
+      ],
+    ).show();
+  }
+
   _loginRequest() async {
-//    var client = http.Client();
-//    try {
-//      var uriResponse = await client.post(
-//          'https://damp-basin-32676.herokuapp.com/api/auth/login',
-//          body: {'email': txtEmail.text, 'password': txtPassword.text});
-//      if (uriResponse.body != null) {
-//        Navigator.pushReplacementNamed(context, '/home');
-//      }
-//    } finally {
-//      client.close();
-//    }
     context.bloc<LoginBloc>().add(Login(
         model: UserLogin(email: txtEmail.text, password: txtPassword.text)));
   }

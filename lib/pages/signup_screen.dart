@@ -4,6 +4,8 @@ import 'package:beplay/model/user_model.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -50,19 +52,11 @@ class _SignupScreenState extends State<SignupScreen> {
               _loading();
             }
             if (state is RegisterSuccess) {
-              print(state.model);
-              _autoLogin();
+              Navigator.of(context).pushReplacementNamed('/home');
             }
             if (state is RegisterFailed) {
               Navigator.pop(context);
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text('Register Failed'),
-                      content: Text(state.message),
-                    );
-                  });
+              _showAlertDialog(state.message);
             }
           },
           child: Container(
@@ -124,11 +118,6 @@ class _SignupScreenState extends State<SignupScreen> {
                       return "cannot be empty";
                     }
 
-                    RegExp exp = RegExp(r"^[a-zA-Z0-9_\-@]+$");
-                    if (!exp.hasMatch(text)) {
-                      return "some characters are not accepted";
-                    }
-
                     return null;
                   },
                   controller: _txtFirstName,
@@ -147,11 +136,6 @@ class _SignupScreenState extends State<SignupScreen> {
                   validator: (text) {
                     if (text.isEmpty) {
                       return "cannot be empty";
-                    }
-
-                    RegExp exp = RegExp(r"^[a-zA-Z0-9_\-@]+$");
-                    if (!exp.hasMatch(text)) {
-                      return "some characters are not accepted";
                     }
 
                     return null;
@@ -176,11 +160,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 return "cannot be empty";
               }
 
-              // RegExp exp = RegExp(r"^[a-zA-Z0-9_\-@]+$");
-              // if (!exp.hasMatch(text)) {
-              //   return "some characters are not accepted";
-              // }
-
               return null;
             },
             controller: _txtEmail,
@@ -199,8 +178,11 @@ class _SignupScreenState extends State<SignupScreen> {
               if (text.isEmpty) {
                 return 'Please enter a Password';
               }
-              if (text.length < 6) {
-                return 'Please enter a Password more 6 characters';
+              if (text.length < 8) {
+                return 'Please enter a Password more 8 characters';
+              }
+              if (text != _txtConfirmPassword.text) {
+                return 'password is not the same as confirm password';
               }
               return null;
             },
@@ -229,8 +211,11 @@ class _SignupScreenState extends State<SignupScreen> {
               if (text.isEmpty) {
                 return 'Please enter a Confirm Password';
               }
-              if (text.length < 6) {
-                return 'Please enter a Password more 6 characters';
+              if (text.length < 8) {
+                return 'Please enter a Password more 8 characters';
+              }
+              if (text != _txtPassword.text) {
+                return 'password is not the same as confirm password';
               }
               return null;
             },
@@ -269,9 +254,10 @@ class _SignupScreenState extends State<SignupScreen> {
               "SIGN UP",
               gesture: Gestures()
                 ..onTap(() {
-                  _formKey.currentState.validate();
-                  _formKey.currentState.save();
-                  _requestRegister();
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    _requestRegister();
+                  }
                 }),
               style: TxtStyle()
                 ..textColor(Colors.white)
@@ -293,21 +279,42 @@ class _SignupScreenState extends State<SignupScreen> {
   _loading() async {
     return showDialog(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.transparent,
           elevation: 0,
           content: Center(
-            child: CircularProgressIndicator(),
+            child: SpinKitDualRing(
+              color: bPrimaryColor,
+            ),
           ),
         );
       },
     );
   }
 
+  _showAlertDialog(String message) {
+    Alert(
+      context: context,
+      type: AlertType.error,
+      title: "Register",
+      desc: message,
+      buttons: [
+        DialogButton(
+          child: Text(
+            "CLOSE",
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 100,
+        )
+      ],
+    ).show();
+  }
+
   _requestRegister() {
-    UserModel models = UserModel(
+    UserRegister models = UserRegister(
         nama: _txtFirstName.text + _txtLastName.text,
         email: _txtEmail.text,
         password: _txtPassword.text,
@@ -315,14 +322,5 @@ class _SignupScreenState extends State<SignupScreen> {
     if (models != null) {
       context.bloc<RegisterBloc>().add(Register(model: models));
     }
-  }
-
-  _autoLogin() {
-    print("BiSA");
-    Navigator.pushReplacementNamed(context, '/home');
-    _txtFirstName.dispose();
-    _txtLastName.dispose();
-    _txtEmail.dispose();
-    _txtPassword.dispose();
   }
 }

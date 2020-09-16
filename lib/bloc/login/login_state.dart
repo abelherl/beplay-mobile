@@ -12,7 +12,7 @@ class LoginInitial extends LoginState {}
 class LoginWaiting extends LoginState {}
 
 class LoginSuccess extends LoginState {
-  final UserLogin model;
+  final Map<String, dynamic> model;
   LoginSuccess({this.model});
 }
 

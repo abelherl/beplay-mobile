@@ -3,6 +3,7 @@ import 'package:beplay/bloc/register/register_bloc.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/pages/classes.dart';
 import 'package:beplay/pages/home_screen.dart';
+import 'package:beplay/pages/intro_screen.dart';
 import 'package:beplay/pages/login_screen.dart';
 import 'package:beplay/pages/page_home_screen.dart';
 import 'package:beplay/pages/profile/account_screen.dart';
@@ -45,8 +46,8 @@ class MyApp extends StatelessWidget {
             accentColor: bPrimaryLightColor,
             backgroundColor: Colors.white),
         routes: {
-          '/': (context) => HomeScreen(),
           '/splash_screen': (context) => SplashScreen(),
+          '/intro_screen': (context) => IntroScreen(),
           '/login_screen': (context) => LoginScreen(),
           '/signup_Screen': (context) => SignupScreen(),
           '/verification_screen': (context) => VerificationScreen(),

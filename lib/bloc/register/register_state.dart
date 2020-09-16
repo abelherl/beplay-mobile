@@ -12,7 +12,7 @@ class RegisterInitial extends RegisterState {}
 class RegisterWaiting extends RegisterState {}
 
 class RegisterSuccess extends RegisterState {
-  final UserModel model;
+  final Map<String, dynamic> model;
   RegisterSuccess({this.model});
 }
 
