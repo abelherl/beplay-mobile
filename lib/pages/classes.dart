@@ -1,5 +1,8 @@
+import 'package:beplay/bloc/class/class_bloc.dart';
 import 'package:beplay/components/class_class.dart';
 import 'package:beplay/components/main_app_bar.dart';
+import 'package:beplay/model/classes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
 import 'package:beplay/model/dancemodel.dart';
@@ -9,14 +12,26 @@ import 'package:division/division.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-class Classes extends StatefulWidget {
+class ClassesScreen extends StatefulWidget {
   @override
-  _ClassesState createState() => _ClassesState();
+  _ClassesScreenState createState() => _ClassesScreenState();
 }
 
-class _ClassesState extends State<Classes> {
+class _ClassesScreenState extends State<ClassesScreen> {
 //  Map data = {};
+  List<Classes> classes = [];
   PageController pageController = PageController(viewportFraction: 0.8);
+
+  void init() async {
+    context.bloc<ClassBloc>().add(GetClass());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -28,52 +43,63 @@ class _ClassesState extends State<Classes> {
         cartIconEnabled: true,
       ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Text(
-                "Popular Classes",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                ),
+      body: BlocBuilder<ClassBloc, ClassState> (
+        builder: (context, state) {
+          if (state is ClassSuccess) {
+            classes = state.models;
+            return SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Text(
+                      "Popular Classes",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ),
+                  Parent(
+                      style: ParentStyle()
+                        ..width(size.width)
+                        ..height(size.height / 3.5)
+                        ..minHeight(210),
+                      child: ListView(
+                        padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        controller: pageController,
+                        children: classes
+                            .map((item) => PopularClass(
+                          item: item,
+                        ))
+                            .toList(),
+                      )),
+                  ListView(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    physics: NeverScrollableScrollPhysics(),
+                    children: classes.map((item) {
+                      return ClassClass(
+                        item: item,
+                      );
+                    }).toList(),
+                  ),
+                ],
               ),
-            ),
-            Parent(
-                style: ParentStyle()
-                  ..width(size.width)
-                  ..height(size.height / 3.5)
-                  ..minHeight(210),
-                child: ListView(
-                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  controller: pageController,
-                  children: danceData
-                      .map((item) => PopularClass(
-                            item: item,
-                          ))
-                      .toList(),
-                )),
-            ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-              physics: NeverScrollableScrollPhysics(),
-              children: danceData.map((item) {
-                return ClassClass(
-                  item: item,
-                );
-              }).toList(),
-            ),
-          ],
-        ),
+            );
+          }
+
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
@@ -82,7 +108,7 @@ class _ClassesState extends State<Classes> {
 class PopularClass extends StatefulWidget {
   const PopularClass({Key key, @required this.item}) : super(key: key);
 
-  final DanceModel item;
+  final Classes item;
 
   @override
   _PopularClassState createState() => _PopularClassState();
@@ -123,7 +149,7 @@ class _PopularClassState extends State<PopularClass> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.item.title,
+                  widget.item.nama,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -158,7 +184,7 @@ class _PopularClassState extends State<PopularClass> {
                   width: 5,
                 ),
                 Text(
-                  widget.item.place,
+                  widget.item.tempat,
                   style: TextStyle(fontSize: 14, color: Colors.white),
                 ),
               ],
@@ -173,7 +199,7 @@ class _PopularClassState extends State<PopularClass> {
                   width: 5,
                 ),
                 Text(
-                  widget.item.author,
+                  widget.item.trainer.nama,
                   style: TextStyle(fontSize: 14, color: Colors.white),
                 ),
               ],
@@ -191,7 +217,7 @@ class _PopularClassState extends State<PopularClass> {
                   width: 5,
                 ),
                 Text(
-                  widget.item.date,
+                  '28 January 2021',
                   style: TextStyle(fontSize: 14, color: Colors.white),
                 ),
               ],
@@ -208,7 +234,7 @@ class _PopularClassState extends State<PopularClass> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         SmoothStarRating(
-                          rating: widget.item.rating,
+                          rating: 4.5,
                           isReadOnly: true,
                           color: Colors.white,
                           borderColor: Colors.white,
@@ -227,7 +253,7 @@ class _PopularClassState extends State<PopularClass> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          widget.item.skill,
+                          '${widget.item.level}',
                           style: TextStyle(fontSize: 14, color: Colors.white),
                         ),
                         Text(

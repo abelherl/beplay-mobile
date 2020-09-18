@@ -1,5 +1,6 @@
 import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
+import 'package:beplay/model/classes.dart';
 import 'package:beplay/model/dancemodel.dart';
 import 'package:beplay/model/reviews.dart';
 import 'package:beplay/pages/feedback_screen.dart';
@@ -13,7 +14,7 @@ import 'cart_screen.dart';
 
 class DetailDance extends StatefulWidget {
   DetailDance({Key key, @required this.danceModel}) : super(key: key);
-  final DanceModel danceModel;
+  final Classes danceModel;
 
   @override
   _DetailDanceState createState() => _DetailDanceState(danceModel);
@@ -21,7 +22,7 @@ class DetailDance extends StatefulWidget {
 
 class _DetailDanceState extends State<DetailDance> {
   _DetailDanceState(this.danceModel);
-  DanceModel danceModel;
+  Classes danceModel;
   List<ReviewsDance> danceReviews = reviewsDance;
 
   PageController pageController = PageController();
@@ -172,7 +173,7 @@ class _DetailDanceState extends State<DetailDance> {
                         children: [
                           Expanded(
                             child: Text(
-                              danceModel.title,
+                              danceModel.nama,
                               style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w800,
@@ -255,7 +256,7 @@ class _DetailDanceState extends State<DetailDance> {
                         height: 8,
                       ),
                       Text(
-                        danceModel.skill,
+                        '${danceModel.level}',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w800,
@@ -337,7 +338,7 @@ class _DetailDanceState extends State<DetailDance> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                danceModel.author,
+                                danceModel.trainer.nama,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -386,7 +387,7 @@ class _DetailDanceState extends State<DetailDance> {
                         height: 8,
                       ),
                       Text(
-                        danceModel.place,
+                        danceModel.tempat,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
@@ -458,7 +459,7 @@ class _DetailDanceState extends State<DetailDance> {
                       Row(
                         children: [
                           SmoothStarRating(
-                            rating: danceModel.rating,
+                            rating: 4.5,
                             isReadOnly: true,
                             color: bPrimaryColor,
                             borderColor: bPrimaryColor,
@@ -471,7 +472,7 @@ class _DetailDanceState extends State<DetailDance> {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "${danceModel.rating}",
+                                  text: "4",
                                   style: TextStyle(
                                     fontSize: 25,
                                     color: bDarkTextColor,

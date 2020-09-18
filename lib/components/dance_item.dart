@@ -1,3 +1,4 @@
+import 'package:beplay/model/classes.dart';
 import 'package:beplay/model/dancemodel.dart';
 import 'package:beplay/model/reviews.dart';
 import 'package:beplay/pages/detail_dance.dart';
@@ -14,7 +15,7 @@ class DanceItem extends StatelessWidget {
   final String skill;
   final String images;
   final List<List<ReviewsDance>> reviewDances;
-  final DanceModel onPressed;
+  final Classes onPressed;
 
   DanceItem(
       {@required this.rating,

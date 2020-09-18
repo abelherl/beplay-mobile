@@ -73,9 +73,9 @@ class _CardHistoryOrdersState extends State<CardHistoryOrders> {
                 tap = isTapped;
               }))
           ..onTap(() {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return DetailDance(danceModel: widget.item);
-            }));
+//            Navigator.push(context, MaterialPageRoute(builder: (context) {
+//              return DetailDance(danceModel: widget.item);
+//            }));
           }),
         style: ParentStyle()
           ..margin(top: 20)
@@ -116,10 +116,10 @@ class _CardHistoryOrdersState extends State<CardHistoryOrders> {
               child: Parent(
                 gesture: Gestures()
                   ..onTap(() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return DetailDance(danceModel: widget.item);
-                    }));
+//                    Navigator.push(context,
+//                        MaterialPageRoute(builder: (context) {
+//                      return DetailDance(danceModel: widget.item);
+//                    }));
                   }),
                 style: ParentStyle()
                   ..background.color(bBackgroundColor)

@@ -33,7 +33,7 @@ class _HomeIconsClassState extends State<HomeIconsClass> {
             ..onTap(() {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
-                            return Classes();
+                            return ClassesScreen();
                         }
                     )
                 );

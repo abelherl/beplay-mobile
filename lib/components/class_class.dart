@@ -1,4 +1,5 @@
 import 'package:beplay/const.dart';
+import 'package:beplay/model/classes.dart';
 import 'package:beplay/model/dancemodel.dart';
 import 'package:beplay/pages/detail_dance.dart';
 import 'package:division/division.dart';
@@ -9,7 +10,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 class ClassClass extends StatefulWidget {
   const ClassClass({Key key, @required this.item}) : super(key: key);
 
-  final DanceModel item;
+  final Classes item;
 
   @override
   _ClassClassState createState() => _ClassClassState();
@@ -101,7 +102,7 @@ class _ClassClassState extends State<ClassClass> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.item.title,
+                      widget.item.nama,
                       style:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
@@ -125,7 +126,7 @@ class _ClassClassState extends State<ClassClass> {
                           width: 5,
                         ),
                         Text(
-                          widget.item.place,
+                          widget.item.tempat,
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ],
@@ -140,7 +141,7 @@ class _ClassClassState extends State<ClassClass> {
                           width: 5,
                         ),
                         Text(
-                          widget.item.author,
+                          widget.item.trainer.nama,
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ],
@@ -165,7 +166,7 @@ class _ClassClassState extends State<ClassClass> {
                               ),
                               SizedBox(height: 5),
                               SmoothStarRating(
-                                rating: widget.item.rating,
+                                rating: 4.5,
                                 isReadOnly: true,
                                 color: bPrimaryColor,
                                 borderColor: bPrimaryColor,
@@ -177,7 +178,7 @@ class _ClassClassState extends State<ClassClass> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                widget.item.skill,
+                                '${widget.item.level}',
                                 style:
                                 TextStyle(fontSize: 14, color: Colors.grey),
                               ),

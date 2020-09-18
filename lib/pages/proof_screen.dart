@@ -42,7 +42,7 @@ class _ProofScreenState extends State<ProofScreen> {
                   ),
                 ),
                 SizedBox(height: 25,),
-                ClassClass(item: danceData[1]),
+//                ClassClass(item: danceData[1]),
                 SizedBox(height: 25,),
               ],
             ),

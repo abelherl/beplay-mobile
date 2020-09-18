@@ -2,7 +2,6 @@ import 'package:beplay/bloc/login/login_bloc.dart';
 import 'package:beplay/bloc/register/register_bloc.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/pages/classes.dart';
-import 'package:beplay/pages/feedback_screen.dart';
 import 'package:beplay/pages/home_screen.dart';
 import 'package:beplay/pages/login_screen.dart';
 import 'package:beplay/pages/page_home_screen.dart';
@@ -17,6 +16,7 @@ import 'package:beplay/pages/verification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bloc/class/class_bloc.dart';
 import 'pages/splash_screen.dart';
 
 void main() async {
@@ -36,6 +36,10 @@ class MyApp extends StatelessWidget {
           create: (_) => RegisterBloc(),
           child: SignupScreen(),
         ),
+        BlocProvider<ClassBloc>(
+          create: (_) => ClassBloc(),
+          child: ClassesScreen(),
+        ),
       ],
       child: MaterialApp(
         title: "Be Play",
@@ -53,7 +57,7 @@ class MyApp extends StatelessWidget {
           '/verification_screen': (context) => VerificationScreen(),
           '/home': (context) => HomeScreen(),
           '/page_HomeScreen': (context) => PageHomeSceen(),
-          '/classes': (context) => Classes(),
+          '/classes': (context) => ClassesScreen(),
 
           //Settings Page
           '/account': (context) => AccountSettingScreen(),

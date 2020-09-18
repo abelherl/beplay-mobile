@@ -85,9 +85,9 @@ class _CardAgendaState extends State<CardAgenda> {
                 tap = isTapped;
               }))
           ..onTap(() {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return DetailDance(danceModel: widget.item);
-            }));
+//            Navigator.push(context, MaterialPageRoute(builder: (context) {
+//              return DetailDance(danceModel: widget.item);
+//            }));
           }),
         style: ParentStyle()
           ..margin(top: 20)
@@ -128,10 +128,10 @@ class _CardAgendaState extends State<CardAgenda> {
               child: Parent(
                 gesture: Gestures()
                   ..onTap(() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return DetailDance(danceModel: widget.item);
-                    }));
+//                    Navigator.push(context,
+//                        MaterialPageRoute(builder: (context) {
+//                      return DetailDance(danceModel: widget.item);
+//                    }));
                   }),
                 style: ParentStyle()
                   ..background.color(bBackgroundColor)
