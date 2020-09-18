@@ -11,8 +11,13 @@ class ClassInitial extends ClassState {}
 
 class ClassWaiting extends ClassState {}
 
+class ReviewsSuccess extends ClassState {
+  final List<Data> models;
+  ReviewsSuccess({this.models});
+}
+
 class ClassSuccess extends ClassState {
-  final List<Classes> models;
+  final List<Classes2> models;
   ClassSuccess({this.models});
 }
 

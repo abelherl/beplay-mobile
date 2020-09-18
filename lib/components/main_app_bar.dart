@@ -64,7 +64,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
           child: Icon(
             Icons.shopping_cart,
             color: Colors.white,
-            size: filterIconEnabled ? 25 : 0,
+            size: 0,
           ),
         ),
       ],

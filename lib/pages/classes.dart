@@ -1,11 +1,9 @@
 import 'package:beplay/bloc/class/class_bloc.dart';
 import 'package:beplay/components/class_class.dart';
 import 'package:beplay/components/main_app_bar.dart';
-import 'package:beplay/model/classes.dart';
+import 'package:beplay/model/classes2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:beplay/const.dart';
-import 'package:beplay/data_dummy.dart';
-import 'package:beplay/model/dancemodel.dart';
 import 'package:beplay/pages/detail_dance.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
@@ -13,13 +11,32 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ClassesScreen extends StatefulWidget {
+  ClassesScreen({this.category});
+
+  final int category;
+
   @override
-  _ClassesScreenState createState() => _ClassesScreenState();
+  _ClassesScreenState createState() => _ClassesScreenState(category);
 }
 
 class _ClassesScreenState extends State<ClassesScreen> {
+  _ClassesScreenState(this.category);
+  final int category;
+
+  List<String> titles = [
+    '',
+    'Dance',
+    'Yoga',
+    'Outdoors',
+    'Cardio',
+    'Strength',
+    'Boxing',
+    'Meditation',
+    'Others'
+  ];
+
 //  Map data = {};
-  List<Classes> classes = [];
+  List<Classes2> classes = [];
   PageController pageController = PageController(viewportFraction: 0.8);
 
   void init() async {
@@ -38,7 +55,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
 //    data = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: MainAppBar(
-        title: 'Dance',
+        title: titles[category],
         filterIconEnabled: true,
         cartIconEnabled: true,
       ),
@@ -46,7 +63,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
       body: BlocBuilder<ClassBloc, ClassState> (
         builder: (context, state) {
           if (state is ClassSuccess) {
-            classes = state.models;
+            classes = state.models.where((element) => element.sub_category.kategori_id == category).toList();
             return SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Column(
@@ -108,7 +125,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
 class PopularClass extends StatefulWidget {
   const PopularClass({Key key, @required this.item}) : super(key: key);
 
-  final Classes item;
+  final Classes2 item;
 
   @override
   _PopularClassState createState() => _PopularClassState();
@@ -116,6 +133,29 @@ class PopularClass extends StatefulWidget {
 
 class _PopularClassState extends State<PopularClass> {
   var pressed = false;
+
+  String getType() {
+    String type = 'Private Class';
+    if (widget.item.tipe == 1) {
+      type = 'Studio Class';
+    }
+    if (widget.item.tipe == 2) {
+      type = 'Digital Class';
+    }
+    return type;
+  }
+
+  String getLevel() {
+    String type = 'Advanced';
+    if (widget.item.tipe == 1) {
+      type = 'Beginner';
+    }
+    if (widget.item.tipe == 2) {
+      type = 'Intermediate';
+    }
+    return type;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Parent(
@@ -134,7 +174,7 @@ class _PopularClassState extends State<PopularClass> {
 //      ..elevation(pressed ? 0 : 15, opacity: 0.8)
         ..scale(pressed ? 0.93 : 1)
         ..animate(400, Curves.easeOutQuart)
-        ..background.image(url: widget.item.images, fit: BoxFit.cover)
+        ..background.image(url: widget.item.image, fit: BoxFit.cover)
         ..borderRadius(all: 20),
       child: Container(
         decoration: BoxDecoration(
@@ -165,7 +205,7 @@ class _PopularClassState extends State<PopularClass> {
               ],
             ),
             Text(
-              "Digital Class",
+              getType(),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
@@ -217,7 +257,7 @@ class _PopularClassState extends State<PopularClass> {
                   width: 5,
                 ),
                 Text(
-                  '28 January 2021',
+                  widget.item.session[0].tanggal,
                   style: TextStyle(fontSize: 14, color: Colors.white),
                 ),
               ],
@@ -253,7 +293,7 @@ class _PopularClassState extends State<PopularClass> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          '${widget.item.level}',
+                          getLevel(),
                           style: TextStyle(fontSize: 14, color: Colors.white),
                         ),
                         Text(

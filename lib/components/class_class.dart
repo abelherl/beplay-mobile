@@ -1,6 +1,5 @@
 import 'package:beplay/const.dart';
-import 'package:beplay/model/classes.dart';
-import 'package:beplay/model/dancemodel.dart';
+import 'package:beplay/model/classes2.dart';
 import 'package:beplay/pages/detail_dance.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 class ClassClass extends StatefulWidget {
   const ClassClass({Key key, @required this.item}) : super(key: key);
 
-  final Classes item;
+  final Classes2 item;
 
   @override
   _ClassClassState createState() => _ClassClassState();
@@ -18,6 +17,29 @@ class ClassClass extends StatefulWidget {
 
 class _ClassClassState extends State<ClassClass> {
   var pressed = false;
+
+  String getType() {
+    String type = 'Private Class';
+    if (widget.item.tipe == 1) {
+      type = 'Studio Class';
+    }
+    if (widget.item.tipe == 2) {
+      type = 'Digital Class';
+    }
+    return type;
+  }
+
+  String getLevel() {
+    String type = 'Advanced';
+    if (widget.item.tipe == 1) {
+      type = 'Beginner';
+    }
+    if (widget.item.tipe == 2) {
+      type = 'Intermediate';
+    }
+    return type;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Parent(
@@ -49,7 +71,7 @@ class _ClassClassState extends State<ClassClass> {
                   ..height(double.infinity)
                   ..borderRadius(bottomLeft: 20, topLeft: 20)
                   ..background.image(
-                    url: widget.item.images,
+                    url: widget.item.image,
                     fit: BoxFit.cover,
                   ),
                 child: Parent(
@@ -107,7 +129,7 @@ class _ClassClassState extends State<ClassClass> {
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     Text(
-                      "Digital Class",
+                      getType(),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
@@ -178,7 +200,7 @@ class _ClassClassState extends State<ClassClass> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                '${widget.item.level}',
+                                getLevel(),
                                 style:
                                 TextStyle(fontSize: 14, color: Colors.grey),
                               ),

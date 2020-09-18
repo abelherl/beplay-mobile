@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:beplay/model/classes.dart';
-import 'package:beplay/model/classes_parent.dart';
-import 'package:beplay/model/dancemodel.dart';
+import 'package:beplay/model/classes2.dart';
+import 'package:beplay/model/reviews/data.dart';
 import 'package:beplay/repositories/class_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 
 part 'class_event.dart';
 part 'class_state.dart';
@@ -24,12 +22,27 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
       yield ClassWaiting();
       try {
         var response = await repo.getClasses();
+        var list = response.data;
         print('CLASSES FOUND');
-        print("INI RESPONSE $response");
 
-        final list = ClassesParent.fromJsonMap(response).data;
+        print("INI RESPONSE $list");
 
         yield ClassSuccess(models: list);
+      } catch (e) {
+        yield ClassFailed(message: e.toString());
+      }
+    }
+    if (event is GetReviews) {
+      yield ClassWaiting();
+      try {
+        print('GETTING');
+        var response = await repo.getReviews(event.id);
+        var list = response.data;
+        print('REVIEWS FOUND');
+
+        print("INI RESPONSE $list");
+
+        yield ReviewsSuccess(models: list);
       } catch (e) {
         yield ClassFailed(message: e.toString());
       }

@@ -1,15 +1,15 @@
 
 class Trainer {
 
-  int id;
-  int user_id;
-  String nama;
-  String tanggal_lahir;
-  int jenis_kelamin;
-  String tentang;
-  String created_at;
-  String updated_at;
-  Object deleted_at;
+  final int id;
+  final int user_id;
+  final String nama;
+  final String tanggal_lahir;
+  final int jenis_kelamin;
+  final String tentang;
+  final String created_at;
+  final String updated_at;
+  final Object deleted_at;
 
 	Trainer.fromJsonMap(Map<String, dynamic> map): 
 		id = map["id"],

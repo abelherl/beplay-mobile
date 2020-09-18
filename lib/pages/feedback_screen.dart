@@ -1,6 +1,7 @@
 import 'package:beplay/components/main_app_bar.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
+import 'package:beplay/model/classes2.dart';
 import 'package:beplay/model/quick_feedback_item.dart';
 import 'package:beplay/pages/payment_screen.dart';
 import 'package:division/division.dart';
@@ -9,7 +10,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class FeedbackScreen extends StatefulWidget {
   FeedbackScreen({Key key, @required this.danceModel}) : super(key: key);
-  final dynamic danceModel;
+  final Classes2 danceModel;
 
   @override
   _FeedbackScreenState createState() => _FeedbackScreenState(danceModel);
@@ -17,7 +18,7 @@ class FeedbackScreen extends StatefulWidget {
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
   _FeedbackScreenState(this.danceModel);
-  dynamic danceModel;
+  Classes2 danceModel;
 
   final _feedback = TextEditingController();
   List<String> selected = [];
@@ -51,7 +52,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar(title: danceModel.title,),
+      appBar: MainAppBar(title: danceModel.nama,),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(

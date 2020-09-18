@@ -8,3 +8,8 @@ abstract class ClassEvent extends Equatable {
 }
 
 class GetClass extends ClassEvent {}
+
+class GetReviews extends ClassEvent {
+  GetReviews({this.id});
+  final int id;
+}

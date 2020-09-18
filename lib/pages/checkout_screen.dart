@@ -1,6 +1,7 @@
 import 'package:beplay/components/main_app_bar.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
+import 'package:beplay/model/classes2.dart';
 import 'package:beplay/pages/promo_screen.dart';
 import 'package:beplay/pages/proof_screen.dart';
 import 'package:division/division.dart';
@@ -8,6 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CheckoutScreen extends StatefulWidget {
+  CheckoutScreen({this.item});
+
+  final Classes2 item;
+
   @override
   _CheckoutScreenState createState() => _CheckoutScreenState();
 }
@@ -30,53 +35,47 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ListView(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: danceData.map((item) {
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "No. 000000001",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                          Parent(
-                            gesture: Gestures()..onTap(() {}),
-                            child: Icon(
-                              Icons.delete,
-                              color: bShadowColor,
-                            ),
-                          )
-                        ],
-                      ),
                       Text(
-                        item.title,
+                        'No. ${widget.item.id}',
                         style: TextStyle(
-                          fontSize: 13,
-                          color: bLightTextColor,
-                        ),
-                      ),
-                      Text(
-                        "Rp. 200.000",
-                        style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 20,
                           fontWeight: FontWeight.w800,
-                          color: bPrimaryColor,
                         ),
                       ),
+                      Parent(
+                        gesture: Gestures()..onTap(() {}),
+                        child: Icon(
+                          Icons.delete,
+                          color: bShadowColor,
+                        ),
+                      )
                     ],
                   ),
-                );
-              }).toList(),
+                  Text(
+                    widget.item.nama,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: bLightTextColor,
+                    ),
+                  ),
+                  Text(
+                    "Rp. 200.000",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
+                      color: bPrimaryColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 30),
             Divider(
@@ -130,7 +129,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 ),
                 Image(
                   image: NetworkImage(
-                    'https://www.infokoding.com/wp-content/uploads/2017/12/LOGO-BCA-TRANSPARAN.png',
+                    'https://cdn.freebiesupply.com/logos/thumbs/2x/bca-bank-central-asia-logo.png',
                   ),
                   width: 100,
                   fit: BoxFit.cover,

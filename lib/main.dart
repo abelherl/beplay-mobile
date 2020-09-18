@@ -2,6 +2,7 @@ import 'package:beplay/bloc/login/login_bloc.dart';
 import 'package:beplay/bloc/register/register_bloc.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/pages/classes.dart';
+import 'package:beplay/pages/detail_dance.dart';
 import 'package:beplay/pages/home_screen.dart';
 import 'package:beplay/pages/login_screen.dart';
 import 'package:beplay/pages/page_home_screen.dart';
@@ -39,6 +40,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<ClassBloc>(
           create: (_) => ClassBloc(),
           child: ClassesScreen(),
+        ),
+        BlocProvider<ClassBloc>(
+          create: (_) => ClassBloc(),
+          child: DetailDance(),
         ),
       ],
       child: MaterialApp(

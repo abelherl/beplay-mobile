@@ -1,0 +1,132 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.beplay"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="28" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:8:5-67
+14-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:8:22-64
+15
+16    <application
+16-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:9:5-47:19
+17        android:name="io.flutter.app.FlutterApplication"
+17-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:10:9-57
+18        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+18-->[androidx.core:core:1.1.0] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/AndroidManifest.xml:24:18-86
+19        android:debuggable="true"
+20        android:icon="@mipmap/ic_launcher"
+20-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:12:9-43
+21        android:label="beplay" >
+21-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:11:9-31
+22        <activity
+22-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:13:9-41:20
+23            android:name="com.beplay.MainActivity"
+23-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:14:13-41
+24            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+24-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:17:13-163
+25            android:hardwareAccelerated="true"
+25-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:18:13-47
+26            android:launchMode="singleTop"
+26-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:15:13-43
+27            android:theme="@style/LaunchTheme"
+27-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:16:13-47
+28            android:windowSoftInputMode="adjustResize" >
+28-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:19:13-55
+29
+30            <!--
+31                 Specifies an Android theme to apply to this Activity as soon as
+32                 the Android process has started. This theme is visible to the user
+33                 while the Flutter UI initializes. After that, this theme continues
+34                 to determine the Window background behind the Flutter UI.
+35            -->
+36            <meta-data
+36-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:24:13-27:17
+37                android:name="io.flutter.embedding.android.NormalTheme"
+37-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:25:15-70
+38                android:resource="@style/NormalTheme" />
+38-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:26:15-52
+39            <!--
+40                 Displays an Android View that continues showing the launch screen
+41                 Drawable until Flutter paints its first frame, then this splash
+42                 screen fades out. A splash screen is useful to avoid any visual
+43                 gap between the end of Android's launch screen and the painting of
+44                 Flutter's first frame.
+45            -->
+46            <meta-data
+46-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:33:13-36:17
+47                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+47-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:34:15-79
+48                android:resource="@drawable/launch_background" />
+48-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:35:15-61
+49
+50            <intent-filter>
+50-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:37:13-40:29
+51                <action android:name="android.intent.action.MAIN" />
+51-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:38:17-68
+51-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:38:25-66
+52
+53                <category android:name="android.intent.category.LAUNCHER" />
+53-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:39:17-76
+53-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:39:27-74
+54            </intent-filter>
+55        </activity>
+56        <!--
+57             Don't delete the meta-data below.
+58             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+59        -->
+60        <meta-data
+60-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:44:9-46:33
+61            android:name="flutterEmbedding"
+61-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:45:13-44
+62            android:value="2" />
+62-->/Volumes/Data/Abel/Mobile/Flutter/BeplayFinal/android/app/src/main/AndroidManifest.xml:46:13-30
+63
+64        <activity
+64-->[com.google.android.gms:play-services-auth:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/644a511a86efe530faea78e2a8406363/jetified-play-services-auth-16.0.1/AndroidManifest.xml:23:9-27:75
+65            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+65-->[com.google.android.gms:play-services-auth:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/644a511a86efe530faea78e2a8406363/jetified-play-services-auth-16.0.1/AndroidManifest.xml:24:13-93
+66            android:excludeFromRecents="true"
+66-->[com.google.android.gms:play-services-auth:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/644a511a86efe530faea78e2a8406363/jetified-play-services-auth-16.0.1/AndroidManifest.xml:25:13-46
+67            android:exported="false"
+67-->[com.google.android.gms:play-services-auth:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/644a511a86efe530faea78e2a8406363/jetified-play-services-auth-16.0.1/AndroidManifest.xml:26:13-37
+68            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+68-->[com.google.android.gms:play-services-auth:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/644a511a86efe530faea78e2a8406363/jetified-play-services-auth-16.0.1/AndroidManifest.xml:27:13-72
+69        <!--
+70            Service handling Google Sign-In user revocation. For apps that do not integrate with
+71            Google Sign-In, this service will never be started.
+72        -->
+73        <service
+73-->[com.google.android.gms:play-services-auth:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/644a511a86efe530faea78e2a8406363/jetified-play-services-auth-16.0.1/AndroidManifest.xml:33:9-36:110
+74            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+74-->[com.google.android.gms:play-services-auth:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/644a511a86efe530faea78e2a8406363/jetified-play-services-auth-16.0.1/AndroidManifest.xml:34:13-89
+75            android:exported="true"
+75-->[com.google.android.gms:play-services-auth:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/644a511a86efe530faea78e2a8406363/jetified-play-services-auth-16.0.1/AndroidManifest.xml:35:13-36
+76            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+76-->[com.google.android.gms:play-services-auth:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/644a511a86efe530faea78e2a8406363/jetified-play-services-auth-16.0.1/AndroidManifest.xml:36:13-107
+77
+78        <activity
+78-->[com.google.android.gms:play-services-base:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/eeeffc1ea206a5f5516448704ddc079c/jetified-play-services-base-16.0.1/AndroidManifest.xml:23:9-26:75
+79            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+79-->[com.google.android.gms:play-services-base:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/eeeffc1ea206a5f5516448704ddc079c/jetified-play-services-base-16.0.1/AndroidManifest.xml:24:13-79
+80            android:exported="false"
+80-->[com.google.android.gms:play-services-base:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/eeeffc1ea206a5f5516448704ddc079c/jetified-play-services-base-16.0.1/AndroidManifest.xml:25:13-37
+81            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+81-->[com.google.android.gms:play-services-base:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/eeeffc1ea206a5f5516448704ddc079c/jetified-play-services-base-16.0.1/AndroidManifest.xml:26:13-72
+82
+83        <meta-data
+83-->[com.google.android.gms:play-services-basement:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/be5d7bdc320eceb774753859e3f7a396/jetified-play-services-basement-16.0.1/AndroidManifest.xml:23:9-25:69
+84            android:name="com.google.android.gms.version"
+84-->[com.google.android.gms:play-services-basement:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/be5d7bdc320eceb774753859e3f7a396/jetified-play-services-basement-16.0.1/AndroidManifest.xml:24:13-58
+85            android:value="@integer/google_play_services_version" />
+85-->[com.google.android.gms:play-services-basement:16.0.1] /Users/ldg01/.gradle/caches/transforms-2/files-2.1/be5d7bdc320eceb774753859e3f7a396/jetified-play-services-basement-16.0.1/AndroidManifest.xml:25:13-66
+86    </application>
+87
+88</manifest>

@@ -24,18 +24,17 @@ class _PageHomeSceen extends State<PageHomeSceen> {
   bool pressed = false;
 
   var row1 = [
-    HomeIcons(title: "Dance", icon: "icons/mdi_human-female-dance.svg"),
-    HomeIcons(title: "Yoga", icon: "icons/mdi_yoga.svg"),
-    HomeIcons(title: "Outdoors", icon: "icons/si-glyph_tent-camp.svg"),
-    HomeIcons(title: "Cardio", icon: "icons/medical-icon_i-cardiology.svg"),
+    HomeIcons(title: "Dance", icon: "icons/mdi_human-female-dance.svg", category: 1),
+    HomeIcons(title: "Yoga", icon: "icons/mdi_yoga.svg", category: 2),
+    HomeIcons(title: "Outdoors", icon: "icons/si-glyph_tent-camp.svg", category: 3),
+    HomeIcons(title: "Cardio", icon: "icons/medical-icon_i-cardiology.svg", category: 4),
   ];
 
   var row2 = [
-    HomeIcons(title: "Strength", icon: "icons/map_gym.svg"),
-    HomeIcons(
-        title: "Boxing", icon: "icons/emojione-monotone_boxing-glove.svg"),
-    HomeIcons(title: "Meditation", icon: "icons/mdi_meditation.svg"),
-    HomeIcons(title: "Others", icon: "icons/ant-design_plus-outlined.svg"),
+    HomeIcons(title: "Strength", icon: "icons/map_gym.svg", category: 5),
+    HomeIcons(title: "Boxing", icon: "icons/emojione-monotone_boxing-glove.svg", category: 6),
+    HomeIcons(title: "Meditation", icon: "icons/mdi_meditation.svg", category: 7),
+    HomeIcons(title: "Others", icon: "icons/ant-design_plus-outlined.svg", category: 8),
   ];
 
   @override
@@ -49,28 +48,6 @@ class _PageHomeSceen extends State<PageHomeSceen> {
               fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: bPrimaryColor,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
-            child: Parent(
-              gesture: Gestures()
-                ..onTap(() {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return CartScreen();
-                  }));
-                }),
-              style: ParentStyle()
-                ..ripple(true, splashColor: bPrimaryLightColor)
-                ..height(60)
-                ..width(60)
-                ..borderRadius(all: 30),
-              child: Icon(
-                Icons.shopping_cart,
-                color: Colors.white,
-              ),
-            ),
-          )
-        ],
         elevation: 0,
         centerTitle: false,
         automaticallyImplyLeading: false,
@@ -181,7 +158,7 @@ class _PageHomeSceen extends State<PageHomeSceen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: row1
                     .map((item) {
-                      return HomeIconsClass(item: item, size: size);
+                      return HomeIconsClass(item: item, size: size, category: item.category,);
                     })
                     .toList()
                     .cast<Widget>(),
@@ -194,7 +171,7 @@ class _PageHomeSceen extends State<PageHomeSceen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: row2
                     .map((item) {
-                      return HomeIconsClass(item: item, size: size);
+                      return HomeIconsClass(item: item, size: size, category: item.category,);
                     })
                     .toList()
                     .cast<Widget>(),

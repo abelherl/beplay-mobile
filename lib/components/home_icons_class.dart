@@ -12,10 +12,12 @@ class HomeIconsClass extends StatefulWidget {
     Key key,
     @required this.size,
     @required this.item,
+    @required this.category,
   }) : super(key: key);
 
   final Size size;
   final HomeIcons item;
+  final int category;
 
   @override
   _HomeIconsClassState createState() => _HomeIconsClassState();
@@ -33,7 +35,7 @@ class _HomeIconsClassState extends State<HomeIconsClass> {
             ..onTap(() {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
-                            return ClassesScreen();
+                            return ClassesScreen(category: widget.category,);
                         }
                     )
                 );
