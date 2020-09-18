@@ -13,6 +13,10 @@ class UserRepository {
       "https://damp-basin-32676.herokuapp.com/api/auth/register";
   static String urlLogOut =
       "https://damp-basin-32676.herokuapp.com/api/auth/logout";
+  static String urlUpdateUser =
+      "https://damp-basin-32676.herokuapp.com/api/auth/";
+  static String urlUpdatePassword =
+      "https://damp-basin-32676.herokuapp.com/api/auth/password";
 
   var _headers = {'content-type': 'application/json'};
   // ignore: unused_field
@@ -88,6 +92,40 @@ class UserRepository {
       }
     } catch (e) {}
 
+    return null;
+  }
+
+  updateUserData(Map<String, dynamic> data) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    _token = pref.getString("token");
+    var encodeData = jsonEncode(data);
+    final response = await http.put(urlUpdateUser,
+        headers: {
+          'content-type': 'application/json',
+          'authorization': 'Bearer $_token'
+        },
+        body: encodeData);
+    var decodeResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return decodeResponse;
+    }
+    return null;
+  }
+
+  updateUserPassword(Map<String, dynamic> data) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    _token = pref.getString("token");
+    var encodeData = jsonEncode(data);
+    final response = await http.put(urlUpdatePassword,
+        headers: {
+          'content-type': 'application/json',
+          'authorization': 'Bearer $_token'
+        },
+        body: encodeData);
+    var decodeResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return decodeResponse;
+    }
     return null;
   }
 }

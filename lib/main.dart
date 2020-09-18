@@ -1,3 +1,4 @@
+import 'package:beplay/bloc/account/account_bloc.dart';
 import 'package:beplay/bloc/login/login_bloc.dart';
 import 'package:beplay/bloc/register/register_bloc.dart';
 import 'package:beplay/const.dart';
@@ -50,6 +51,14 @@ class MyApp extends StatelessWidget {
         BlocProvider<OrdersBloc>(
           create: (_) => OrdersBloc(),
           child: OrdersScreen(),
+        ),
+        BlocProvider<AccountBloc>(
+          create: (_) => AccountBloc(),
+          child: AccountSettingScreen(),
+        ),
+        BlocProvider<AccountBloc>(
+          create: (_) => AccountBloc(),
+          child: ChangePasswordScreen(),
         ),
       ],
       child: MaterialApp(
