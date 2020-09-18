@@ -9,6 +9,8 @@ abstract class LogOutState extends Equatable {
 
 class LogOutInitial extends LogOutState {}
 
+class LogOutWaiting extends LogOutState {}
+
 class LogOutSuccess extends LogOutState {
   final Map<String, dynamic> model;
   LogOutSuccess({this.model});

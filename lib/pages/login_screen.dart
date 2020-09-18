@@ -1,5 +1,6 @@
 import 'package:beplay/bloc/login/login_bloc.dart';
 import 'package:beplay/model/user_model.dart';
+import 'package:beplay/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
 import 'package:beplay/const.dart';
@@ -8,6 +9,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'forgot_screen.dart';
 import 'signup_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -21,6 +25,10 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController txtPassword = TextEditingController();
   final FocusNode txtPasswordNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  UserRepository _repo = new UserRepository();
+
   void toggleVisibility() {
     setState(() {
       isHidden = !isHidden;
@@ -111,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   return 'Please enter a Password';
                                 }
                                 if (text.length < 8) {
-                                  return 'Please enter a Password more 6 characters';
+                                  return 'Please enter a Password more 8 characters';
                                 }
                                 return null;
                               },
@@ -188,7 +196,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       Card(
                                         shape: CircleBorder(),
                                         child: FlatButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              signInWithGoogle().then((result) {
+                                                if (result != null) {
+                                                  Navigator
+                                                      .pushReplacementNamed(
+                                                          context, '/home');
+                                                }
+                                              });
+                                            },
                                             child: Container(
                                                 width: 30.0,
                                                 height: 30.0,
@@ -329,5 +345,36 @@ class _LoginScreenState extends State<LoginScreen> {
   _loginRequest() async {
     context.bloc<LoginBloc>().add(Login(
         model: UserLogin(email: txtEmail.text, password: txtPassword.text)));
+  }
+
+  Future<String> signInWithGoogle() async {
+    await Firebase.initializeApp();
+
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+    final User user = authResult.user;
+
+    if (user != null) {
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+
+      final User currentUser = _auth.currentUser;
+      assert(user.uid == currentUser.uid);
+      _repo.setAccessToken(user.uid);
+      _repo.setNameTemporary(user.displayName);
+
+      return '$user';
+    }
+
+    return null;
   }
 }

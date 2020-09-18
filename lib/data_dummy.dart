@@ -1,6 +1,6 @@
 import 'package:beplay/model/schendule.dart';
-
 import 'model/dancemodel.dart';
+import 'model/orders_model.dart';
 import 'model/reviews.dart';
 
 List<DanceModel> danceData = [
@@ -183,7 +183,7 @@ List<ReviewsDance> reviewsDance = [
           'https://upload.wikimedia.org/wikipedia/commons/8/8f/Barbaros_%C5%9Eansal.png')
 ];
 
-List<DanceModel> orders = [
+List<DanceModel> order = [
   DanceModel(
       rating: 4.0,
       title: 'Boxing',
@@ -246,3 +246,137 @@ List<DanceModel> agenda = [
 
 List<Schedule> schedule = [];
 List<DanceModel> myvideos = [];
+List<OrdersModel> orders = [
+  OrdersModel(success: true, message: "Berhasil", data: [
+    Data(
+        id: 1,
+        customerId: 11,
+        kode: "INV-1",
+        nominal: "300.000",
+        buktiPembayaran: null,
+        status: 0,
+        createdAt: "2020-09-17 23:15:57",
+        updatedAt: "2020-09-17 23:15:57",
+        kelas: [
+          Kelas(
+            id: 1,
+            subkategoriId: 1,
+            trainerId: 4,
+            nama: "Zumba Toning",
+            level: 1,
+            tipe: 2,
+            tempat: "Zoom",
+            durasi: 60,
+            slot: 15,
+            image: "zumba_toning.jpg",
+            createdAt: "2020-09-17 23:00:16",
+            updatedAt: "2020-09-17 23:00:16",
+            pivot: (Pivot(
+              invoiceId: 1,
+              kelasId: 1,
+            )),
+          ),
+          Kelas(
+            id: 1,
+            subkategoriId: 1,
+            trainerId: 4,
+            nama: "Sunday Marathon",
+            level: 1,
+            tipe: 2,
+            tempat: "Google Meet",
+            durasi: 60,
+            slot: 15,
+            image: "zumba_toning.jpg",
+            createdAt: "2020-09-17 23:00:16",
+            updatedAt: "2020-09-17 23:00:16",
+            pivot: (Pivot(
+              invoiceId: 1,
+              kelasId: 1,
+            )),
+          ),
+          Kelas(
+            id: 1,
+            subkategoriId: 1,
+            trainerId: 4,
+            nama: "Sunday Marathon",
+            level: 1,
+            tipe: 2,
+            tempat: "Google Meet",
+            durasi: 60,
+            slot: 15,
+            image: "zumba_toning.jpg",
+            createdAt: "2020-09-17 23:00:16",
+            updatedAt: "2020-09-17 23:00:16",
+            pivot: (Pivot(
+              invoiceId: 1,
+              kelasId: 1,
+            )),
+          ),
+        ]),
+    Data(
+        id: 1,
+        customerId: 11,
+        kode: "INV-2",
+        nominal: "200.000",
+        buktiPembayaran: null,
+        status: 0,
+        createdAt: "2020-09-17 23:15:57",
+        updatedAt: "2020-09-17 23:15:57",
+        kelas: [
+          Kelas(
+            id: 1,
+            subkategoriId: 1,
+            trainerId: 4,
+            nama: "Zumba Toning",
+            level: 1,
+            tipe: 2,
+            tempat: "Zoom",
+            durasi: 60,
+            slot: 15,
+            image: "zumba_toning.jpg",
+            createdAt: "2020-09-17 23:00:16",
+            updatedAt: "2020-09-17 23:00:16",
+            pivot: (Pivot(
+              invoiceId: 1,
+              kelasId: 1,
+            )),
+          ),
+          Kelas(
+            id: 1,
+            subkategoriId: 1,
+            trainerId: 4,
+            nama: "Sunday Marathon",
+            level: 1,
+            tipe: 2,
+            tempat: "Google Meet",
+            durasi: 60,
+            slot: 15,
+            image: "zumba_toning.jpg",
+            createdAt: "2020-09-17 23:00:16",
+            updatedAt: "2020-09-17 23:00:16",
+            pivot: (Pivot(
+              invoiceId: 1,
+              kelasId: 1,
+            )),
+          ),
+          Kelas(
+            id: 1,
+            subkategoriId: 1,
+            trainerId: 4,
+            nama: "Sunday Marathon",
+            level: 1,
+            tipe: 2,
+            tempat: "Google Meet",
+            durasi: 60,
+            slot: 15,
+            image: "zumba_toning.jpg",
+            createdAt: "2020-09-17 23:00:16",
+            updatedAt: "2020-09-17 23:00:16",
+            pivot: (Pivot(
+              invoiceId: 1,
+              kelasId: 1,
+            )),
+          ),
+        ]),
+  ])
+];

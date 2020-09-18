@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:beplay/model/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class UserRepository {
+  final GoogleSignIn googleSignIn = GoogleSignIn();
   static String urlLogin =
       "https://damp-basin-32676.herokuapp.com/api/auth/login";
   static String urlSignUp =
@@ -24,6 +26,7 @@ class UserRepository {
     String token = decodeData["data"]["token"];
     if (response.statusCode == 200) {
       setAccessToken(token);
+      setNameTemporary(decodeData['data']['user']['username']);
       return jsonDecode(response.body);
     }
     return null;
@@ -37,6 +40,7 @@ class UserRepository {
     String token = decodeData["data"]["token"];
     if (response.statusCode == 200) {
       setAccessToken(token);
+      setNameTemporary(decodeData['data']['user']['username']);
       return jsonDecode(response.body);
     }
     return null;
@@ -53,7 +57,6 @@ class UserRepository {
     if (decodeResponse['success'] == true) {
       removeAccessToken();
     }
-    print(decodeResponse);
     return jsonDecode(response.body);
   }
 
@@ -70,14 +73,9 @@ class UserRepository {
     return null;
   }
 
-  checkAccessToken() async {
+  setNameTemporary(String name) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    if (pref.containsKey("token")) {
-      _token = pref.getString("token");
-      return true;
-    }
-
-    return null;
+    await pref.setString('name', name);
   }
 
   removeAccessToken() async {

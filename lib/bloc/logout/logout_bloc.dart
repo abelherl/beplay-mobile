@@ -16,12 +16,13 @@ class LogOutBloc extends Bloc<LogOutEvent, LogOutState> {
     LogOutEvent event,
   ) async* {
     if (event is LogOut) {
+      yield LogOutWaiting();
       try {
         var response = await repo.logout();
         if (response != null) {
           yield LogOutSuccess(model: response);
         } else {
-          yield LogOutFailed(message: "User Not Found");
+          yield LogOutFailed(message: "Log Out Gagal");
         }
       } catch (e) {
         yield LogOutFailed(message: e.toString());

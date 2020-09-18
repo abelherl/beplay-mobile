@@ -4,8 +4,10 @@ import 'package:beplay/repositories/user_repository.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -13,12 +15,48 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  String _name;
+
+  _getDataName() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      _name = pref.getString("name");
+    });
+  }
+
+  _loading() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Center(
+            child: SpinKitDualRing(
+              color: bPrimaryColor,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getDataName();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: bWhite,
         body: BlocListener<LogOutBloc, LogOutState>(
             listener: (context, state) {
+              if (state is LogOutWaiting) {
+                _loading();
+              }
               if (state is LogOutSuccess) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     '/login', (Route<dynamic> route) => false);
@@ -44,8 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: Parent(
                                 child: CircleAvatar(
                                   radius: 50.0,
-                                  backgroundImage:
-                                      AssetImage('images/aaa.jpeg'),
+                                  backgroundImage: AssetImage('icons/man.png'),
                                 ),
                               )),
                         ],
@@ -54,8 +91,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         height: 60.0,
                       ),
                       Txt(
-                        'SMK CODING',
+                        (_name != null) ? _name : '-',
+                        // 'Faisal Armas',
                         style: TxtStyle()
+                          ..maxLines(1)
                           ..alignment.center()
                           ..textColor(Colors.black)
                           ..fontWeight(FontWeight.w600)

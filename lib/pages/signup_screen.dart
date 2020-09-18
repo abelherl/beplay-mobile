@@ -123,7 +123,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                   controller: _txtFirstName,
                   decoration: InputDecoration(
-                      labelText: "FIRST NAME", prefixText: "\t"),
+                    labelText: "FIRST NAME",
+                    contentPadding: const EdgeInsets.all(10.0),
+                  ),
                   onEditingComplete: () {
                     FocusScope.of(context).requestFocus(_txtLastNameNode);
                   },
@@ -143,8 +145,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                   controller: _txtLastName,
                   focusNode: _txtLastNameNode,
-                  decoration:
-                      InputDecoration(labelText: "LAST NAME", prefixText: "\t"),
+                  decoration: InputDecoration(
+                    labelText: "LAST NAME",
+                    contentPadding: const EdgeInsets.all(10.0),
+                  ),
                   onEditingComplete: () {
                     FocusScope.of(context).requestFocus(_txtEmailNode);
                   },
@@ -166,7 +170,10 @@ class _SignupScreenState extends State<SignupScreen> {
             controller: _txtEmail,
             focusNode: _txtEmailNode,
             keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(labelText: "EMAIL", prefixText: "\t"),
+            decoration: InputDecoration(
+              labelText: "EMAIL",
+              contentPadding: const EdgeInsets.all(10.0),
+            ),
             onEditingComplete: () {
               FocusScope.of(context).requestFocus(_txtPasswordNode);
             },

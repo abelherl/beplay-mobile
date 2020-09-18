@@ -5,6 +5,7 @@ import 'package:beplay/pages/classes.dart';
 import 'package:beplay/pages/home_screen.dart';
 import 'package:beplay/pages/intro_screen.dart';
 import 'package:beplay/pages/login_screen.dart';
+import 'package:beplay/pages/orders_screen.dart';
 import 'package:beplay/pages/page_home_screen.dart';
 import 'package:beplay/pages/profile/account_screen.dart';
 import 'package:beplay/pages/profile/change_password_screen.dart';
@@ -15,13 +16,17 @@ import 'package:beplay/pages/profile/privacy_screen.dart';
 import 'package:beplay/pages/profile_screen.dart';
 import 'package:beplay/pages/signup_screen.dart';
 import 'package:beplay/pages/verification_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/logout/logout_bloc.dart';
+import 'bloc/orders/orders_bloc.dart';
 import 'pages/splash_screen.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -41,6 +46,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<LogOutBloc>(
           create: (_) => LogOutBloc(),
           child: ProfileScreen(),
+        ),
+        BlocProvider<OrdersBloc>(
+          create: (_) => OrdersBloc(),
+          child: OrdersScreen(),
         ),
       ],
       child: MaterialApp(
