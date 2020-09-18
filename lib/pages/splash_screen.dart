@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:beplay/const.dart';
+import 'package:beplay/pages/home_screen.dart';
+import 'package:beplay/pages/intro_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,20 +13,25 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   _loadAccessToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    var response = pref.getString("token");
+    var token = pref.getString("token");
     var duration = const Duration(seconds: 3);
     return Timer(duration, () {
-      if (response != null) {
-        Navigator.of(context).pushReplacementNamed('/home');
+      if (token != null) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => IntroScreen()));
       }
-      Navigator.of(context).pushReplacementNamed('/intro_screen');
     });
   }
 
   @override
   void initState() {
-    _loadAccessToken();
     super.initState();
+    _loadAccessToken();
   }
 
   @override

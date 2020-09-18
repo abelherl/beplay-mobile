@@ -9,6 +9,8 @@ class UserRepository {
       "https://damp-basin-32676.herokuapp.com/api/auth/login";
   static String urlSignUp =
       "https://damp-basin-32676.herokuapp.com/api/auth/register";
+  static String urlLogOut =
+      "https://damp-basin-32676.herokuapp.com/api/auth/logout";
 
   var _headers = {'content-type': 'application/json'};
   // ignore: unused_field
@@ -38,6 +40,21 @@ class UserRepository {
       return jsonDecode(response.body);
     }
     return null;
+  }
+
+  logout() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    _token = pref.getString("token");
+    final response = await http.post(urlLogOut, headers: {
+      'content-type': 'application/json',
+      'authorization': 'Bearer $_token'
+    });
+    var decodeResponse = jsonDecode(response.body);
+    if (decodeResponse['success'] == true) {
+      removeAccessToken();
+    }
+    print(decodeResponse);
+    return jsonDecode(response.body);
   }
 
   setAccessToken(String token) async {

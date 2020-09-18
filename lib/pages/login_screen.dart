@@ -38,7 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
               _loading();
             }
             if (state is LoginSuccess) {
-              Navigator.pushReplacementNamed(context, '/home');
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/home', (Route<dynamic> route) => false);
             }
             if (state is LoginFailed) {
               Navigator.pop(context);
@@ -109,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if (text.isEmpty) {
                                   return 'Please enter a Password';
                                 }
-                                if (text.length < 6) {
+                                if (text.length < 8) {
                                   return 'Please enter a Password more 6 characters';
                                 }
                                 return null;
@@ -300,17 +301,27 @@ class _LoginScreenState extends State<LoginScreen> {
     Alert(
       context: context,
       type: AlertType.error,
-      title: "Login",
-      desc: message,
+      title: "User not found !",
+      desc: "Do you want to create an account?",
       buttons: [
         DialogButton(
+          color: Colors.white,
           child: Text(
-            "CLOSE",
-            style: TextStyle(color: Colors.white),
+            "No, thanks",
+            style: TextStyle(color: bLightTextColor),
           ),
           onPressed: () => Navigator.pop(context),
           width: 100,
-        )
+        ),
+        DialogButton(
+          color: Colors.white,
+          child: Text(
+            "Yes",
+            style: TextStyle(color: bPrimaryColor),
+          ),
+          onPressed: () => Navigator.of(context).popAndPushNamed('/signup'),
+          width: 100,
+        ),
       ],
     ).show();
   }

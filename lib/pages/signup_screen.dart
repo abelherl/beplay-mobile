@@ -52,7 +52,8 @@ class _SignupScreenState extends State<SignupScreen> {
               _loading();
             }
             if (state is RegisterSuccess) {
-              Navigator.of(context).pushReplacementNamed('/home');
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/home', (Route<dynamic> route) => false);
             }
             if (state is RegisterFailed) {
               Navigator.pop(context);
@@ -298,13 +299,14 @@ class _SignupScreenState extends State<SignupScreen> {
     Alert(
       context: context,
       type: AlertType.error,
-      title: "Register",
+      title: "Register Failed",
       desc: message,
       buttons: [
         DialogButton(
+          color: Colors.white,
           child: Text(
             "CLOSE",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: bPrimaryColor),
           ),
           onPressed: () => Navigator.pop(context),
           width: 100,

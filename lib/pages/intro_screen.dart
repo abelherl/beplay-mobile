@@ -1,4 +1,5 @@
 import 'package:beplay/const.dart';
+import 'package:beplay/pages/login_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
@@ -135,7 +136,8 @@ class _IntroScreenState extends State<IntroScreen> {
   }
 
   void onDonePress() {
-    Navigator.of(context).pushReplacementNamed('/login_screen');
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
   }
 
   @override
