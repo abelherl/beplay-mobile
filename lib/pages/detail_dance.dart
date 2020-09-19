@@ -63,7 +63,7 @@ class _DetailDanceState extends State<DetailDance> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: BlocListener<ClassBloc, ClassState> (
+      body: BlocListener<ClassBloc, ClassState>(
         listener: (context, state) {
           if (state is ReviewsSuccess) {
             setState(() => danceReviews = state.models);
@@ -170,11 +170,15 @@ class _DetailDanceState extends State<DetailDance> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Parent(
-                          gesture: Gestures()..onTap(() {
-                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-                              return CheckoutScreen(item: widget.danceModel,);
-                            }));
-                          }),
+                          gesture: Gestures()
+                            ..onTap(() {
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                return CheckoutScreen(
+                                  item: widget.danceModel,
+                                );
+                              }));
+                            }),
                           style: ParentStyle()
                             ..alignment.centerRight()
                             ..margin(right: 20)
@@ -372,11 +376,13 @@ class _DetailDanceState extends State<DetailDance> {
                                       color: bPrimaryColor),
                                 ),
                                 Text(
-                                  "Professional Zumba Trainer",
+                                  widget.danceModel.trainer.tentang,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 13,
                                       color: Colors.grey),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                 ),
                               ],
                             ),
@@ -453,11 +459,10 @@ class _DetailDanceState extends State<DetailDance> {
                         ),
                         FlatButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return FeedbackScreen(danceModel: danceModel);
-                              }
-                            ));
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return FeedbackScreen(danceModel: danceModel);
+                            }));
                           },
                           child: Row(
                             children: [
@@ -521,14 +526,16 @@ class _DetailDanceState extends State<DetailDance> {
                         BlocBuilder<ClassBloc, ClassState>(
                           builder: (context, state) {
                             if (state is ReviewsSuccess) {
-                              return  ListView(
+                              return ListView(
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 children: danceReviews.map((item) {
                                   return Parent(
-                                    style: ParentStyle()..padding(top: 10, bottom: 20),
+                                    style: ParentStyle()
+                                      ..padding(top: 10, bottom: 20),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
                                           children: [
@@ -539,7 +546,7 @@ class _DetailDanceState extends State<DetailDance> {
                                             SizedBox(width: 15),
                                             Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   item.customer.nama,
@@ -589,8 +596,7 @@ class _DetailDanceState extends State<DetailDance> {
                                   );
                                 }).toList(),
                               );
-                            }
-                            else {
+                            } else {
                               return Container();
                             }
                           },

@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:beplay/model/classes2.dart';
-import 'package:beplay/model/invoice/data.dart';
-import 'package:beplay/model/invoice/invoice_parent.dart';
 import 'package:beplay/model/reviews/data.dart';
 import 'package:beplay/repositories/class_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -18,8 +16,8 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
 
   @override
   Stream<ClassState> mapEventToState(
-      ClassEvent event,
-      ) async* {
+    ClassEvent event,
+  ) async* {
     if (event is GetClass) {
       yield ClassWaiting();
       try {
@@ -38,14 +36,14 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
       yield ClassWaiting();
       try {
         print('INVOICE IN MAKING');
-        var response = await repo.postInvoice(DataInvoice.fromJsonMap({
-          'nominal': event.nominal,
-          'kelas[]': event.id,
-        }));
-        var list = response.data;
+        // var response = await repo.postInvoice(DataInvoice.fromJsonMap({
+        //   'nominal': event.nominal,
+        //   'kelas[]': event.id,
+        // }));
+        // var list = response.data;
         print('INVOICE MADE');
 
-        print("INI RESPONSE $list");
+        // print("INI RESPONSE $list");
 
         yield InvoiceSuccess();
       } catch (e) {

@@ -29,8 +29,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   var trainerInfo = 'PT. Wellness';
   var _paymentWith = 0;
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,14 +41,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           if (state is ReviewsSuccess) {
             Timer(Duration(seconds: 3), () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return PaymentScreen(success: true,);
+                return PaymentScreen(
+                  success: true,
+                );
               }));
             });
           }
           if (state is InvoiceFailed) {
             Timer(Duration(seconds: 3), () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return PaymentScreen(success: true,);
+                return PaymentScreen(
+                  success: true,
+                );
               }));
             });
           }
@@ -225,7 +227,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 'PAY',
                 gesture: Gestures()
                   ..onTap(() {
-                    context.bloc<ClassBloc>().add(PostInvoice(id: widget.item.id, nominal: 200000));
+                    Timer(Duration(seconds: 3), () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return PaymentScreen(
+                          success: true,
+                        );
+                      }));
+                    });
                   }),
                 style: TxtStyle()
                   ..width(double.infinity)

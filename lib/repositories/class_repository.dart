@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:beplay/model/classes.dart';
 import 'package:beplay/model/classes_parent.dart';
 import 'package:beplay/model/dancemodel.dart';
-import 'package:beplay/model/invoice/data.dart';
+// import 'package:beplay/model/invoice/data.dart';
 import 'package:beplay/model/reviews/reviews_parent.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -47,15 +47,15 @@ class ClassRepository {
     }
   }
 
-  postInvoice(DataInvoice model) async {
-    final response =
-    await http.post(urlPostInvoice, headers: _headers, body: jsonEncode(model));
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
-    }
-    return null;
-  }
+  // postInvoice(DataInvoice model) async {
+  //   final response =
+  //   await http.post(urlPostInvoice, headers: _headers, body: jsonEncode(model));
+  //   print(response.statusCode);
+  //   if (response.statusCode == 200) {
+  //     return jsonDecode(response.body);
+  //   }
+  //   return null;
+  // }
 
   setAccessToken(String token) async {
     _token = token;

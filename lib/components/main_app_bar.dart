@@ -37,6 +37,7 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
           )),
       actions: [
         PopupMenuButton(
+          padding: EdgeInsets.all(0),
           enabled: filterIconEnabled,
           icon: Icon(
             Icons.filter_list,

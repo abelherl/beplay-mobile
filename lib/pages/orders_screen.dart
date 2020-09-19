@@ -48,9 +48,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     }))
                 ..onTap(() {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OrdersHistoryScreen()));
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OrdersHistoryScreen()))
+                      .then((value) {
+                    setState(() {
+                      context.bloc<OrdersBloc>().add(GetOrders());
+                    });
+                  });
                 }),
               style: ParentStyle()
                 ..padding(right: 15)
