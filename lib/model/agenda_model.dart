@@ -1,11 +1,11 @@
-class OrdersModel {
+class AgendaModel {
   bool success;
   String message;
   List<Data> data;
 
-  OrdersModel({this.success, this.message, this.data});
+  AgendaModel({this.success, this.message, this.data});
 
-  OrdersModel.fromJson(Map<String, dynamic> json) {
+  AgendaModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
     if (json['data'] != null) {
@@ -29,62 +29,6 @@ class OrdersModel {
 
 class Data {
   int id;
-  int customerId;
-  String kode;
-  String nominal;
-  Null buktiPembayaran;
-  int status;
-  String createdAt;
-  String updatedAt;
-  List<Kelas> kelas;
-
-  Data(
-      {this.id,
-      this.customerId,
-      this.kode,
-      this.nominal,
-      this.buktiPembayaran,
-      this.status,
-      this.createdAt,
-      this.updatedAt,
-      this.kelas});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    customerId = json['customer_id'];
-    kode = json['kode'];
-    nominal = json['nominal'];
-    buktiPembayaran = json['bukti_pembayaran'];
-    status = json['status'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    if (json['kelas'] != null) {
-      kelas = new List<Kelas>();
-      json['kelas'].forEach((v) {
-        kelas.add(new Kelas.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['customer_id'] = this.customerId;
-    data['kode'] = this.kode;
-    data['nominal'] = this.nominal;
-    data['bukti_pembayaran'] = this.buktiPembayaran;
-    data['status'] = this.status;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.kelas != null) {
-      data['kelas'] = this.kelas.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Kelas {
-  int id;
   int subkategoriId;
   int trainerId;
   String nama;
@@ -97,8 +41,9 @@ class Kelas {
   String createdAt;
   String updatedAt;
   Pivot pivot;
+  List<Session> session;
 
-  Kelas(
+  Data(
       {this.id,
       this.subkategoriId,
       this.trainerId,
@@ -111,9 +56,10 @@ class Kelas {
       this.image,
       this.createdAt,
       this.updatedAt,
-      this.pivot});
+      this.pivot,
+      this.session});
 
-  Kelas.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     subkategoriId = json['subkategori_id'];
     trainerId = json['trainer_id'];
@@ -127,6 +73,12 @@ class Kelas {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     pivot = json['pivot'] != null ? new Pivot.fromJson(json['pivot']) : null;
+    if (json['session'] != null) {
+      session = new List<Session>();
+      json['session'].forEach((v) {
+        session.add(new Session.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -145,6 +97,9 @@ class Kelas {
     data['updated_at'] = this.updatedAt;
     if (this.pivot != null) {
       data['pivot'] = this.pivot.toJson();
+    }
+    if (this.session != null) {
+      data['session'] = this.session.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -165,6 +120,43 @@ class Pivot {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['invoice_id'] = this.invoiceId;
     data['kelas_id'] = this.kelasId;
+    return data;
+  }
+}
+
+class Session {
+  int id;
+  int kelasId;
+  String tanggal;
+  int jam;
+  String createdAt;
+  String updatedAt;
+
+  Session(
+      {this.id,
+      this.kelasId,
+      this.tanggal,
+      this.jam,
+      this.createdAt,
+      this.updatedAt});
+
+  Session.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    kelasId = json['kelas_id'];
+    tanggal = json['tanggal'];
+    jam = json['jam'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['kelas_id'] = this.kelasId;
+    data['tanggal'] = this.tanggal;
+    data['jam'] = this.jam;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }

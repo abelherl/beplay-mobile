@@ -22,11 +22,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield LoginWaiting();
       try {
         var response = await repo.login(event.model);
-        print("INI RESPONSE $response");
-        yield LoginSuccess(model: response);
+        if (response != null) {
+          yield LoginSuccess(model: response);
+        } else {
+          yield LoginFailed(message: "User Not Found");
+        }
       } catch (e) {
         yield LoginFailed(message: e.toString());
       }
-    } else {}
+    }
   }
 }

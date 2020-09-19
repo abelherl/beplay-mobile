@@ -1,11 +1,17 @@
 import 'package:beplay/bloc/login/login_bloc.dart';
 import 'package:beplay/model/user_model.dart';
+import 'package:beplay/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
 import 'package:beplay/const.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'forgot_screen.dart';
 import 'signup_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -19,6 +25,10 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController txtPassword = TextEditingController();
   final FocusNode txtPasswordNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  UserRepository _repo = new UserRepository();
+
   void toggleVisibility() {
     setState(() {
       isHidden = !isHidden;
@@ -36,18 +46,12 @@ class _LoginScreenState extends State<LoginScreen> {
               _loading();
             }
             if (state is LoginSuccess) {
-              Navigator.pushNamed(context, '/home');
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/home', (Route<dynamic> route) => false);
             }
             if (state is LoginFailed) {
               Navigator.pop(context);
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text('Login Failed'),
-                      content: Text(state.message),
-                    );
-                  });
+              _showAlertDialog(state.message);
             }
           },
           child: Center(
@@ -114,8 +118,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 if (text.isEmpty) {
                                   return 'Please enter a Password';
                                 }
-                                if (text.length < 6) {
-                                  return 'Please enter a Password more 6 characters';
+                                if (text.length < 8) {
+                                  return 'Please enter a Password more 8 characters';
                                 }
                                 return null;
                               },
@@ -192,7 +196,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       Card(
                                         shape: CircleBorder(),
                                         child: FlatButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              signInWithGoogle().then((result) {
+                                                if (result != null) {
+                                                  Navigator
+                                                      .pushReplacementNamed(
+                                                          context, '/home');
+                                                }
+                                              });
+                                            },
                                             child: Container(
                                                 width: 30.0,
                                                 height: 30.0,
@@ -264,7 +276,10 @@ class _LoginScreenState extends State<LoginScreen> {
         "LOGIN",
         gesture: Gestures()
           ..onTap(() {
-            _loginRequest();
+            if (_formKey.currentState.validate()) {
+              _formKey.currentState.save();
+              _loginRequest();
+            }
           }),
         style: TxtStyle()
           ..textColor(Colors.white)
@@ -289,26 +304,77 @@ class _LoginScreenState extends State<LoginScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           content: Center(
-            child: CircularProgressIndicator(),
+            child: SpinKitDualRing(
+              color: bPrimaryColor,
+            ),
           ),
         );
       },
     );
   }
 
+  _showAlertDialog(String message) {
+    Alert(
+      context: context,
+      type: AlertType.error,
+      title: "User not found !",
+      desc: "Do you want to create an account?",
+      buttons: [
+        DialogButton(
+          color: Colors.white,
+          child: Text(
+            "No, thanks",
+            style: TextStyle(color: bLightTextColor),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 100,
+        ),
+        DialogButton(
+          color: Colors.white,
+          child: Text(
+            "Yes",
+            style: TextStyle(color: bPrimaryColor),
+          ),
+          onPressed: () => Navigator.of(context).popAndPushNamed('/signup'),
+          width: 100,
+        ),
+      ],
+    ).show();
+  }
+
   _loginRequest() async {
-//    var client = http.Client();
-//    try {
-//      var uriResponse = await client.post(
-//          'https://damp-basin-32676.herokuapp.com/api/auth/login',
-//          body: {'email': txtEmail.text, 'password': txtPassword.text});
-//      if (uriResponse.body != null) {
-//        Navigator.pushReplacementNamed(context, '/home');
-//      }
-//    } finally {
-//      client.close();
-//    }
     context.bloc<LoginBloc>().add(Login(
         model: UserLogin(email: txtEmail.text, password: txtPassword.text)));
+  }
+
+  Future<String> signInWithGoogle() async {
+    await Firebase.initializeApp();
+
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+    final User user = authResult.user;
+
+    if (user != null) {
+      assert(!user.isAnonymous);
+      assert(await user.getIdToken() != null);
+
+      final User currentUser = _auth.currentUser;
+      assert(user.uid == currentUser.uid);
+      _repo.setAccessToken(user.uid);
+      _repo.setNameTemporary(user.displayName);
+
+      return '$user';
+    }
+
+    return null;
   }
 }

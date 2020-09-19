@@ -1,7 +1,6 @@
 import 'package:beplay/model/orders_model.dart';
 import 'package:beplay/model/quick_feedback_item.dart';
 import 'package:beplay/model/schendule.dart';
-
 import 'model/dancemodel.dart';
 import 'model/reviews.dart';
 
@@ -186,7 +185,7 @@ List<ReviewsDance> reviewsDance = [
           'https://upload.wikimedia.org/wikipedia/commons/8/8f/Barbaros_%C5%9Eansal.png')
 ];
 
-List<DanceModel> orders = [
+List<DanceModel> order = [
   DanceModel(
       rating: 4.0,
       title: 'Boxing',

@@ -2,37 +2,130 @@ import 'dart:convert';
 
 import 'package:beplay/model/user_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class UserRepository {
-  var jsonResponse;
-  String urlLogin = "https://damp-basin-32676.herokuapp.com/api/auth/login";
-  String urlSignUp = "https://damp-basin-32676.herokuapp.com/api/auth/login";
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  static String urlLogin =
+      "https://damp-basin-32676.herokuapp.com/api/auth/login";
+  static String urlSignUp =
+      "https://damp-basin-32676.herokuapp.com/api/auth/register";
+  static String urlLogOut =
+      "https://damp-basin-32676.herokuapp.com/api/auth/logout";
+  static String urlUpdateUser =
+      "https://damp-basin-32676.herokuapp.com/api/auth/";
+  static String urlUpdatePassword =
+      "https://damp-basin-32676.herokuapp.com/api/auth/password";
 
-  Future<UserLogin> login(UserLogin model) async {
-    var response = await http.post(urlLogin,
-        body: {'email': model.email, 'password': model.password});
+  var _headers = {'content-type': 'application/json'};
+  // ignore: unused_field
+  String _token;
+
+  login(UserLogin model) async {
+    final response =
+        await http.post(urlLogin, headers: _headers, body: jsonEncode(model));
+    print(response.statusCode);
+    var decodeData = jsonDecode(response.body);
+    String token = decodeData["data"]["token"];
     if (response.statusCode == 200) {
-      jsonResponse = jsonDecode(response.body);
-      print("json Response : $jsonResponse");
-      return jsonResponse;
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
+      setAccessToken(token);
+      setNameTemporary(decodeData['data']['user']['username']);
+      return jsonDecode(response.body);
     }
-    return jsonResponse;
+    return null;
   }
 
-  Future<UserModel> signUp(UserModel model) async {
-    var client = http.Client();
-
-    var jsonResponse;
-
-    var response = await client.post(urlSignUp, body: model.toJson());
+  register(UserRegister model) async {
+    final response =
+        await http.post(urlSignUp, headers: _headers, body: jsonEncode(model));
+    print(response.statusCode);
+    var decodeData = jsonDecode(response.body);
+    String token = decodeData["data"]["token"];
     if (response.statusCode == 200) {
-      jsonResponse = jsonDecode(response.body);
-      print("JSON RESPONSE : $jsonResponse");
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
+      setAccessToken(token);
+      setNameTemporary(decodeData['data']['user']['username']);
+      return jsonDecode(response.body);
     }
-    return jsonResponse;
+    return null;
+  }
+
+  logout() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    _token = pref.getString("token");
+    final response = await http.post(urlLogOut, headers: {
+      'content-type': 'application/json',
+      'authorization': 'Bearer $_token'
+    });
+    var decodeResponse = jsonDecode(response.body);
+    if (decodeResponse['success'] == true) {
+      removeAccessToken();
+    }
+    return jsonDecode(response.body);
+  }
+
+  setAccessToken(String token) async {
+    _token = token;
+
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      if (await pref.setString("token", token)) {
+        return true;
+      }
+    } catch (e) {}
+
+    return null;
+  }
+
+  setNameTemporary(String name) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setString('name', name);
+  }
+
+  removeAccessToken() async {
+    _token = null;
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      if (pref.containsKey("token")) {
+        await pref.remove("token");
+        return true;
+      }
+    } catch (e) {}
+
+    return null;
+  }
+
+  updateUserData(Map<String, dynamic> data) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    _token = pref.getString("token");
+    var encodeData = jsonEncode(data);
+    final response = await http.put(urlUpdateUser,
+        headers: {
+          'content-type': 'application/json',
+          'authorization': 'Bearer $_token'
+        },
+        body: encodeData);
+    var decodeResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return decodeResponse;
+    }
+    return null;
+  }
+
+  updateUserPassword(Map<String, dynamic> data) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    _token = pref.getString("token");
+    var encodeData = jsonEncode(data);
+    final response = await http.put(urlUpdatePassword,
+        headers: {
+          'content-type': 'application/json',
+          'authorization': 'Bearer $_token'
+        },
+        body: encodeData);
+    var decodeResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return decodeResponse;
+    }
+    return null;
   }
 }
