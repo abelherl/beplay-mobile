@@ -91,7 +91,7 @@ class ItemHistoryOrdersState extends State<ItemHistoryOrders> {
               ..alignment.centerLeft(),
           ),
           Txt(
-            "On Going",
+            "Complete",
             style: TxtStyle()
               ..fontSize(14)
               ..textColor(bLightTextColor)
