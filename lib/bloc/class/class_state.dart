@@ -16,6 +16,10 @@ class ReviewsSuccess extends ClassState {
   ReviewsSuccess({this.models});
 }
 
+class InvoiceSuccess extends ClassState {}
+
+class InvoiceFailed extends ClassState {}
+
 class ClassSuccess extends ClassState {
   final List<Classes2> models;
   ClassSuccess({this.models});

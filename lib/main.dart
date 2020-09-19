@@ -1,8 +1,11 @@
 import 'package:beplay/bloc/account/account_bloc.dart';
+import 'package:beplay/bloc/class/class_bloc.dart';
 import 'package:beplay/bloc/login/login_bloc.dart';
 import 'package:beplay/bloc/register/register_bloc.dart';
 import 'package:beplay/const.dart';
+import 'package:beplay/pages/checkout_screen.dart';
 import 'package:beplay/pages/classes.dart';
+import 'package:beplay/pages/detail_dance.dart';
 import 'package:beplay/pages/home_screen.dart';
 import 'package:beplay/pages/intro_screen.dart';
 import 'package:beplay/pages/login_screen.dart';
@@ -48,6 +51,18 @@ class MyApp extends StatelessWidget {
           create: (_) => LogOutBloc(),
           child: ProfileScreen(),
         ),
+        BlocProvider<ClassBloc>(
+          create: (_) => ClassBloc(),
+          child: ClassesScreen(),
+        ),
+        BlocProvider<ClassBloc>(
+          create: (_) => ClassBloc(),
+          child: DetailDance(),
+        ),
+        BlocProvider<ClassBloc>(
+          create: (_) => ClassBloc(),
+          child: CheckoutScreen(),
+        ),
         BlocProvider<OrdersBloc>(
           create: (_) => OrdersBloc(),
           child: OrdersScreen(),
@@ -77,7 +92,7 @@ class MyApp extends StatelessWidget {
           '/verification': (context) => VerificationScreen(),
           '/home': (context) => HomeScreen(),
           '/page_HomeScreen': (context) => PageHomeSceen(),
-          '/classes': (context) => Classes(),
+          '/classes': (context) => ClassesScreen(),
 
           //Settings Page
           '/account': (context) => AccountSettingScreen(),

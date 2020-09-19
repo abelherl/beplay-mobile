@@ -6,6 +6,7 @@ import 'package:beplay/pages/cart_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 final List<String> images = [
@@ -22,6 +23,7 @@ class PageHomeSceen extends StatefulWidget {
 class _PageHomeSceen extends State<PageHomeSceen> {
   PageController pageController = PageController();
   bool pressed = false;
+  String _name = 'user';
 
   var row1 = [
     HomeIcons(title: "Dance", icon: "icons/mdi_human-female-dance.svg", category: 1),
@@ -37,13 +39,27 @@ class _PageHomeSceen extends State<PageHomeSceen> {
     HomeIcons(title: "Others", icon: "icons/ant-design_plus-outlined.svg", category: 8),
   ];
 
+  _getDataName() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      _name = pref.getString("name");
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getDataName();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          " Hi, smkcoding!",
+          " Hi, $_name!",
           style: TextStyle(
               fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
         ),
