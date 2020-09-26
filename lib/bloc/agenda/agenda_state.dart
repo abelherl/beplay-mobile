@@ -12,8 +12,8 @@ class AgendaInitial extends AgendaState {}
 class AgendaWaiting extends AgendaState {}
 
 class AgendaSuccess extends AgendaState {
-  final Map<String, dynamic> data;
-  AgendaSuccess({this.data});
+  final List<Data> model;
+  AgendaSuccess({this.model});
 }
 
 class AgendaFailed extends AgendaState {

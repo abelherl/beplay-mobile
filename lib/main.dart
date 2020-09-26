@@ -1,4 +1,5 @@
 import 'package:beplay/bloc/account/account_bloc.dart';
+import 'package:beplay/bloc/agenda/agenda_bloc.dart';
 import 'package:beplay/bloc/class/class_bloc.dart';
 import 'package:beplay/bloc/login/login_bloc.dart';
 import 'package:beplay/bloc/register/register_bloc.dart';
@@ -65,6 +66,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<OrdersBloc>(
           create: (_) => OrdersBloc(),
+          child: OrdersScreen(),
+        ),
+        BlocProvider<AgendaBloc>(
+          create: (_) => AgendaBloc(),
           child: OrdersScreen(),
         ),
         BlocProvider<AccountBloc>(

@@ -14,7 +14,7 @@ class UserRepository {
   static String urlLogOut =
       "https://damp-basin-32676.herokuapp.com/api/auth/logout";
   static String urlUpdateUser =
-      "https://damp-basin-32676.herokuapp.com/api/auth/";
+      "https://damp-basin-32676.herokuapp.com/api/auth";
   static String urlUpdatePassword =
       "https://damp-basin-32676.herokuapp.com/api/auth/password";
 
@@ -39,7 +39,6 @@ class UserRepository {
   register(UserRegister model) async {
     final response =
         await http.post(urlSignUp, headers: _headers, body: jsonEncode(model));
-    print(response.statusCode);
     var decodeData = jsonDecode(response.body);
     String token = decodeData["data"]["token"];
     if (response.statusCode == 200) {
@@ -107,6 +106,7 @@ class UserRepository {
         body: encodeData);
     var decodeResponse = jsonDecode(response.body);
     if (response.statusCode == 200) {
+      setNameTemporary(data["nama"]);
       return decodeResponse;
     }
     return null;

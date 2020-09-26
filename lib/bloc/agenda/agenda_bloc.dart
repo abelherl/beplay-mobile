@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:beplay/model/agenda_model.dart';
 import 'package:beplay/repositories/agenda_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -19,8 +20,9 @@ class AgendaBloc extends Bloc<AgendaEvent, AgendaState> {
       yield AgendaWaiting();
       try {
         var response = await agenda.getAgendaData();
-        if (response != null) {
-          yield AgendaSuccess(data: response);
+        final listAgenda = AgendaModel.fromJson(response).data;
+        if (listAgenda != null) {
+          yield AgendaSuccess(model: listAgenda);
         } else {
           yield AgendaFailed(message: "Data Agenda Not Found");
         }

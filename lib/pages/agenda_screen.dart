@@ -1,12 +1,12 @@
-import 'package:beplay/model/dancemodel.dart';
+import 'package:beplay/bloc/agenda/agenda_bloc.dart';
+import 'package:beplay/components/main_app_bar.dart';
+import 'package:beplay/model/agenda_model.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-
 import '../const.dart';
-import '../data_dummy.dart';
-import 'detail_dance.dart';
 
 class AgendaScreen extends StatefulWidget {
   @override
@@ -14,54 +14,80 @@ class AgendaScreen extends StatefulWidget {
 }
 
 class _AgendaScreenState extends State<AgendaScreen> {
-  PageController pageController = PageController();
-  String title = 'September - 2020';
+  String title = "Agenda";
+  List<Data> agendaList = [];
+  void init() async {
+    context.bloc<AgendaBloc>().add(GetAgenda());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   leading: IconButton(
+      //       icon: Icon(
+      //         Icons.arrow_back_ios,
+      //         color: Colors.white,
+      //       ),
+      //       onPressed: () {}),
+      //   actions: [
+      //     IconButton(
+      //         icon: Icon(
+      //           Icons.arrow_forward_ios,
+      //           color: Colors.white,
+      //         ),
+      //         onPressed: () {
+      //           setState(() {
+      //             title = "Oktober - 2020";
+      //           });
+      //         })
+      //   ],
+      //   centerTitle: true,
+      //   title: Txt(
+      //     title,
+      //     style: TxtStyle()..textColor(Colors.white),
+      //   ),
+      // ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              setState(() {
-                title = "September - 2020";
-              });
-            }),
-        actions: [
-          IconButton(
-              icon: Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                setState(() {
-                  title = "Oktober - 2020";
-                });
-              })
-        ],
-        centerTitle: true,
         title: Txt(
-          title,
-          style: TxtStyle()..textColor(Colors.white),
+          "Agenda AbcdefGhiJk",
+          style: TxtStyle()
+            ..fontSize(20)
+            ..fontWeight(FontWeight.bold)
+            ..fontFamily('Montserrat')
+            ..textColor(Colors.white)
+            ..padding(left: 10),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Parent(
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-            physics: NeverScrollableScrollPhysics(),
-            children: agenda.map((item) {
-              return CardAgenda(
-                item: item,
-              );
-            }).toList(),
-          ),
-        ),
+      body: BlocBuilder<AgendaBloc, AgendaState>(
+        builder: (context, state) {
+          if (state is AgendaSuccess) {
+            agendaList = state.model;
+            return SingleChildScrollView(
+              child: Parent(
+                child: ListView(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                  physics: NeverScrollableScrollPhysics(),
+                  children: agendaList.map((item) {
+                    return CardAgenda(
+                      item: item,
+                    );
+                  }).toList(),
+                ),
+              ),
+            );
+          }
+          return Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }
@@ -70,7 +96,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
 class CardAgenda extends StatefulWidget {
   const CardAgenda({Key key, @required this.item}) : super(key: key);
 
-  final DanceModel item;
+  final Data item;
   @override
   _CardAgendaState createState() => _CardAgendaState();
 }
@@ -108,7 +134,7 @@ class _CardAgendaState extends State<CardAgenda> {
                   ..height(double.infinity)
                   ..borderRadius(bottomLeft: 20, topLeft: 20)
                   ..background.image(
-                    url: widget.item.images,
+                    url: widget.item.image,
                     fit: BoxFit.cover,
                   ),
                 child: Parent(
@@ -142,7 +168,7 @@ class _CardAgendaState extends State<CardAgenda> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.item.title,
+                      widget.item.nama,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
@@ -166,7 +192,7 @@ class _CardAgendaState extends State<CardAgenda> {
                           width: 5,
                         ),
                         Text(
-                          widget.item.place,
+                          widget.item.tempat,
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ],
@@ -181,7 +207,7 @@ class _CardAgendaState extends State<CardAgenda> {
                           width: 5,
                         ),
                         Text(
-                          widget.item.author,
+                          "Trainer ID " + widget.item.trainerId.toString(),
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ],
@@ -196,7 +222,7 @@ class _CardAgendaState extends State<CardAgenda> {
                           width: 5,
                         ),
                         Text(
-                          widget.item.date + widget.item.time,
+                          widget.item.session[1].tanggal.toString(),
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                       ],
@@ -214,7 +240,7 @@ class _CardAgendaState extends State<CardAgenda> {
                             children: [
                               SizedBox(height: 20),
                               SmoothStarRating(
-                                rating: widget.item.rating,
+                                rating: widget.item.subkategoriId.toDouble(),
                                 isReadOnly: true,
                                 color: bPrimaryColor,
                                 borderColor: bPrimaryColor,
@@ -227,7 +253,7 @@ class _CardAgendaState extends State<CardAgenda> {
                             children: [
                               SizedBox(height: 20),
                               Txt(
-                                widget.item.skill,
+                                'Advanced',
                                 style: TxtStyle()
                                   ..fontSize(14)
                                   ..textColor(Colors.grey),

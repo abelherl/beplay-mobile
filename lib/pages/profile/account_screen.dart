@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:beplay/bloc/account/account_bloc.dart';
 import 'package:beplay/components/main_app_bar.dart';
 import 'package:division/division.dart';
@@ -23,12 +21,70 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
   final FocusNode _txtLastNameNode = FocusNode();
   final FocusNode _txtEmailNode = FocusNode();
 
+  _loading() {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          content: Center(
+            child: SpinKitDualRing(
+              color: bPrimaryColor,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  _showAlertDialog(String msg) {
+    Navigator.pop(context);
+    Alert(
+      context: context,
+      type: AlertType.error,
+      title: msg,
+      buttons: [
+        DialogButton(
+          color: Colors.white,
+          child: Text(
+            "Close",
+            style: TextStyle(color: bLightTextColor),
+          ),
+          onPressed: () => Navigator.pop(context),
+          width: 100,
+        ),
+      ],
+    ).show();
+  }
+
+  _showAlertDialogSuccess(String msg) {
+    Navigator.pop(context);
+    Alert(
+      context: context,
+      type: AlertType.success,
+      title: msg,
+      buttons: [
+        DialogButton(
+          color: Colors.white,
+          child: Text(
+            "Close",
+            style: TextStyle(color: bLightTextColor),
+          ),
+          onPressed: () => Navigator.pushNamedAndRemoveUntil(
+              context, '/home', (route) => false),
+          width: 100,
+        ),
+      ],
+    ).show();
+  }
+
   _updateUserData() {
     Map<String, dynamic> data = {
       'email': _txtEmail.text,
       'nama': _txtFirstName.text + _txtLastName.text
     };
-    print(jsonEncode(data));
     context.bloc<AccountBloc>().add(UpdateUserData(data: data));
   }
 
@@ -37,19 +93,19 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
     return Scaffold(
         backgroundColor: bBackgroundColor,
         appBar: MainAppBar(title: 'Account'),
-        body: Container(
-          child: BlocListener<AccountBloc, AccountState>(
-            listener: (context, state) {
-              if (state is AccountWaiting) {
-                _loading();
-              }
-              if (state is AccountSuccess) {
-                _showAlertDialog("Update Data Success");
-              }
-              if (state is AccountFailed) {
-                _showAlertDialog("Update Data Failed");
-              }
-            },
+        body: BlocListener<AccountBloc, AccountState>(
+          listener: (context, state) {
+            if (state is AccountWaiting) {
+              _loading();
+            }
+            if (state is AccountSuccess) {
+              _showAlertDialogSuccess("Update Data Success");
+            }
+            if (state is AccountFailed) {
+              _showAlertDialog("Update Data Failed");
+            }
+          },
+          child: Container(
             child: SingleChildScrollView(
               // primary: true,
               padding:
@@ -95,8 +151,8 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                                   },
                                   controller: _txtFirstName,
                                   decoration: InputDecoration(
-                                      labelText: "First Name",
-                                      prefixText: "\t"),
+                                    labelText: "First Name",
+                                  ),
                                   onEditingComplete: () {
                                     FocusScope.of(context)
                                         .requestFocus(_txtLastNameNode);
@@ -122,8 +178,8 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                                   },
                                   controller: _txtLastName,
                                   focusNode: _txtLastNameNode,
-                                  decoration: InputDecoration(
-                                      labelText: "Last Name", prefixText: "\t"),
+                                  decoration:
+                                      InputDecoration(labelText: "Last Name"),
                                   onEditingComplete: () {
                                     FocusScope.of(context)
                                         .requestFocus(_txtEmailNode);
@@ -151,8 +207,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                             controller: _txtEmail,
                             focusNode: _txtEmailNode,
                             keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                                labelText: "Email", prefixText: "\t"),
+                            decoration: InputDecoration(labelText: "Email"),
                           ),
                           SizedBox(
                             height: 40.0,
@@ -230,43 +285,5 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
             ),
           ),
         ));
-  }
-
-  _loading() {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          content: Center(
-            child: SpinKitDualRing(
-              color: bPrimaryColor,
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  _showAlertDialog(String msg) {
-    Navigator.pop(context);
-    Alert(
-      context: context,
-      type: AlertType.error,
-      title: msg,
-      buttons: [
-        DialogButton(
-          color: Colors.white,
-          child: Text(
-            "Close",
-            style: TextStyle(color: bLightTextColor),
-          ),
-          onPressed: () => Navigator.pop(context),
-          width: 100,
-        ),
-      ],
-    ).show();
   }
 }

@@ -8,14 +8,13 @@ class AgendaRepository {
       "https://damp-basin-32676.herokuapp.com/api/agenda";
   getAgendaData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    var jsonResponse;
     var token = pref.getString("token");
     final response = await http.get(urlGetAgenda, headers: {
       'content-type': 'application/json',
       'authorization': 'Bearer $token'
     });
-    jsonResponse = jsonDecode(response.body);
-    if (response != null) {
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
       return jsonResponse;
     }
     return null;
