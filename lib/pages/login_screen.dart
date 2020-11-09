@@ -1,12 +1,15 @@
 import 'package:beplay/bloc/login/login_bloc.dart';
 import 'package:beplay/model/user_model.dart';
+import 'package:beplay/pages/home_screen.dart';
 import 'package:beplay/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:division/division.dart';
 import 'package:beplay/const.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'forgot_screen.dart';
 import 'signup_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  bool isUserSignIn=false;
   UserRepository _repo = new UserRepository();
 
   void toggleVisibility() {
@@ -199,9 +203,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                             onPressed: () {
                                               signInWithGoogle().then((result) {
                                                 if (result != null) {
-                                                  Navigator
-                                                      .pushReplacementNamed(
-                                                          context, '/home');
+                                                  Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                      builder: (context) {
+                                                        return HomeScreen();
+                                                      },
+                                                    ),
+                                                  );
                                                 }
                                               });
                                             },
@@ -346,35 +354,37 @@ class _LoginScreenState extends State<LoginScreen> {
     context.bloc<LoginBloc>().add(Login(
         model: UserLogin(email: txtEmail.text, password: txtPassword.text)));
   }
+  void checkIfUserIsSignedIn() async {
+    var userSignedIn = await googleSignIn.isSignedIn();
 
-  Future<String> signInWithGoogle() async {
-    await Firebase.initializeApp();
+    setState(() {
+      isUserSignIn = userSignedIn;
+    });
+  }
 
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
+
+  Future<GoogleAuthCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+    // Create a new credential
+    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
     );
-
-    final UserCredential authResult =
-        await _auth.signInWithCredential(credential);
-    final User user = authResult.user;
-
-    if (user != null) {
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
-
-      final User currentUser = _auth.currentUser;
-      assert(user.uid == currentUser.uid);
-      _repo.setAccessToken(user.uid);
-      _repo.setNameTemporary(user.displayName);
-
-      return '$user';
+    try{
+       await FirebaseAuth.instance.signInWithCredential(credential);
     }
+    catch(e){
+      print(e);
+      print(googleUser.authentication.catchError(e));
+    }
+    // Once signed in, return the UserCredential
 
-    return null;
+
   }
 }

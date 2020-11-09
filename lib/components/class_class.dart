@@ -2,6 +2,7 @@ import 'package:beplay/const.dart';
 import 'package:beplay/model/classes2.dart';
 import 'package:beplay/pages/detail_dance.dart';
 import 'package:division/division.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -17,6 +18,7 @@ class ClassClass extends StatefulWidget {
 
 class _ClassClassState extends State<ClassClass> {
   var pressed = false;
+  String urlImages='damp-basin-32676.herokuapp.com/images/kelas/';
 
   String getType() {
     String type = 'Private Class';
@@ -71,7 +73,7 @@ class _ClassClassState extends State<ClassClass> {
                   ..height(double.infinity)
                   ..borderRadius(bottomLeft: 20, topLeft: 20)
                   ..background.image(
-                    url: widget.item.image,
+                    url: "http://damp-basin-32676.herokuapp.com/images/kelas/"+widget.item.image,
                     fit: BoxFit.cover,
                   ),
                 child: Parent(
@@ -126,7 +128,7 @@ class _ClassClassState extends State<ClassClass> {
                     Text(
                       widget.item.nama,
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 16),overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       getType(),
@@ -162,9 +164,12 @@ class _ClassClassState extends State<ClassClass> {
                         SizedBox(
                           width: 5,
                         ),
-                        Text(
-                          widget.item.trainer.nama,
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width/2.5,
+                          child: Text(
+                            widget.item.trainer.nama,
+                            style: TextStyle(fontSize: 14, color: Colors.grey),overflow: TextOverflow.ellipsis
+                          ),
                         ),
                       ],
                     ),

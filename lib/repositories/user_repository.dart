@@ -1,12 +1,18 @@
 import 'dart:convert';
 
 import 'package:beplay/model/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+class LogInWithGoogleFailure implements Exception {}
+
 class UserRepository {
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  final FirebaseAuth firebaseAuth=FirebaseAuth.instance;
+
   static String urlLogin =
       "https://damp-basin-32676.herokuapp.com/api/auth/login";
   static String urlSignUp =
@@ -22,6 +28,7 @@ class UserRepository {
   // ignore: unused_field
   String _token;
 
+
   login(UserLogin model) async {
     final response =
         await http.post(urlLogin, headers: _headers, body: jsonEncode(model));
@@ -36,7 +43,7 @@ class UserRepository {
     return null;
   }
 
-  register(UserRegister model) async {
+   register(UserRegister model) async {
     final response =
         await http.post(urlSignUp, headers: _headers, body: jsonEncode(model));
     var decodeData = jsonDecode(response.body);
@@ -49,13 +56,15 @@ class UserRepository {
     return null;
   }
 
-  logout() async {
+   logout() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     _token = pref.getString("token");
+
     final response = await http.post(urlLogOut, headers: {
       'content-type': 'application/json',
       'authorization': 'Bearer $_token'
     });
+
     var decodeResponse = jsonDecode(response.body);
     if (decodeResponse['success'] == true) {
       removeAccessToken();
@@ -63,7 +72,28 @@ class UserRepository {
     return jsonDecode(response.body);
   }
 
-  setAccessToken(String token) async {
+  Future<void> logoutGoogle()async{
+    try{Future.wait([googleSignIn.signOut()]);}
+    on Exception catch(e){
+      print(e.hashCode);
+
+    }
+  }
+  Future<void> loginGoogle()async{
+    try {
+      final googleUser = await googleSignIn.signIn();
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await firebaseAuth.signInWithCredential(credential);
+    } on Exception {
+      throw LogInWithGoogleFailure();
+    }
+  }
+
+   setAccessToken(String token) async {
     _token = token;
 
     try {
@@ -76,12 +106,12 @@ class UserRepository {
     return null;
   }
 
-  setNameTemporary(String name) async {
+   setNameTemporary(String name) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setString('name', name);
   }
 
-  removeAccessToken() async {
+   removeAccessToken() async {
     _token = null;
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
@@ -94,7 +124,7 @@ class UserRepository {
     return null;
   }
 
-  updateUserData(Map<String, dynamic> data) async {
+   updateUserData(Map<String, dynamic> data) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     _token = pref.getString("token");
     var encodeData = jsonEncode(data);
@@ -112,7 +142,7 @@ class UserRepository {
     return null;
   }
 
-  updateUserPassword(Map<String, dynamic> data) async {
+   updateUserPassword(Map<String, dynamic> data) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     _token = pref.getString("token");
     var encodeData = jsonEncode(data);
@@ -128,4 +158,8 @@ class UserRepository {
     }
     return null;
   }
+
 }
+
+
+

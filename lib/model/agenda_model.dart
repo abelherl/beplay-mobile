@@ -6,23 +6,19 @@ class AgendaModel {
   AgendaModel({this.success, this.message, this.data});
 
   AgendaModel.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
-    message = json['message'];
-    if (json['data'] != null) {
-      data = new List<Data>();
-      json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
-      });
+    success = json["success"];
+    message = json["message"];
+    data=List<Data>.from(json["data"].map((it)=>Data.fromJson(it)));
     }
-  }
+
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
-    }
+    data['success'] =success;
+    data['message'] = message;
+    data['data'] = data != null ?
+    this.data.map((v) => v.toJson()).toList()
+        : null;
     return data;
   }
 }

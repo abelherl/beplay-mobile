@@ -1,11 +1,15 @@
+import 'package:beplay/bloc/class/class_bloc.dart';
 import 'package:beplay/components/main_app_bar.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/data_dummy.dart';
 import 'package:beplay/model/classes2.dart';
 import 'package:beplay/model/quick_feedback_item.dart';
+import 'package:beplay/model/reviews/data.dart';
+import 'package:beplay/model/reviews/reviews_parent.dart';
 import 'package:beplay/pages/payment_screen.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class FeedbackScreen extends StatefulWidget {
@@ -19,6 +23,9 @@ class FeedbackScreen extends StatefulWidget {
 class _FeedbackScreenState extends State<FeedbackScreen> {
   _FeedbackScreenState(this.danceModel);
   Classes2 danceModel;
+  Data reviewsParent;
+  double ratingGives=0;
+
 
   final _feedback = TextEditingController();
   List<String> selected = [];
@@ -60,7 +67,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
           children: [
             SizedBox(height: 15,),
             SmoothStarRating(
-              rating: 0,
+              rating: ratingGives,
               isReadOnly: false,
               color: bPrimaryColor,
               borderColor: bPrimaryColor,
@@ -207,11 +214,14 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
             ),
             SizedBox(height: 20),
+
             Txt(
               'SUBMIT',
               gesture: Gestures()
                 ..onTap(() {
                   print(fullFeedback());
+                  reviewsParent= Data(kelas_id: danceModel.id,rating: ratingGives.toInt(),text: fullFeedback());
+                  context.bloc<ClassBloc>().add(PostReviews(model: reviewsParent,id: danceModel.id));
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return PaymentScreen(success: true,);
                   }));

@@ -58,7 +58,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Txt(
-          "Agenda AbcdefGhiJk",
+          "Agenda ",
           style: TxtStyle()
             ..fontSize(20)
             ..fontWeight(FontWeight.bold)

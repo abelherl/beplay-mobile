@@ -4,6 +4,7 @@ import 'package:beplay/model/trainer.dart';
 
 class Classes2 {
 
+
   final int id;
   final int subkategori_id;
   final int trainer_id;

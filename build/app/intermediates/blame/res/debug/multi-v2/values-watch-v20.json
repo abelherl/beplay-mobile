@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\ProjectAndroid\\BePlay\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v20\\values-watch-v20.xml",
+            "outputFile": "C:\\src\\mobile\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v20\\values-watch-v20.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\HP Notebook\\.gradle\\caches\\transforms-2\\files-2.1\\2fef3025900d1988113ee907918c221c\\jetified-play-services-auth-16.0.1\\res\\values-watch-v20\\values.xml",
+                    "source": "C:\\Users\\Acer\\.gradle\\caches\\transforms-2\\files-2.1\\0f9e312ad7e30d4a587d1b7bdb983004\\jetified-play-services-auth-16.0.1\\res\\values-watch-v20\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
                         "startColumns": "0,0,0,0,0,0,0,0",

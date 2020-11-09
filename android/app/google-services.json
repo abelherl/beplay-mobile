@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "235462084608-9efb03i9d1vu9jm9bc5jpp8ienc5hi9q.apps.googleusercontent.com",
+          "client_id": "235462084608-v235al1lel3uvci38j5kqp9apffve8aa.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.beplay",
-            "certificate_hash": "e7f2bfe38c50081f54c6103dc8b870f5579f8492"
+            "certificate_hash": "e11aa08171808ddf7e2f1d1b3fbe28941ae9c837"
           }
         },
         {

@@ -9,7 +9,7 @@ class ReviewsParent {
 	ReviewsParent.fromJsonMap(Map<String, dynamic> map): 
 		success = map["success"],
 		message = map["message"],
-		data = List<Data>.from(map["data"].map((it) => Data.fromJsonMap(it)));
+		data = List<Data>.from(map["data"].map((it) => Data.fromJsonMap(it))).toList();
 
 	Map<String, dynamic> toJson() {
 		final Map<String, dynamic> data = new Map<String, dynamic>();

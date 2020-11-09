@@ -28,13 +28,14 @@ class _DetailDanceState extends State<DetailDance> {
   _DetailDanceState(this.danceModel);
   Classes2 danceModel;
   List<Data> danceReviews;
+   String urlImages='damp-basin-32676.herokuapp.com/images/kelas/';
 
   PageController pageController = PageController();
 
   @override
   void initState() {
     super.initState();
-    context.bloc<ClassBloc>().add(GetReviews(id: danceModel.id));
+    context.bloc<ClassBloc>().add(GetReviews(id:danceModel.id));
   }
 
   String getType() {
@@ -84,7 +85,7 @@ class _DetailDanceState extends State<DetailDance> {
                       controller: pageController,
                       children: [
                         Image(
-                          image: NetworkImage(danceModel.image),
+                          image: NetworkImage("http://damp-basin-32676.herokuapp.com/images/kelas/"+danceModel.image),
                           fit: BoxFit.cover,
                         ),
                         Image(
@@ -375,14 +376,17 @@ class _DetailDanceState extends State<DetailDance> {
                                       fontSize: 16,
                                       color: bPrimaryColor),
                                 ),
-                                Text(
-                                  widget.danceModel.trainer.tentang,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 13,
-                                      color: Colors.grey),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width/1.5,
+                                  child: Text(
+                                    widget.danceModel.trainer.tentang,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                        color: Colors.grey),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
                                 ),
                               ],
                             ),

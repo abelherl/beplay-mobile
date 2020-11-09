@@ -22,6 +22,7 @@ class ClassesScreen extends StatefulWidget {
 class _ClassesScreenState extends State<ClassesScreen> {
   _ClassesScreenState(this.category);
   final int category;
+  String urlImages='damp-basin-32676.herokuapp.com/images/kelas/';
 
   List<String> titles = [
     '',
@@ -133,6 +134,7 @@ class PopularClass extends StatefulWidget {
 
 class _PopularClassState extends State<PopularClass> {
   var pressed = false;
+  String urlImages='damp-basin-32676.herokuapp.com/images/kelas/';
 
   String getType() {
     String type = 'Private Class';
@@ -174,7 +176,7 @@ class _PopularClassState extends State<PopularClass> {
 //      ..elevation(pressed ? 0 : 15, opacity: 0.8)
         ..scale(pressed ? 0.93 : 1)
         ..animate(400, Curves.easeOutQuart)
-        ..background.image(url: widget.item.image, fit: BoxFit.cover)
+        ..background.image(url: "http://damp-basin-32676.herokuapp.com/images/kelas/"+widget.item.image, fit: BoxFit.cover)
         ..borderRadius(all: 20),
       child: Container(
         decoration: BoxDecoration(

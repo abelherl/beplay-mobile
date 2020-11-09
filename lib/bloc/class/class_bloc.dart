@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:beplay/model/classes2.dart';
+import 'package:beplay/model/invoic/invoice_parent.dart';
 import 'package:beplay/model/reviews/data.dart';
+import 'package:beplay/model/reviews/reviews_parent.dart';
 import 'package:beplay/repositories/class_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -27,7 +29,9 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
 
         print("INI RESPONSE $list");
 
-        yield ClassSuccess(models: list);
+        yield ClassSuccess(
+          models: list,
+        );
       } catch (e) {
         yield ClassFailed(message: e.toString());
       }
@@ -36,11 +40,8 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
       yield ClassWaiting();
       try {
         print('INVOICE IN MAKING');
-        // var response = await repo.postInvoice(DataInvoice.fromJsonMap({
-        //   'nominal': event.nominal,
-        //   'kelas[]': event.id,
-        // }));
-        // var list = response.data;
+        var response = await repo.postDataInvoice(event.model);
+
         print('INVOICE MADE');
 
         // print("INI RESPONSE $list");
@@ -62,7 +63,22 @@ class ClassBloc extends Bloc<ClassEvent, ClassState> {
 
         yield ReviewsSuccess(models: list);
       } catch (e) {
+        print('error $e');
         yield ClassFailed(message: e.toString());
+      }
+    }
+    if (event is PostReviews) {
+      yield ClassWaiting();
+      try {
+        print('Post Ready');
+        var response = await repo.postReviews(event.id, event.model);
+        if (response != null) {
+          yield ReviewsPostSuccess(models: response);
+        } else {
+          yield ReviewsPostFailed();
+        }
+      } catch (e) {
+        yield ReviewsPostFailed();
       }
     } else {}
   }

@@ -21,7 +21,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
   final FocusNode _txtLastNameNode = FocusNode();
   final FocusNode _txtEmailNode = FocusNode();
 
-  _loading() {
+   _loading(BuildContext context) {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -39,7 +39,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
     );
   }
 
-  _showAlertDialog(String msg) {
+  _showAlertDialog(String msg,BuildContext context) {
     Navigator.pop(context);
     Alert(
       context: context,
@@ -59,7 +59,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
     ).show();
   }
 
-  _showAlertDialogSuccess(String msg) {
+  _showAlertDialogSuccess(String msg,BuildContext context) {
     Navigator.pop(context);
     Alert(
       context: context,
@@ -80,7 +80,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
     ).show();
   }
 
-  _updateUserData() {
+  _updateUserData(BuildContext context) {
     Map<String, dynamic> data = {
       'email': _txtEmail.text,
       'nama': _txtFirstName.text + _txtLastName.text
@@ -96,13 +96,13 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
         body: BlocListener<AccountBloc, AccountState>(
           listener: (context, state) {
             if (state is AccountWaiting) {
-              _loading();
+              _loading(context);
             }
             if (state is AccountSuccess) {
-              _showAlertDialogSuccess("Update Data Success");
+              _showAlertDialogSuccess("Update Data Success",context);
             }
             if (state is AccountFailed) {
-              _showAlertDialog("Update Data Failed");
+              _showAlertDialog("Update Data Failed",context);
             }
           },
           child: Container(
@@ -230,7 +230,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                               "UPDATE",
                               gesture: Gestures()
                                 ..onTap(() {
-                                  _updateUserData();
+                                  _updateUserData(context);
                                 }),
                               style: TxtStyle()
                                 ..textColor(Colors.white)

@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:beplay/bloc/class/class_bloc.dart';
+import 'package:beplay/model/invoic/invoice_parent.dart';
 import 'package:beplay/model/orders_model.dart';
 import 'package:beplay/repositories/orders_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -41,6 +43,20 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
         }
       } catch (e) {
         yield OrdersFailed(message: e.toString());
+      }
+    }
+    else if(event is PostOrdersInvoice){
+
+      var response = await orders.postDataInvoice(event.model);
+
+      final list=Data_Invoice.fromJsonMap(response);
+      final string=Invoice_parents.fromJsonMap(response).message;
+      if(response!=null){
+        PostOrdersInvoice(model: list);
+      }
+      else{
+        PostOrderInvoiceFailed(message: string);
+
       }
     }
   }

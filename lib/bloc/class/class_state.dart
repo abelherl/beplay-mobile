@@ -15,6 +15,12 @@ class ReviewsSuccess extends ClassState {
   final List<Data> models;
   ReviewsSuccess({this.models});
 }
+class ReviewsPostSuccess extends ClassState{
+
+  final Map<String, dynamic> models;
+  final int id;
+  ReviewsPostSuccess({this.models,this.id});
+}
 
 class InvoiceSuccess extends ClassState {}
 
@@ -22,8 +28,10 @@ class InvoiceFailed extends ClassState {}
 
 class ClassSuccess extends ClassState {
   final List<Classes2> models;
-  ClassSuccess({this.models});
+  final int id;
+  ClassSuccess({this.models,this.id});
 }
+class ReviewsPostFailed extends ClassState{}
 
 class ClassFailed extends ClassState {
   final String message;

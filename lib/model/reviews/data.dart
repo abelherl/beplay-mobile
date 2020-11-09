@@ -13,6 +13,7 @@ class Data {
   Object updated_at;
   Customer customer;
   Work_out_class work_out_class;
+  Data({this.id,this.text,this.rating,this.kelas_id});
 
 	Data.fromJsonMap(Map<String, dynamic> map): 
 		id = map["id"],

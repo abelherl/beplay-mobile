@@ -20,7 +20,7 @@ class CheckoutScreen extends StatefulWidget {
   final Classes2 item;
 
   @override
-  _CheckoutScreenState createState() => _CheckoutScreenState();
+  _CheckoutScreenState createState() => _CheckoutScreenState(item: item);
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
@@ -28,6 +28,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   var ovoInfo = '0896-7984-4250';
   var trainerInfo = 'PT. Wellness';
   var _paymentWith = 0;
+  final Classes2 item;
+  _CheckoutScreenState({this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
       body: BlocListener<ClassBloc, ClassState>(
         listener: (context, state) {
-          if (state is ReviewsSuccess) {
+          if (state is InvoiceSuccess) {
             Timer(Duration(seconds: 3), () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return PaymentScreen(
@@ -51,7 +53,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             Timer(Duration(seconds: 3), () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return PaymentScreen(
-                  success: true,
+                  success: false,
                 );
               }));
             });
@@ -171,7 +173,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                   Image(
                     image: NetworkImage(
-                      'https://livewatchstore.com/wp-content/uploads/2019/11/ovo-logo-png-6.png',
+                      'https://1.bp.blogspot.com/-Iq0Ztu117_8/XzNYaM4ABdI/AAAAAAAAHA0/MabT7B02ErIzty8g26JvnC6cPeBZtATNgCLcBGAsYHQ/w640-h264/logo-ovo.png',
                     ),
                     width: 100,
                     fit: BoxFit.cover,

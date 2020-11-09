@@ -123,30 +123,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                   controller: _txtFirstName,
                   decoration: InputDecoration(
-                    labelText: "FIRST NAME",
-                    contentPadding: const EdgeInsets.all(10.0),
-                  ),
-                  onEditingComplete: () {
-                    FocusScope.of(context).requestFocus(_txtLastNameNode);
-                  },
-                ),
-              ),
-              SizedBox(
-                width: 15.0,
-              ),
-              Expanded(
-                child: TextFormField(
-                  validator: (text) {
-                    if (text.isEmpty) {
-                      return "cannot be empty";
-                    }
-
-                    return null;
-                  },
-                  controller: _txtLastName,
-                  focusNode: _txtLastNameNode,
-                  decoration: InputDecoration(
-                    labelText: "LAST NAME",
+                    labelText: "FULL NAME",
                     contentPadding: const EdgeInsets.all(10.0),
                   ),
                   onEditingComplete: () {
@@ -154,6 +131,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   },
                 ),
               ),
+              SizedBox(
+                width: 15.0,
+              ),
+
             ],
           ),
           SizedBox(
@@ -324,7 +305,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   _requestRegister() {
     UserRegister models = UserRegister(
-        nama: _txtFirstName.text + _txtLastName.text,
+        nama: _txtFirstName.text ,
         email: _txtEmail.text,
         password: _txtPassword.text,
         passwordConfirmation: _txtConfirmPassword.text);

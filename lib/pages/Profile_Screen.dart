@@ -60,6 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               if (state is LogOutSuccess) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     '/login', (Route<dynamic> route) => false);
+
               }
               if (state is LogOutFailed) {
                 print("LogOut Failed");

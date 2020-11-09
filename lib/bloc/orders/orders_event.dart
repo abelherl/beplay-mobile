@@ -10,3 +10,8 @@ abstract class OrdersEvent extends Equatable {
 class GetOrders extends OrdersEvent {}
 
 class GetHistoryOrders extends OrdersEvent {}
+class PostOrdersInvoice extends OrdersEvent{
+  final Data_Invoice model;
+  PostOrdersInvoice({this.model});
+
+}

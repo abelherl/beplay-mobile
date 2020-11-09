@@ -14,6 +14,8 @@ class AgendaRepository {
       'authorization': 'Bearer $token'
     });
     var jsonResponse = jsonDecode(response.body);
+    print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
       return jsonResponse;
     }

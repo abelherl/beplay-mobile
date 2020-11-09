@@ -1,3 +1,7 @@
+
+class OrdersModelInvoice{
+
+}
 class OrdersModel {
   bool success;
   String message;
@@ -36,7 +40,7 @@ class Data {
   int status;
   String createdAt;
   String updatedAt;
-  List<Kelas> kelas;
+  List<Kelas> kelas=[];
 
   Data(
       {this.id,

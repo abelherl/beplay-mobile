@@ -2,10 +2,13 @@ import 'package:beplay/components/banner_class.dart';
 import 'package:beplay/components/home_icons_class.dart';
 import 'package:beplay/const.dart';
 import 'package:beplay/model/home_icons.dart';
-import 'package:beplay/pages/cart_screen.dart';
+
 import 'package:division/division.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -23,7 +26,9 @@ class PageHomeSceen extends StatefulWidget {
 class _PageHomeSceen extends State<PageHomeSceen> {
   PageController pageController = PageController();
   bool pressed = false;
+  FirebaseAuth _auth=FirebaseAuth.instance;
   String _name = 'user';
+
 
   var row1 = [
     HomeIcons(title: "Dance", icon: "icons/mdi_human-female-dance.svg", category: 1),
@@ -39,7 +44,7 @@ class _PageHomeSceen extends State<PageHomeSceen> {
     HomeIcons(title: "Others", icon: "icons/ant-design_plus-outlined.svg", category: 8),
   ];
 
-  _getDataName() async {
+   _getDataName() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
       _name = pref.getString("name");
@@ -49,6 +54,7 @@ class _PageHomeSceen extends State<PageHomeSceen> {
   @override
   void initState() {
     super.initState();
+
     _getDataName();
   }
 

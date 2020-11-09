@@ -20,3 +20,12 @@ class OrdersFailed extends OrdersState {
   final String message;
   OrdersFailed({this.message});
 }
+class PostOrderInvoiceSucces extends OrdersState{
+  Map<String,dynamic> models;
+  PostOrderInvoiceSucces({this.models});
+}
+class PostOrderInvoiceFailed extends OrdersState{
+  final String message;
+  PostOrderInvoiceFailed({this.message});
+}
+
